@@ -7,8 +7,8 @@ const HomeStack = createStackNavigator();
 export default HomeNavigator = () => {
     return (
         <HomeStack.Navigator
-        headerMode='none'>
-            <HomeStack.Screen name="Home" component={HomeScreen} />
+            headerMode='none'>
+            <HomeStack.Screen name="Home" component={HomeScreen} options={{ headerTitleAlign:'center' }} />
         </HomeStack.Navigator>
     );
 }

@@ -6,8 +6,8 @@ const SearchStack = createStackNavigator();
 
 export default SearchNavigator = () => {
     return (
-        <SearchStack.Navigator>
-            <SearchStack.Screen name="Search" component={SearchScreen}/>
+        <SearchStack.Navigator headerMode='none'>
+            <SearchStack.Screen name="Search" component={SearchScreen} />
         </SearchStack.Navigator>
     );
 }

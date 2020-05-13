@@ -2,29 +2,32 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { HeaderComponent } from '../components/HeaderComponent'
 import HomeNavigator from './HomeNavigator';
 import FavoritesNavigator from './FavoritesNavigator';
 import SearchNavigator from './SearchNavigator';
 
-const config = {
-    headerMode: 'none',
-    initialRouteName: 'Screen1',
-    tabBarPosition: 'bottom' // <- add this line to your config
-}
+
 const Tab = createMaterialTopTabNavigator();
 export default MainNavigator = () => {
     return (
+
+
         <NavigationContainer>
+            <HeaderComponent />
             <Tab.Navigator
                 barStyle={{ backgroundColor: 'white', borderStyle: 'dotted' }}
-                activeColor="#f0edf6"
-                inactiveColor="#3e2465"
                 tabBarPosition='bottom'
                 tabBarOptions={{
                     labelStyle: { fontSize: 12 },
                     style: { backgroundColor: 'white' },
                     showIcon: true,
-                    showLabel: false
+                    showLabel: false,
+                    activeTintColor:'blue',
+                    inactiveTintColor:'black',
+                    indicatorStyle: {
+                        backgroundColor: 'blue' //changes the color of the indicator bar
+                    }
                 }}
             >
                 <Tab.Screen
@@ -62,3 +65,4 @@ export default MainNavigator = () => {
         </NavigationContainer>
     );
 }
+
