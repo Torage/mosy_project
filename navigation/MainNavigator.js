@@ -1,11 +1,13 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, SafeAreaView } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { HeaderComponent } from '../components/HeaderComponent'
 import HomeNavigator from './HomeNavigator';
 import FavoritesNavigator from './FavoritesNavigator';
 import SearchNavigator from './SearchNavigator';
+import { Colors } from '../constants/colors';
+
 
 
 const Tab = createMaterialTopTabNavigator();
@@ -16,6 +18,7 @@ export default MainNavigator = () => {
         <NavigationContainer>
             <HeaderComponent />
             <Tab.Navigator
+                initialRouteName='Home'
                 barStyle={{ backgroundColor: 'white', borderStyle: 'dotted' }}
                 tabBarPosition='bottom'
                 tabBarOptions={{
@@ -23,8 +26,8 @@ export default MainNavigator = () => {
                     style: { backgroundColor: 'white' },
                     showIcon: true,
                     showLabel: false,
-                    activeTintColor:'blue',
-                    inactiveTintColor:'black',
+                    activeTintColor: Colors.primary,
+                    inactiveTintColor: Colors.secondary,
                     indicatorStyle: {
                         backgroundColor: 'blue' //changes the color of the indicator bar
                     }
