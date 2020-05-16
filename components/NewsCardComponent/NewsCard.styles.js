@@ -2,7 +2,7 @@ import Colors from '../../constants/colors'
 
 export default {
     mainView: {
-        backgroundColor: Colors.lightBackground,
+        backgroundColor: Colors.backgroundColor,
         height: 300,
         width: 350,
         borderRadius: 20,

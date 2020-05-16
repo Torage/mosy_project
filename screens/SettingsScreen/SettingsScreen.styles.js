@@ -4,6 +4,7 @@ export default {
     viewContainer: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center', backgroundColor: Colors.lightBackground
+        alignItems: 'center', 
+        backgroundColor: Colors.background
     }
 }

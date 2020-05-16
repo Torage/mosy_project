@@ -59,7 +59,7 @@ export default NewsCardComponent = props => {
 
 const styles = StyleSheet.create({
     mainView: {
-        backgroundColor: Colors.lightBackground,
+        backgroundColor: Colors.background,
         height: 300,
         width: 350,
         borderRadius: 20,

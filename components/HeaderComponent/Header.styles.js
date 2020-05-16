@@ -6,7 +6,7 @@ export default {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        backgroundColor: Colors.lightBackground,
+        backgroundColor: Colors.background,
         maxHeight: 50,
         minHeight: 55,
         marginTop: 25,
