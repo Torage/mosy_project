@@ -11,14 +11,19 @@ export default NewsCardComponent = props => {
                     {props.category}
                 </Text>
                 <View style={styles.icons}>
-                    <TouchableOpacity style={{marginRight:5}}>
+                    <TouchableOpacity
+                        style={{ marginRight: 5 }}
+                        onPress={() => alert('mark as favorite')}
+                    >
                         <MaterialCommunityIcons
                             name='bookmark-outline'
                             color={Colors.accent}
                             size={20}
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                    onPress={()=> alert('share it with your friends')}
+                    >
                         <MaterialCommunityIcons
                             name='share-variant'
                             color={Colors.accent}
