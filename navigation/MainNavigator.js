@@ -2,7 +2,7 @@ import React from 'react';
 import { NavigationContainer, SafeAreaView } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { HeaderComponent } from '../components/HeaderComponent'
+import { HeaderComponent } from '../components/HeaderComponent/Header.component'
 import HomeNavigator from './HomeNavigator';
 import FavoritesNavigator from './FavoritesNavigator';
 import SearchNavigator from './SearchNavigator';
@@ -28,9 +28,6 @@ export default MainNavigator = () => {
                     showLabel: false,
                     activeTintColor: Colors.primary,
                     inactiveTintColor: Colors.secondary,
-                    indicatorStyle: {
-                        backgroundColor: 'blue' //changes the color of the indicator bar
-                    }
                 }}
             >
                 <Tab.Screen
