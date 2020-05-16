@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import { Colors } from '../constants/colors'
+import { Colors } from '../../constants/colors'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default NewsCardComponent = props => {
@@ -48,7 +48,7 @@ export default NewsCardComponent = props => {
             <View style={styles.imageView}>
                 <Image style={styles.image}
                     source={
-                        require('../assets/dummyNewsImage.png')
+                        require('../../assets/dummyNewsImage.png')
                     }
                 />
 

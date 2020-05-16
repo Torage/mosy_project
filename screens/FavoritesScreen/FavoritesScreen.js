@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import { Colors } from '../constants/colors';
+import styles from './FavoritesScreen.styles';
 
 export default FavoritesScreen = props => {
     return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: Colors.lightBackground }}>
+        <View style={styles.viewContainer}>
             <Text>Favorites!</Text>
         </View>
     );
