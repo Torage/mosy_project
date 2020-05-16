@@ -1,1 +1,1 @@
-# mosy_project
+![Newscope Logo](https://github.com/Torage/newscope/blob/feature/Clickdummy/assets/newscope_logo.png)
