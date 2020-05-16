@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '../../constants/colors'
+import { Colors } from '../../constants/colors';
 
 export const styles = StyleSheet.create({
     mainView: {
@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
         shadowColor: '#000',
         shadowOffset: {
             width: 0,
-            height: 2
+            height: 2,
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
@@ -28,7 +28,7 @@ export const styles = StyleSheet.create({
         textTransform: 'uppercase',
         fontSize: 13,
         fontFamily: 'NoyhRBlack',
-        paddingTop: 5
+        paddingTop: 5,
     },
     icons: {
         flexDirection: 'row',
@@ -41,7 +41,7 @@ export const styles = StyleSheet.create({
         fontFamily: 'NoyhRBlack',
         textTransform: 'uppercase',
         fontSize: 18,
-        color: Colors.primary
+        color: Colors.primary,
     },
     descriptionView: {
         paddingLeft: 15,
@@ -59,9 +59,10 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 10,
-    }, image: {
+    },
+    image: {
         maxHeight: 170,
         maxWidth: 325,
-        borderRadius: 20
-    }
-})
+        borderRadius: 20,
+    },
+});

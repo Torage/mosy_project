@@ -8,4 +8,4 @@ export default SearchScreen = () => {
             <Text>Search!</Text>
         </View>
     );
-}
+};

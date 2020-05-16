@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { Colors } from '../../constants/colors'
+import { Colors } from '../../constants/colors';
 
 export const styles = StyleSheet.create({
     safeAreaView: {
@@ -11,8 +11,7 @@ export const styles = StyleSheet.create({
         maxHeight: 50,
         minHeight: 55,
         marginTop: 25,
-        elevation: 0.5
-
+        elevation: 0.5,
     },
     modalIcon: {
         flex: 1,
@@ -24,7 +23,7 @@ export const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.3)'
+        backgroundColor: 'rgba(0, 0, 0, 0.3)',
     },
     modalView: {
         margin: 20,
@@ -35,17 +34,16 @@ export const styles = StyleSheet.create({
         shadowColor: '#000',
         shadowOffset: {
             width: 0,
-            height: 2
+            height: 2,
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
         width: 200,
         height: 400,
-
     },
     modalText: {
         marginBottom: 15,
-        textAlign: 'center'
-    }
-})
+        textAlign: 'center',
+    },
+});

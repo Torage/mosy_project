@@ -2,19 +2,15 @@ import React from 'react';
 import { NavigationContainer, SafeAreaView } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { HeaderComponent } from '../components/HeaderComponent/Header.component'
+import { HeaderComponent } from '../components/HeaderComponent/Header.component';
 import HomeNavigator from './HomeNavigator';
 import FavoritesNavigator from './FavoritesNavigator';
 import SearchNavigator from './SearchNavigator';
 import { Colors } from '../constants/colors';
 
-
-
 const Tab = createMaterialTopTabNavigator();
 export default MainNavigator = () => {
     return (
-
-
         <NavigationContainer>
             <HeaderComponent />
             <Tab.Navigator
@@ -31,37 +27,30 @@ export default MainNavigator = () => {
                 }}
             >
                 <Tab.Screen
-                    name="Favorites"
+                    name='Favorites'
                     component={FavoritesNavigator}
                     options={{
                         tabBarLabel: 'Favorites',
-                        tabBarIcon: ({ color }) => (
-                            <MaterialCommunityIcons name="bookmark-outline" color={color} size={26} />
-                        ),
+                        tabBarIcon: ({ color }) => <MaterialCommunityIcons name='bookmark-outline' color={color} size={26} />,
                     }}
                 />
                 <Tab.Screen
-                    name="Home"
+                    name='Home'
                     component={HomeNavigator}
                     options={{
                         tabBarLabel: 'home',
-                        tabBarIcon: ({ color }) => (
-                            <MaterialCommunityIcons name="home-outline" color={color} size={26} />
-                        )
+                        tabBarIcon: ({ color }) => <MaterialCommunityIcons name='home-outline' color={color} size={26} />,
                     }}
                 />
                 <Tab.Screen
-                    name="Search"
+                    name='Search'
                     component={SearchNavigator}
                     options={{
                         tabBarLabel: 'Search',
-                        tabBarIcon: ({ color }) => (
-                            <MaterialCommunityIcons name="magnify" color={color} size={26} />
-                        )
+                        tabBarIcon: ({ color }) => <MaterialCommunityIcons name='magnify' color={color} size={26} />,
                     }}
                 />
             </Tab.Navigator>
         </NavigationContainer>
     );
-}
-
+};
