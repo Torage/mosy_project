@@ -3,12 +3,12 @@ import { SafeAreaView, View, Image, TouchableOpacity, Modal } from 'react-native
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Colors } from '../../constants/colors'
 import SettingsScreen from '../../screens/SettingsScreen/SettingsScreen';
-import styles from './Header.styles'
+import { styles } from './Header.styles'
 
 export function HeaderComponent() {
     const [modalVisible, setModalVisible] = useState(false);
     return (
-        <SafeAreaView style={styles.SafeAreaView}>
+        <SafeAreaView style={styles.safeAreaView}>
             <Modal
                 statusBarTranslucent='true'
                 animationType='fade'
@@ -58,7 +58,7 @@ export function HeaderComponent() {
                     paddingEnd: 10
                 }}>
                 <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-                    <MaterialCommunityIcons name='settings' color={Colors.accent} size={30} />
+                    <MaterialCommunityIcons name='settings' color={Colors.secondary} size={30} />
                 </TouchableOpacity>
             </View>
         </SafeAreaView>

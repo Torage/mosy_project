@@ -1,7 +1,8 @@
-import {Colors} from '../../constants/colors'
+import { StyleSheet } from 'react-native';
+import { Colors } from '../../constants/colors'
 
-export default {
-    SafeAreaView: {
+export const styles = StyleSheet.create({
+    safeAreaView: {
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -47,4 +48,4 @@ export default {
         marginBottom: 15,
         textAlign: 'center'
     }
-}
+})

@@ -1,43 +1,46 @@
-import Colors from '../../constants/colors'
+import { StyleSheet } from 'react-native';
+import { Colors } from '../../constants/colors'
 
-export default {
+export const styles = StyleSheet.create({
     mainView: {
-        backgroundColor: Colors.backgroundColor,
+        backgroundColor: Colors.background,
         height: 300,
         width: 350,
         borderRadius: 20,
         elevation: 10,
-
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
     },
     categoryView: {
         justifyContent: 'space-between',
         flexDirection: 'row',
         paddingLeft: 15,
         paddingRight: 15,
-        paddingTop: 7,
-        backgroundColor: 'transparent',
+        paddingTop: 8,
     },
     categoryText: {
         color: Colors.accent,
-        fontWeight: 'bold',
         textTransform: 'uppercase',
-        fontSize: 12,
-        fontFamily: 'Roboto-Regular'
+        fontSize: 13,
+        fontFamily: 'NoyhRBlack',
+        paddingTop: 5
     },
     icons: {
         flexDirection: 'row',
-        // backgroundColor:'red'
     },
     titleView: {
         paddingLeft: 15,
         paddingRight: 15,
-        // backgroundColor:'red'
     },
     titleText: {
-        fontFamily: 'Roboto-Regular',
-        fontWeight: 'bold',
+        fontFamily: 'NoyhRBlack',
         textTransform: 'uppercase',
-        fontSize: 17,
+        fontSize: 18,
         color: Colors.primary
     },
     descriptionView: {
@@ -46,22 +49,19 @@ export default {
     },
     descriptionText: {
         color: Colors.text,
-        fontFamily: 'NoyhRBlack',
+        fontFamily: 'Roboto-Regular',
         includeFontPadding: false,
-        lineHeight: 13,
-        fontSize: 14,
-        // textAlign:'justify'
-        letterSpacing: 1
+        lineHeight: 14,
+        fontSize: 12,
     },
     imageView: {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 10,
-        // backgroundColor: 'red'
     }, image: {
         maxHeight: 170,
         maxWidth: 325,
         borderRadius: 20
     }
-}
+})

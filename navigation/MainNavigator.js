@@ -59,7 +59,6 @@ export default MainNavigator = () => {
                             <MaterialCommunityIcons name="magnify" color={color} size={26} />
                         )
                     }}
-
                 />
             </Tab.Navigator>
         </NavigationContainer>

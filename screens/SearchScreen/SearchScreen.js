@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text } from 'react-native';
-import styles from'./SearchScreen.styles';
+import { styles } from './SearchScreen.styles';
 
 export default SearchScreen = () => {
     return (
