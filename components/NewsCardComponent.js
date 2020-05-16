@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, ColorPropType, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { Colors } from '../constants/colors'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -11,7 +11,7 @@ export default NewsCardComponent = props => {
                     {props.category}
                 </Text>
                 <View style={styles.icons}>
-                    <TouchableOpacity>
+                    <TouchableOpacity style={{marginRight:5}}>
                         <MaterialCommunityIcons
                             name='bookmark-outline'
                             color={Colors.accent}
@@ -73,10 +73,12 @@ const styles = StyleSheet.create({
         color: Colors.accent,
         fontWeight: 'bold',
         textTransform: 'uppercase',
-        fontSize: 12
+        fontSize: 12,
+        fontFamily: 'Roboto-Regular'
     },
     icons: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        // backgroundColor:'red'
     },
     titleView: {
         paddingLeft: 15,
@@ -84,6 +86,7 @@ const styles = StyleSheet.create({
         // backgroundColor:'red'
     },
     titleText: {
+        fontFamily: 'Roboto-Regular',
         fontWeight: 'bold',
         textTransform: 'uppercase',
         fontSize: 17,
@@ -95,15 +98,18 @@ const styles = StyleSheet.create({
     },
     descriptionText: {
         color: Colors.text,
+        fontFamily: 'NoyhRBlack',
+        includeFontPadding: false,
+        lineHeight: 13,
+        fontSize: 14,
+        // textAlign:'justify'
+        letterSpacing: 1
     },
     imageView: {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        marginLeft: 15,
-        marginRight: 15,
         marginTop: 10,
-        height: 170,
         // backgroundColor: 'red'
     }, image: {
         maxHeight: 170,
