@@ -2,9 +2,13 @@ import { StyleSheet } from 'react-native';
 import { Colors } from '../../constants/colors';
 
 export const styles = StyleSheet.create({
+    viewContainer: {
+        flex: 1,
+        alignItems: 'center',
+    },
     mainView: {
         backgroundColor: Colors.background,
-        height: 300,
+        // height: 300,
         width: 350,
         borderRadius: 20,
         elevation: 10,
@@ -15,6 +19,7 @@ export const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
+        marginVertical: 15,
     },
     categoryView: {
         justifyContent: 'space-between',
@@ -39,8 +44,10 @@ export const styles = StyleSheet.create({
     },
     titleText: {
         fontFamily: 'NoyhRBlack',
-        textTransform: 'uppercase',
-        fontSize: 18,
+        // fontFamily: 'Roboto-Regular',
+        // textTransform: 'uppercase',
+        fontSize: 14,
+        // lineHeight:18,
         color: Colors.primary,
     },
     descriptionView: {
@@ -61,8 +68,9 @@ export const styles = StyleSheet.create({
         marginTop: 10,
     },
     image: {
-        maxHeight: 170,
-        maxWidth: 325,
+        height: 170,
+        width: 325,
         borderRadius: 20,
+        marginBottom: 15,
     },
 });
