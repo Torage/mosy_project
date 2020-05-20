@@ -1,4 +1,6 @@
-export const TOPNEWS = JSON.parse(
+import { Topnews } from './../Models/TopnewsModel';
+
+export const DUMMY_TOPNEWS = new Topnews(JSON.parse(
     JSON.stringify({
         status: 'ok',
         totalResults: 38,
@@ -253,4 +255,4 @@ export const TOPNEWS = JSON.parse(
             },
         ],
     })
-);
+));

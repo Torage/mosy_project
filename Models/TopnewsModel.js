@@ -1,6 +1,7 @@
 export class Topnews {
     constructor(news) {
         {
+            let id = 0;
             let articles = new Array({
                 source: { id: '', name: '' },
                 author: '',
@@ -11,10 +12,10 @@ export class Topnews {
                 publishedAt: '',
                 content: '',
             });
-            console.log('initial:', articles);
             news.articles.map((article) => {
+                id++;
                 articles.push({
-                    source: { id: article.source.id, test: article.source.name },
+                    source: { id: 'TN' + id, test: article.source.name },
                     author: article.author,
                     title: article.title,
                     description: article.description,
@@ -24,8 +25,7 @@ export class Topnews {
                     content: article.content,
                 });
             });
-            // console.log(articles)
-
+            articles.shift();
             this.status = news.status;
             this.totalResults = news.totalResults;
             this.articles = articles;
