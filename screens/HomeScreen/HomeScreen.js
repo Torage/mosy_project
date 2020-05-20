@@ -9,8 +9,9 @@ export default HomeScreen = () => {
 
     //logging the id's to the console
     topNews.articles.map((article) => {
-        console.log(article.source.id);
+        console.log('Article ID:', article.source.id);
     });
+    console.log('Number of Articles', topNews.articles.length);
 
     return (
         <View style={styles.viewContainer}>
