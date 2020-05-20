@@ -8,7 +8,6 @@ export const styles = StyleSheet.create({
     },
     mainView: {
         backgroundColor: Colors.background,
-        // height: 300,
         width: 350,
         borderRadius: 20,
         elevation: 10,
@@ -44,10 +43,7 @@ export const styles = StyleSheet.create({
     },
     titleText: {
         fontFamily: 'NoyhRBlack',
-        // fontFamily: 'Roboto-Regular',
-        // textTransform: 'uppercase',
         fontSize: 14,
-        // lineHeight:18,
         color: Colors.primary,
     },
     descriptionView: {

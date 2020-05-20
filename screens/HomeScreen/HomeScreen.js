@@ -5,13 +5,13 @@ import { NewsCardComponent } from '../../components/NewsCardComponent/NewsCard.c
 import { DUMMY_TOPNEWS } from '../../Data/data';
 
 export default HomeScreen = () => {
-    const [topNews, setTopNews] = useState(DUMMY_TOPNEWS);
-    
+    const [topNews] = useState(DUMMY_TOPNEWS);
+
     //logging the id's to the console
     topNews.articles.map((article) => {
         console.log(article.source.id);
     });
-    
+
     return (
         <View style={styles.viewContainer}>
             <FlatList
@@ -19,13 +19,13 @@ export default HomeScreen = () => {
                 data={topNews.articles}
                 renderItem={({ item }) => (
                     <NewsCardComponent
-                    category={item.source.name}
-                    title={item.title}
-                    description={item.description}
-                    imageUrl={item.urlToImage}
+                        category={item.source.name}
+                        title={item.title}
+                        description={item.description}
+                        imageUrl={item.urlToImage}
                     />
-                    )}
-                    />
+                )}
+            />
         </View>
     );
 };
