@@ -6,4 +6,6 @@ export const Colors = {
     text: '#2A2A3A',
     statusBarBG: '#ffffff',
     settingsBG: '#efefef',
+    trackColorDisabled : '#cccccc',
+    dividerColor : '#cccccc',
 };

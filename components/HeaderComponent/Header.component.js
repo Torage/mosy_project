@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { SafeAreaView, View, Image, TouchableOpacity, Modal, Text, StatusBar } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons} from '@expo/vector-icons';
 import { Colors } from '../../constants/colors';
 import { styles } from './Header.styles';
 import Constants from 'expo-constants';
-import { ListItem } from 'react-native-elements';
+import ToggleButton from '../ToggleButton';
 
 export function HeaderComponent() {
+    
     const [modalVisible, setModalVisible] = useState(false);
 
     return (
@@ -37,7 +38,7 @@ export function HeaderComponent() {
                                 </View>
                             </View>
                             <View style={styles.modalViewContent}>
-                               
+                               <ToggleButton title='Dark Theme' description='Change to the dark theme'></ToggleButton>
                             </View>
                             <View style={styles.modalViewFooter}>
                                 <Text style={styles.modalFooterText} >{Constants.manifest.name} {Constants.manifest.version} </Text>

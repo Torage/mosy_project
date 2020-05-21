@@ -50,6 +50,7 @@ export const styles = StyleSheet.create({
     modalViewContent:{
         flex: 8,
         width: '100%',
+        alignItems: 'center',
         backgroundColor: Colors.settingsBG,
     },
 
