@@ -5,7 +5,7 @@ import { Colors } from '../../constants/colors';
 
 export default SearchScreen = (props) => {
     return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: Colors.lightBackground }}>
+        <View style={styles.viewContainer}>
             <Text>Settings Menu Test</Text>
         </View>
     );

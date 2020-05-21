@@ -25,6 +25,7 @@ export default HomeScreen = () => {
                         title={item.title}
                         description={item.description}
                         imageUrl={item.urlToImage}
+                        url={item.url}
                     />
                 )}
             />

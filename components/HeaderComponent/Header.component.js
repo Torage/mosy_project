@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import { SafeAreaView, View, Image, TouchableOpacity, Modal } from 'react-native';
+import { SafeAreaView, View, Image, TouchableOpacity, Modal, Text, StatusBar } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Colors } from '../../constants/colors';
-import SettingsScreen from '../../screens/SettingsScreen/SettingsScreen';
 import { styles } from './Header.styles';
+import Constants from 'expo-constants';
 
 export function HeaderComponent() {
     const [modalVisible, setModalVisible] = useState(false);
     return (
         <SafeAreaView style={styles.safeAreaView}>
+            <StatusBar barStyle="dark-content" backgroundColor={Colors.statusBarBG} />
             <Modal
                 statusBarTranslucent='true'
                 animationType='fade'
@@ -21,12 +22,24 @@ export function HeaderComponent() {
                 <View style={styles.centeredView}>
                     <View>
                         <View style={styles.modalView}>
-                            <View style={styles.modalIcon}>
-                                <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-                                    <MaterialCommunityIcons name='close' color={'black'} size={20} />
-                                </TouchableOpacity>
+                            <View style={styles.modalViewHeader}>
+                                <View style={styles.modalIconContainer}>
+                                </View>
+                                <View style={styles.modalTextContainer}>
+                                    <Text style={styles.modalHeaderText} > Settings</Text>
+                                </View>
+                                <View style={styles.modalIconContainer}>
+                                    <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+                                        <MaterialCommunityIcons name='close' color={'black'} size={20} />
+                                    </TouchableOpacity>
+                                </View>
                             </View>
-                            <SettingsScreen />
+                            <View style={styles.modalViewContent}>
+
+                            </View>
+                            <View style={styles.modalViewFooter}>
+                                <Text style={styles.modalFooterText} >{Constants.manifest.name} {Constants.manifest.version} </Text>
+                            </View>
                         </View>
                     </View>
                 </View>

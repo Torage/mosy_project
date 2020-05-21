@@ -1,23 +1,17 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform, } from 'react-native';
 import { Colors } from '../../constants/colors';
 
 export const styles = StyleSheet.create({
     safeAreaView: {
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: Colors.background,
         maxHeight: 50,
         minHeight: 55,
-        marginTop: 25,
+        marginTop: 0,
         elevation: 0.5,
-    },
-    modalIcon: {
-        flex: 1,
-        left: 165,
-        top: 10,
-        position: 'absolute',
     },
     centeredView: {
         flex: 1,
@@ -26,11 +20,10 @@ export const styles = StyleSheet.create({
         backgroundColor: 'rgba(0, 0, 0, 0.3)',
     },
     modalView: {
-        margin: 20,
         backgroundColor: 'white',
-        borderRadius: 20,
-        padding: 35,
+        //borderRadius: 20,
         alignItems: 'center',
+        justifyContent: 'center',
         shadowColor: '#000',
         shadowOffset: {
             width: 0,
@@ -39,11 +32,56 @@ export const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
-        width: 200,
-        height: 400,
+        borderRadius: 20,
+        width: 300,
+        height: 480,
     },
-    modalText: {
-        marginBottom: 15,
-        textAlign: 'center',
+
+    modalViewHeader:{
+        flex: 1,
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 20,
     },
+
+    modalViewContent:{
+        flex: 8,
+        width: '100%',
+        backgroundColor: '#747474',
+    },
+
+    modalViewFooter:{
+        flex: 1,
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 20,
+    },
+
+    modalIconContainer: {
+        flex:1,
+    },
+
+    modalTextContainer: {
+        flex:8,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+
+    modalHeaderText:{
+        fontFamily: 'Roboto-Regular',
+        fontSize: 20,
+        color: Colors.accent,
+    },
+
+    modalFooterText:{
+        fontFamily: 'Roboto-Regular',
+        fontSize: 14,
+        color: Colors.secondary,
+    },
+
+    
 });
