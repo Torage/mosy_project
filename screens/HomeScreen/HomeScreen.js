@@ -9,8 +9,7 @@ export const HomeScreen = () => {
     // Global State object
     const [newsState] = useContext(NewsContext);
     const [topnews, setTopnews] = useState(new Topnews(newsState.dummyTopnews));
-
-    // called if topnews changes, set 
+    // called if topnews changes, set
     useEffect(() => {
         //logging the id's to the console
         topnews.articles.map((article) => {

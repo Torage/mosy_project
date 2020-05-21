@@ -2,11 +2,23 @@ export class Topnews {
     constructor(news) {
         {
             let id = 0;
-            let articles = [];
+            let articles = [
+                {
+                    source: { id: '#', name: '#' },
+                    author: '#',
+                    title: '#',
+                    description: '#',
+                    url: '#',
+                    urlToImage: '#',
+                    publishedAt: '#',
+                    content: '#',
+                },
+            ];
+            articles.shift();
             news.articles.map((article) => {
                 id++;
                 articles.push({
-                    source: { id: 'TN' + id, test: article.source.name },
+                    source: { id: 'TN' + id, name: article.source.name },
                     author: article.author,
                     title: article.title,
                     description: article.description,
