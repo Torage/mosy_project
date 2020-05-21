@@ -1,10 +1,10 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import FavoritesScreen from '../screens/FavoritesScreen/FavoritesScreen';
+import { FavoritesScreen } from '../screens/FavoritesScreen/FavoritesScreen';
 
 const FavoritesStack = createStackNavigator();
 
-export default FavoritesNavigator = () => {
+export const FavoritesNavigator = () => {
     return (
         <FavoritesStack.Navigator headerMode='none'>
             <FavoritesStack.Screen name='Favorites' component={FavoritesScreen} />

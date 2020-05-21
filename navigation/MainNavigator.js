@@ -1,21 +1,20 @@
 import React from 'react';
-import { NavigationContainer, SafeAreaView } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { HeaderComponent } from '../components/HeaderComponent/Header.component';
-import HomeNavigator from './HomeNavigator';
-import FavoritesNavigator from './FavoritesNavigator';
-import SearchNavigator from './SearchNavigator';
+import { HomeNavigator } from './HomeNavigator';
+import { FavoritesNavigator } from './FavoritesNavigator';
+import { SearchNavigator } from './SearchNavigator';
 import { Colors } from '../constants/colors';
 
 const Tab = createMaterialTopTabNavigator();
-export default MainNavigator = () => {
+export const MainNavigator = () => {
     return (
         <NavigationContainer>
             <HeaderComponent />
             <Tab.Navigator
                 initialRouteName='Home'
-                barStyle={{ backgroundColor: 'white', borderStyle: 'dotted' }}
                 tabBarPosition='bottom'
                 tabBarOptions={{
                     labelStyle: { fontSize: 12 },

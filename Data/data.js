@@ -1,4 +1,6 @@
-export const TOPNEWS = JSON.parse(
+import { Topnews } from './../Models/TopnewsModel';
+
+export const DUMMY_TOPNEWS = JSON.parse(
     JSON.stringify({
         status: 'ok',
         totalResults: 38,
@@ -240,6 +242,25 @@ export const TOPNEWS = JSON.parse(
                 publishedAt: '2020-05-15T22:45:24Z',
                 content: null,
             },
+            {
+                source: { id: null, name: 'Gamesradar.com' },
+                author: 'Jordan Gerblick',
+                title: "Chrissy Teigen's Animal Crossing-inspired recipe sounds delicious - GamesRadar+",
+                description: 'The celebrity chef came up with the recipe while digging up bamboo shoots in Animal Crossing: New Horizons',
+                url: 'https://www.gamesradar.com/chrissy-teigens-animal-crossing-inspired-recipe-sounds-delicious/',
+                urlToImage: 'https://cdn.mos.cms.futurecdn.net/VmtvjPkoEktjwY2jGAtjrD-1200-80.jpg',
+                publishedAt: '2020-05-15T22:36:41Z',
+                content:
+                    "Celebrity chef Chrissy Teigen's latest recipe was inspired by pretty much everyone's current obsession, Animal Crossing: New Horizons. Teigen was harvesting bamboo shoots when she realized she'd never made a recipe using the vegetable, prompting her to make a… [+1239 chars]",
+            },
+        ],
+    })
+);
+export const DUMMY_TOPNEWS_2 = JSON.parse(
+    JSON.stringify({
+        status: 'ok',
+        totalResults: 38,
+        articles: [
             {
                 source: { id: null, name: 'Gamesradar.com' },
                 author: 'Jordan Gerblick',
