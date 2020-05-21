@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { SafeAreaView, View, Image, TouchableOpacity, Modal } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Colors } from '../../constants/colors';
-import SettingsScreen from '../../screens/SettingsScreen/SettingsScreen';
+import { SettingsScreen } from '../../screens/SettingsScreen/SettingsScreen';
 import { styles } from './Header.styles';
 
 export function HeaderComponent() {

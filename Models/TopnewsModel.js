@@ -2,16 +2,7 @@ export class Topnews {
     constructor(news) {
         {
             let id = 0;
-            let articles = new Array({
-                source: { id: '', name: '' },
-                author: '',
-                title: '',
-                description: '',
-                url: '',
-                urlToImage: '',
-                publishedAt: '',
-                content: '',
-            });
+            let articles = [];
             news.articles.map((article) => {
                 id++;
                 articles.push({
@@ -25,7 +16,6 @@ export class Topnews {
                     content: article.content,
                 });
             });
-            articles.shift();
             this.status = news.status;
             this.totalResults = news.totalResults;
             this.articles = articles;
