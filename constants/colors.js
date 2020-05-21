@@ -5,4 +5,5 @@ export const Colors = {
     background: '#ffffff',
     text: '#2A2A3A',
     statusBarBG: '#ffffff',
+    settingsBG: '#efefef',
 };

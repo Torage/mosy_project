@@ -4,9 +4,11 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Colors } from '../../constants/colors';
 import { styles } from './Header.styles';
 import Constants from 'expo-constants';
+import { ListItem } from 'react-native-elements';
 
 export function HeaderComponent() {
     const [modalVisible, setModalVisible] = useState(false);
+
     return (
         <SafeAreaView style={styles.safeAreaView}>
             <StatusBar barStyle="dark-content" backgroundColor={Colors.statusBarBG} />
@@ -26,16 +28,16 @@ export function HeaderComponent() {
                                 <View style={styles.modalIconContainer}>
                                 </View>
                                 <View style={styles.modalTextContainer}>
-                                    <Text style={styles.modalHeaderText} > Settings</Text>
+                                    <Text style={styles.modalHeaderText} >Settings</Text>
                                 </View>
                                 <View style={styles.modalIconContainer}>
                                     <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-                                        <MaterialCommunityIcons name='close' color={'black'} size={20} />
+                                        <MaterialCommunityIcons name='close' color={'black'} size={24} />
                                     </TouchableOpacity>
                                 </View>
                             </View>
                             <View style={styles.modalViewContent}>
-
+                               
                             </View>
                             <View style={styles.modalViewFooter}>
                                 <Text style={styles.modalFooterText} >{Constants.manifest.name} {Constants.manifest.version} </Text>
@@ -70,7 +72,7 @@ export function HeaderComponent() {
                 }}
             >
                 <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-                    <MaterialCommunityIcons name='settings' color={Colors.secondary} size={30} />
+                    <MaterialCommunityIcons name='settings' color={Colors.secondary} size={26} />
                 </TouchableOpacity>
             </View>
         </SafeAreaView>

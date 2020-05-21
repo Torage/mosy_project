@@ -1,5 +1,6 @@
 import { StyleSheet, Platform, } from 'react-native';
 import { Colors } from '../../constants/colors';
+import { Styles } from '../../constants/styles';
 
 export const styles = StyleSheet.create({
     safeAreaView: {
@@ -49,7 +50,7 @@ export const styles = StyleSheet.create({
     modalViewContent:{
         flex: 8,
         width: '100%',
-        backgroundColor: '#747474',
+        backgroundColor: Colors.settingsBG,
     },
 
     modalViewFooter:{
@@ -63,6 +64,7 @@ export const styles = StyleSheet.create({
 
     modalIconContainer: {
         flex:1,
+        marginRight:5,
     },
 
     modalTextContainer: {
@@ -72,13 +74,14 @@ export const styles = StyleSheet.create({
     },
 
     modalHeaderText:{
-        fontFamily: 'Roboto-Regular',
+        fontFamily: Styles.defaultFont,
         fontSize: 20,
+        fontWeight: 'bold',
         color: Colors.accent,
     },
 
     modalFooterText:{
-        fontFamily: 'Roboto-Regular',
+        fontFamily: Styles.defaultFont,
         fontSize: 14,
         color: Colors.secondary,
     },

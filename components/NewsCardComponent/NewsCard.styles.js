@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { Colors } from '../../constants/colors';
+import { Styles } from '../../constants/styles';
 
 export const styles = StyleSheet.create({
     viewContainer: {
@@ -31,7 +32,7 @@ export const styles = StyleSheet.create({
         color: Colors.accent,
         textTransform: 'uppercase',
         fontSize: 13,
-        fontFamily: 'NoyhRBlack',
+        fontFamily: Styles.secondFont,
         paddingTop: 5,
     },
     icons: {
@@ -42,7 +43,7 @@ export const styles = StyleSheet.create({
         paddingRight: 15,
     },
     titleText: {
-        fontFamily: 'NoyhRBlack',
+        fontFamily: Styles.secondFont,
         fontSize: 14,
         color: Colors.primary,
     },
@@ -52,7 +53,7 @@ export const styles = StyleSheet.create({
     },
     descriptionText: {
         color: Colors.text,
-        fontFamily: 'Roboto-Regular',
+        fontFamily: Styles.defaultFont,
         includeFontPadding: false,
         lineHeight: 14,
         fontSize: 12,
