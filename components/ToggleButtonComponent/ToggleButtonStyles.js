@@ -36,12 +36,14 @@ export const ToggleButtonStylesDark = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 14,
         marginLeft: 10,
+        color: Colors.light.primary,
     },
 
     descriptionText: {
         fontFamily: Styles.defaultFont,
         fontSize: 12,
         marginLeft: 10,
+        color: Colors.dark.descriptionText,
 
     }
 });
@@ -80,12 +82,14 @@ export const ToggleButtonStylesLight = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 14,
         marginLeft: 10,
+        color: Colors.light.accent,
     },
 
     descriptionText: {
         fontFamily: Styles.defaultFont,
         fontSize: 12,
         marginLeft: 10,
+        color: Colors.light.descriptionText,
 
     },
 });

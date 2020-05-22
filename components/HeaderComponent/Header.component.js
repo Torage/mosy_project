@@ -1,18 +1,37 @@
-import React, { useState } from 'react';
-import { SafeAreaView, View, Image, TouchableOpacity, Modal, Text, StatusBar } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { SafeAreaView, View, Image, TouchableOpacity, Modal, Text, StatusBar, AsyncStorage } from 'react-native';
 import { MaterialCommunityIcons} from '@expo/vector-icons';
 import { Colors } from '../../constants/colors';
-import { styles } from './Header.styles';
+import { HeaderStylesDark, HeaderStylesLight } from './Header.styles';
 import Constants from 'expo-constants';
 import ToggleButton from '../ToggleButtonComponent/ToggleButton';
 
 export function HeaderComponent() {
     
+    const changeToggleValue = value => {
+        setToggleEnabled(value);
+        AsyncStorage.setItem('DarkSkinSetting', JSON.stringify(value));
+
+        if (value === true ? setCurrentTheme('dark') : setCurrentTheme('light'));
+
+    }
+
     const [modalVisible, setModalVisible] = useState(false);
+    const [toggleEnabled, setToggleEnabled] = useState(false);
+    const [currentTheme, setCurrentTheme] = useState('light');
+
+    useEffect(() => {
+        AsyncStorage.getItem('DarkSkinSetting').then(storedValue => {
+            if (storedValue != null) {
+                if (JSON.parse(storedValue) === true ? setCurrentTheme('dark') : setCurrentTheme('light'));
+            }
+        });
+
+    }, []);
 
     return (
-        <SafeAreaView style={styles.safeAreaView}>
-            <StatusBar barStyle="dark-content" backgroundColor={Colors.statusBarBG} />
+        <SafeAreaView style={currentTheme === 'light' ? HeaderStylesLight.safeAreaView : HeaderStylesDark.safeAreaView}>
+            <StatusBar barStyle={currentTheme === 'light' ? 'light-content' : 'dark-content'} backgroundColor={currentTheme === 'light' ? Colors.light.statusBarBG : Colors.dark.statusBarBG} />
             <Modal
                 statusBarTranslucent='true'
                 animationType='fade'
@@ -22,26 +41,26 @@ export function HeaderComponent() {
                     console.log('modal closed');
                 }}
             >
-                <View style={styles.centeredView}>
+                <View style={currentTheme === 'light' ? HeaderStylesLight.centeredView : HeaderStylesDark.centeredView}>
                     <View>
-                        <View style={styles.modalView}>
-                            <View style={styles.modalViewHeader}>
-                                <View style={styles.modalIconContainer}>
+                        <View style={currentTheme === 'light' ? HeaderStylesLight.modalView : HeaderStylesDark.modalView}>
+                            <View style={currentTheme === 'light' ? HeaderStylesLight.modalViewHeader : HeaderStylesDark.modalViewHeader}>
+                                <View style={currentTheme === 'light' ? HeaderStylesLight.modalIconContainer : HeaderStylesDark.modalIconContainer}>
                                 </View>
-                                <View style={styles.modalTextContainer}>
-                                    <Text style={styles.modalHeaderText} >Settings</Text>
+                                <View style={currentTheme === 'light' ? HeaderStylesLight.modalTextContainer : HeaderStylesDark.modalTextContainer}>
+                                    <Text style={currentTheme === 'light' ? HeaderStylesLight.modalHeaderText : HeaderStylesDark.modalHeaderText} >Settings</Text>
                                 </View>
-                                <View style={styles.modalIconContainer}>
+                                <View style={currentTheme === 'light' ? HeaderStylesLight.modalIconContainer: HeaderStylesDark.modalIconContainer}>
                                     <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-                                        <MaterialCommunityIcons name='close' color={'black'} size={24} />
+                                        <MaterialCommunityIcons name='close' color={currentTheme === 'light' ? Colors.light.accent: Colors.dark.accent} size={24} />
                                     </TouchableOpacity>
                                 </View>
                             </View>
-                            <View style={styles.modalViewContent}>
-                               <ToggleButton title='Dark Theme' description='Change to the dark theme'></ToggleButton>
+                            <View style={currentTheme === 'light' ? HeaderStylesLight.modalViewContent : HeaderStylesDark.modalViewContent}>
+                               <ToggleButton title='Dark Theme' description='Change to the dark theme' toggleValue={toggleEnabled} onPress={changeToggleValue} currentTheme={currentTheme}></ToggleButton>
                             </View>
-                            <View style={styles.modalViewFooter}>
-                                <Text style={styles.modalFooterText} >{Constants.manifest.name} {Constants.manifest.version} </Text>
+                            <View style={currentTheme === 'light' ? HeaderStylesLight.modalViewFooter : HeaderStylesDark.modalViewFooter}>
+                                <Text style={currentTheme === 'light' ? HeaderStylesLight.modalFooterText : HeaderStylesDark.modalFooterText} >{Constants.manifest.name} {Constants.manifest.version} </Text>
                             </View>
                         </View>
                     </View>
@@ -73,7 +92,7 @@ export function HeaderComponent() {
                 }}
             >
                 <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-                    <MaterialCommunityIcons name='settings' color={Colors.secondary} size={26} />
+                    <MaterialCommunityIcons name='settings' color={currentTheme === 'light' ? Colors.light.secondary : Colors.dark.secondary} size={26} />
                 </TouchableOpacity>
             </View>
         </SafeAreaView>
