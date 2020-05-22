@@ -4,7 +4,7 @@ import { MaterialCommunityIcons} from '@expo/vector-icons';
 import { Colors } from '../../constants/colors';
 import { styles } from './Header.styles';
 import Constants from 'expo-constants';
-import ToggleButton from '../ToggleButton';
+import ToggleButton from '../ToggleButtonComponent/ToggleButton';
 
 export function HeaderComponent() {
     
