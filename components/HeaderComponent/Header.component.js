@@ -23,7 +23,14 @@ export function HeaderComponent() {
     useEffect(() => {
         AsyncStorage.getItem('DarkSkinSetting').then(storedValue => {
             if (storedValue != null) {
-                if (JSON.parse(storedValue) === true ? setCurrentTheme('dark') : setCurrentTheme('light'));
+                if (JSON.parse(storedValue) === true){
+                    setCurrentTheme('dark');
+                }
+                else{
+                    setCurrentTheme('light'); 
+                }
+
+                setToggleEnabled(JSON.parse(storedValue))
             }
         });
 
@@ -31,7 +38,7 @@ export function HeaderComponent() {
 
     return (
         <SafeAreaView style={currentTheme === 'light' ? HeaderStylesLight.safeAreaView : HeaderStylesDark.safeAreaView}>
-            <StatusBar barStyle={currentTheme === 'light' ? 'light-content' : 'dark-content'} backgroundColor={currentTheme === 'light' ? Colors.light.statusBarBG : Colors.dark.statusBarBG} />
+            <StatusBar barStyle={'light-content'} backgroundColor={currentTheme === 'light' ? Colors.light.statusBarBG : Colors.dark.statusBarBG} />
             <Modal
                 statusBarTranslucent='true'
                 animationType='fade'
@@ -66,33 +73,13 @@ export function HeaderComponent() {
                     </View>
                 </View>
             </Modal>
-            <View
-                style={{
-                    flex: 1,
-                    flexDirection: 'row',
-                    justifyContent: 'flex-start',
-                }}
-            ></View>
-            <View
-                style={{
-                    flex: 1,
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    paddingStart: 10,
-                }}
-            >
-                <Image style={{ width: 250, height: 30 }} source={require('../../assets/newscope_logo.png')} />
+            <View style={currentTheme === 'light' ? HeaderStylesLight.headerLeftContainer : HeaderStylesDark.headerLeftContainer}></View>
+            <View style={currentTheme === 'light' ? HeaderStylesLight.headerMidContainer : HeaderStylesDark.headerMidContainer}>
+                <Image style={{ width: 250, height: 30 }} source={ currentTheme === 'light' ? require('../../assets/newscope_logo_light.png') : require('../../assets/newscope_logo_dark.png')} />
             </View>
-            <View
-                style={{
-                    flex: 1,
-                    flexDirection: 'row',
-                    justifyContent: 'flex-end',
-                    paddingEnd: 10,
-                }}
-            >
+            <View style={currentTheme === 'light' ? HeaderStylesLight.headerRightContainer : HeaderStylesDark.headerRightContainer}>
                 <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-                    <MaterialCommunityIcons name='settings' color={currentTheme === 'light' ? Colors.light.secondary : Colors.dark.secondary} size={26} />
+                    <MaterialCommunityIcons name='settings' color={currentTheme === 'light' ? Colors.light.accent : Colors.dark.accent} size={26} />
                 </TouchableOpacity>
             </View>
         </SafeAreaView>

@@ -21,8 +21,8 @@ export const MainNavigator = () => {
                     style: { backgroundColor: 'white' },
                     showIcon: true,
                     showLabel: false,
-                    activeTintColor: Colors.primary,
-                    inactiveTintColor: Colors.secondary,
+                    activeTintColor: Colors.light.primary,
+                    inactiveTintColor: Colors.light.secondary,
                 }}
             >
                 <Tab.Screen

@@ -14,6 +14,26 @@ export const HeaderStylesLight = StyleSheet.create({
         marginTop: 0,
         elevation: 0.5,
     },
+
+    headerLeftContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+    },
+
+    headerMidContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+    },
+
+    headerRightContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        marginRight: 10,
+    },
+
     centeredView: {
         flex: 1,
         justifyContent: 'center',
@@ -38,7 +58,7 @@ export const HeaderStylesLight = StyleSheet.create({
         height: 480,
     },
 
-    modalViewHeader:{
+    modalViewHeader: {
         flex: 1,
         width: '100%',
         flexDirection: 'row',
@@ -47,48 +67,50 @@ export const HeaderStylesLight = StyleSheet.create({
         borderRadius: 20,
     },
 
-    modalViewContent:{
+    modalViewContent: {
         flex: 8,
         width: '100%',
         alignItems: 'center',
         backgroundColor: Colors.light.settingsBG,
     },
 
-    modalViewFooter:{
+    modalViewFooter: {
         flex: 1,
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 20,
+        borderTopWidth: 1,
+        borderColor: Colors.light.dividerColor,
     },
 
     modalIconContainer: {
-        flex:1,
-        marginRight:5,
+        flex: 1,
+        marginRight: 5,
     },
 
     modalTextContainer: {
-        flex:8,
+        flex: 8,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: Colors.light.settingsBG,
     },
 
-    modalHeaderText:{
+    modalHeaderText: {
         fontFamily: Styles.defaultFont,
         fontSize: 20,
         fontWeight: 'bold',
         color: Colors.light.accent,
     },
 
-    modalFooterText:{
+    modalFooterText: {
         fontFamily: Styles.defaultFont,
         fontSize: 14,
-        color: Colors.dark.secondary,
+        color: Colors.light.versionColor,
     },
 
-    
+
 });
 
 
@@ -104,6 +126,27 @@ export const HeaderStylesDark = StyleSheet.create({
         marginTop: 0,
         elevation: 0.5,
     },
+
+    headerLeftContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        backgroundColor: Colors.dark.background,
+    },
+
+    headerMidContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+    },
+
+    headerRightContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        marginRight: 10,
+    },
+
     centeredView: {
         flex: 1,
         justifyContent: 'center',
@@ -128,7 +171,7 @@ export const HeaderStylesDark = StyleSheet.create({
         height: 480,
     },
 
-    modalViewHeader:{
+    modalViewHeader: {
         flex: 1,
         width: '100%',
         flexDirection: 'row',
@@ -137,47 +180,49 @@ export const HeaderStylesDark = StyleSheet.create({
         borderRadius: 20,
     },
 
-    modalViewContent:{
+    modalViewContent: {
         flex: 8,
         width: '100%',
         alignItems: 'center',
         backgroundColor: Colors.dark.settingsBG,
     },
 
-    modalViewFooter:{
+    modalViewFooter: {
         flex: 1,
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 20,
+        borderTopWidth: 1,
+        borderColor: Colors.dark.dividerColor,
     },
 
     modalIconContainer: {
-        flex:1,
-        marginRight:5,
+        flex: 1,
+        marginRight: 5,
     },
 
     modalTextContainer: {
-        flex:8,
+        flex: 8,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: Colors.dark.settingsBG,
     },
 
-    modalHeaderText:{
+    modalHeaderText: {
         fontFamily: Styles.defaultFont,
         fontSize: 20,
         fontWeight: 'bold',
         color: Colors.dark.primary,
     },
 
-    modalFooterText:{
+    modalFooterText: {
         fontFamily: Styles.defaultFont,
         fontSize: 14,
-        color: Colors.dark.secondary,
+        color: Colors.dark.versionColor,
     },
 
-    
+
 });
 

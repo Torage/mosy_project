@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
     },
     mainView: {
-        backgroundColor: Colors.background,
+        backgroundColor: Colors.light.background,
         width: 350,
         borderRadius: 20,
         elevation: 10,
@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
         paddingTop: 8,
     },
     categoryText: {
-        color: Colors.accent,
+        color: Colors.light.accent,
         textTransform: 'uppercase',
         fontSize: 13,
         fontFamily: Styles.secondFont,
@@ -45,14 +45,14 @@ export const styles = StyleSheet.create({
     titleText: {
         fontFamily: Styles.secondFont,
         fontSize: 14,
-        color: Colors.primary,
+        color: Colors.light.primary,
     },
     descriptionView: {
         paddingLeft: 15,
         paddingRight: 15,
     },
     descriptionText: {
-        color: Colors.text,
+        color: Colors.light.text,
         fontFamily: Styles.defaultFont,
         includeFontPadding: false,
         lineHeight: 14,

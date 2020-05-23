@@ -44,10 +44,10 @@ export const NewsCardComponent = (props) => {
                     <Text style={styles.categoryText}>{props.category}</Text>
                     <View style={styles.icons}>
                         <TouchableOpacity style={{ marginRight: 5 }} onPress={() => alert('mark as favorite')}>
-                            <MaterialCommunityIcons name='bookmark-outline' color={Colors.accent} size={20} />
+                            <MaterialCommunityIcons name='bookmark-outline' color={Colors.light.accent} size={20} />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => shareContent()}>
-                            <MaterialCommunityIcons name='share-variant' color={Colors.accent} size={20} />
+                            <MaterialCommunityIcons name='share-variant' color={Colors.light.accent} size={20} />
                         </TouchableOpacity>
                     </View>
                 </View>
