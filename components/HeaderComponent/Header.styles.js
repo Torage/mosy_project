@@ -214,7 +214,7 @@ export const HeaderStylesDark = StyleSheet.create({
         fontFamily: Styles.defaultFont,
         fontSize: 20,
         fontWeight: 'bold',
-        color: Colors.dark.primary,
+        color: Colors.dark.accent,
     },
 
     modalFooterText: {

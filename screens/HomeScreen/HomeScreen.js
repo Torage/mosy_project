@@ -1,12 +1,14 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect} from 'react';
 import { View, FlatList } from 'react-native';
-import { styles } from './HomeScreen.styles';
+import { HomeScreenStylesLight, HomeScreenStylesDark } from './HomeScreen.styles';
 import { NewsCardComponent } from '../../components/NewsCardComponent/NewsCard.component';
 import { NewsContext } from '../../Data/newsContext';
 import { Topnews } from '../../Models/TopnewsModel';
+import {SettingsContext} from '../../Data/settingsContext';
 
 export const HomeScreen = props => {
     // Global State object
+    const [currentTheme, setCurrentTheme] = useContext(SettingsContext);
     const [newsState] = useContext(NewsContext);
     const [topnews, setTopnews] = useState(new Topnews(newsState.dummyTopnews));
     // called if topnews changes, set
@@ -19,7 +21,7 @@ export const HomeScreen = props => {
     }, [topnews]);
 
     return (
-        <View style={styles.viewContainer}>
+        <View style={currentTheme === 'light' ? HomeScreenStylesLight.viewContainer : HomeScreenStylesDark.viewContainer}>
             <FlatList
                 keyExtractor={(article) => article.source.id}
                 data={topnews.articles}

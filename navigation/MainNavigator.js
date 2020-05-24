@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Text, View, TouchableOpacity, Image, Button, Share, AsyncStorage } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
@@ -9,9 +9,12 @@ import { FavoritesNavigator } from './FavoritesNavigator';
 import { SearchNavigator } from './SearchNavigator';
 import { Colors } from '../constants/colors';
 import { Styles } from '../constants/styles';
+import { SettingsContext } from '../Data/settingsContext';
 
 const Tab = createMaterialTopTabNavigator();
 export const MainNavigator = () => {
+
+    const [currentTheme, setCurrentTheme] = useContext(SettingsContext);
 
     const changeToggleValue = value => {
 
@@ -24,7 +27,6 @@ export const MainNavigator = () => {
     }
 
     const [toggleEnabled, setToggleEnabled] = useState(false);
-    const [currentTheme, setCurrentTheme] = useState('light');
 
     useEffect(() => {
         AsyncStorage.getItem('DarkSkinSetting').then(storedValue => {
@@ -38,7 +40,7 @@ export const MainNavigator = () => {
 
     return (
         <NavigationContainer>
-            <HeaderComponent toggleValue={toggleEnabled} toggleOnPress={changeToggleValue} currentTheme={currentTheme} />
+            <HeaderComponent toggleValue={toggleEnabled} toggleOnPress={changeToggleValue} />
             <Tab.Navigator
                 initialRouteName='Home'
                 tabBarPosition='bottom'
