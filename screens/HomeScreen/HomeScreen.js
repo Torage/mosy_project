@@ -11,7 +11,6 @@ export const HomeScreen = (props) => {
     const [currentTheme, setCurrentTheme] = useContext(SettingsContext);
     const [newsState] = useContext(NewsContext);
     const [newsData, setNewsData] = useContext(NewsContext);
-    let refresh = false;
     // called if topnews changes, set
     useEffect(() => {
         //logging the id's to the console
@@ -36,7 +35,7 @@ export const HomeScreen = (props) => {
     return (
         <View style={currentTheme === 'light' ? HomeScreenStylesLight.viewContainer : HomeScreenStylesDark.viewContainer}>
             <FlatList
-                refreshing={refresh}
+                refreshing={false}
                 onRefresh={() => {
                     fetchNews();
                 }}
