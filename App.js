@@ -1,15 +1,27 @@
 import React, { useState, useEffect } from 'react';
+import { AsyncStorage } from 'react-native';
 import { useFonts } from '@use-expo/font';
 import { AppLoading } from 'expo';
 import { MainNavigator } from './navigation/MainNavigator';
 import { DUMMY_TOPNEWS } from './Data/data';
 import { NewsContext } from './Data/newsContext';
 import { Topnews } from './Models/TopnewsModel';
+import { SettingsContext } from './Data/settingsContext';
 
 export default function App() {
     const [newsData, setNewsData] = useState({
         liveTopnews: DUMMY_TOPNEWS,
     });
+    const [currentTheme, setCurrentTheme] = useState('light');
+
+    useEffect(() => {
+        AsyncStorage.getItem('DarkSkinSetting').then((storedValue) => {
+            if (storedValue != null) {
+                if (JSON.parse(storedValue) === true ? setCurrentTheme('dark') : setCurrentTheme('light'));
+            }
+        });
+        fetchNews();
+    }, []);
 
     let [fontsLoaded] = useFonts({
         NoyhRBlack: require('./assets/fonts/NoyhRBlack.otf'),
@@ -27,17 +39,15 @@ export default function App() {
         xhr.send();
     }
 
-    useEffect(() => {
-        fetchNews();
-    }, []);
-
     if (!fontsLoaded) {
         return <AppLoading />;
     } else {
         return (
-            <NewsContext.Provider value={[newsData, setNewsData]}>
-                <MainNavigator />
-            </NewsContext.Provider>
+            <SettingsContext.Provider value={[currentTheme, setCurrentTheme]}>
+                <NewsContext.Provider value={[newsData, setNewsData]}>
+                    <MainNavigator />
+                </NewsContext.Provider>
+            </SettingsContext.Provider>
         );
     }
 }
