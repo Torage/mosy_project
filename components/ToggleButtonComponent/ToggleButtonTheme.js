@@ -29,7 +29,7 @@ export default ToggleButton = props => {
 
     }, []);
 
-
+    //
     return (
         <View style={currentTheme === 'light' ? ToggleButtonStylesLight.settingRow : ToggleButtonStylesDark.settingRow} >
             <TouchableNativeFeedback onPress={() => changeToggleValue(!toggleEnabled)}>
