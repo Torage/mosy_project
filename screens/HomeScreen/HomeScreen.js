@@ -1,16 +1,17 @@
-import React, { useState, useContext, useEffect} from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { View, FlatList } from 'react-native';
 import { HomeScreenStylesLight, HomeScreenStylesDark } from './HomeScreen.styles';
 import { NewsCardComponent } from '../../components/NewsCardComponent/NewsCard.component';
 import { NewsContext } from '../../Data/newsContext';
 import { Topnews } from '../../Models/TopnewsModel';
-import {SettingsContext} from '../../Data/settingsContext';
+import { SettingsContext } from '../../Data/settingsContext';
 
-export const HomeScreen = props => {
+export const HomeScreen = (props) => {
     // Global State object
     const [currentTheme, setCurrentTheme] = useContext(SettingsContext);
     const [newsState] = useContext(NewsContext);
     const [newsData, setNewsData] = useContext(NewsContext);
+    let refresh = false;
     // called if topnews changes, set
     useEffect(() => {
         //logging the id's to the console
@@ -21,9 +22,24 @@ export const HomeScreen = props => {
         console.log('Number of Articles', newsData.liveTopnews.articles.length);
     }, [newsData]);
 
+    function fetchNews() {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', 'http://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=f4635151d8bf47af94cec511748e296e', true);
+        xhr.onload = () => {
+            setNewsData((newsData) => ({
+                liveTopnews: new Topnews(JSON.parse(xhr.response)),
+            }));
+        };
+        xhr.send();
+    }
+
     return (
         <View style={currentTheme === 'light' ? HomeScreenStylesLight.viewContainer : HomeScreenStylesDark.viewContainer}>
             <FlatList
+                refreshing={refresh}
+                onRefresh={() => {
+                    fetchNews();
+                }}
                 keyExtractor={(article) => article.source.id}
                 data={newsData.liveTopnews.articles}
                 renderItem={({ item }) => (

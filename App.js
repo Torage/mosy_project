@@ -20,7 +20,7 @@ export default function App() {
                 if (JSON.parse(storedValue) === true ? setCurrentTheme('dark') : setCurrentTheme('light'));
             }
         });
-        fetchNews();
+        // fetchNews();
     }, []);
 
     let [fontsLoaded] = useFonts({
