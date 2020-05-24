@@ -5,7 +5,7 @@ import { NewsCardComponent } from '../../components/NewsCardComponent/NewsCard.c
 import { NewsContext } from '../../Data/newsContext';
 import { Topnews } from '../../Models/TopnewsModel';
 
-export const HomeScreen = () => {
+export const HomeScreen = props => {
     // Global State object
     const [newsState] = useContext(NewsContext);
     const [topnews, setTopnews] = useState(new Topnews(newsState.dummyTopnews));

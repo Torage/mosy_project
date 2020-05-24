@@ -7,7 +7,7 @@ export default ToggleButton = props => {
 
     return (
         <View style={props.currentTheme === 'light' ? ToggleButtonStylesLight.settingRow : ToggleButtonStylesDark.settingRow} >
-            <TouchableNativeFeedback onPress={() => props.onPress(!props.toggleValue)}>
+            <TouchableNativeFeedback onPress={() => props.toggleOnPress(!props.toggleValue)}>
                 <View style={props.currentTheme === 'light' ? ToggleButtonStylesLight.wrapper : ToggleButtonStylesDark.wrapper}>
                     <View style={props.currentTheme === 'light' ? ToggleButtonStylesLight.leftContainer : ToggleButtonStylesDark.leftContainer}>
                         <Text style={props.currentTheme === 'light' ? ToggleButtonStylesLight.titleText : ToggleButtonStylesDark.titleText}>{props.title}</Text>
@@ -20,7 +20,7 @@ export default ToggleButton = props => {
                             thumbColor={props.toggleValue ? '#ffffff' : '#ffffff'}
                             ios_backgroundColor='#3e3e3e'
                             value={props.toggleValue}
-                            onValueChange={() => props.onPress(!props.toggleValue)}
+                            onValueChange={() => props.toggleOnPress(!props.toggleValue)}
                         />
                     </View>
                 </View>
