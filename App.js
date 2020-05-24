@@ -13,11 +13,20 @@ export default function App() {
         liveTopnews: DUMMY_TOPNEWS,
     });
     const [currentTheme, setCurrentTheme] = useState('light');
+    const [sendPushNotification, setSendPushNotification] = useState(false);
 
     useEffect(() => {
         AsyncStorage.getItem('DarkSkinSetting').then((storedValue) => {
+            console.log("Saved value in DarkSkinSetting " + JSON.stringify(storedValue));
             if (storedValue != null) {
                 if (JSON.parse(storedValue) === true ? setCurrentTheme('dark') : setCurrentTheme('light'));
+            }
+        });
+
+        AsyncStorage.getItem('PushSetting').then((storedValue) => {
+            console.log("Saved value in PushSetting " + JSON.stringify(storedValue));
+            if (storedValue != null) {
+                setSendPushNotification(JSON.parse(storedValue));
             }
         });
         // fetchNews();
@@ -43,7 +52,7 @@ export default function App() {
         return <AppLoading />;
     } else {
         return (
-            <SettingsContext.Provider value={[currentTheme, setCurrentTheme]}>
+            <SettingsContext.Provider value={{theme : [currentTheme, setCurrentTheme], push : [sendPushNotification, setSendPushNotification]}}>
                 <NewsContext.Provider value={[newsData, setNewsData]}>
                     <MainNavigator />
                 </NewsContext.Provider>

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { View, FlatList } from 'react-native';
 import { HomeScreenStylesLight, HomeScreenStylesDark } from './HomeScreen.styles';
 import { NewsCardComponent } from '../../components/NewsCardComponent/NewsCard.component';
@@ -8,7 +8,10 @@ import { SettingsContext } from '../../Data/settingsContext';
 
 export const HomeScreen = (props) => {
     // Global State object
-    const [currentTheme, setCurrentTheme] = useContext(SettingsContext);
+    const {theme, push} = useContext(SettingsContext);
+    const [currentTheme, setCurrentTheme] = theme;
+    const [sendPushNotification, setSendPushNotification] = push;
+    
     const [newsState] = useContext(NewsContext);
     const [newsData, setNewsData] = useContext(NewsContext);
     // called if topnews changes, set

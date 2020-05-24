@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Text, View, TouchableOpacity, Image, Button, Share, AsyncStorage } from 'react-native';
+import React, { useContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -14,33 +13,13 @@ import { SettingsContext } from '../Data/settingsContext';
 const Tab = createMaterialTopTabNavigator();
 export const MainNavigator = () => {
 
-    const [currentTheme, setCurrentTheme] = useContext(SettingsContext);
-
-    const changeToggleValue = value => {
-
-        console.log("test");
-        setToggleEnabled(value);
-        AsyncStorage.setItem('DarkSkinSetting', JSON.stringify(value));
-
-        if (value === true ? setCurrentTheme('dark') : setCurrentTheme('light'));
-
-    }
-
-    const [toggleEnabled, setToggleEnabled] = useState(false);
-
-    useEffect(() => {
-        AsyncStorage.getItem('DarkSkinSetting').then(storedValue => {
-            if (storedValue != null) {
-                changeToggleValue(JSON.parse(storedValue));
-            }
-        });
-
-    }, []);
-
+    const {theme, push} = useContext(SettingsContext);
+    const [currentTheme, setCurrentTheme] = theme;
+    const [sendPushNotification, setSendPushNotification] = push;
 
     return (
         <NavigationContainer>
-            <HeaderComponent toggleValue={toggleEnabled} toggleOnPress={changeToggleValue} />
+            <HeaderComponent/>
             <Tab.Navigator
                 initialRouteName='Home'
                 tabBarPosition='bottom'

@@ -31,7 +31,7 @@ export const NewsCardStylesLight = StyleSheet.create({
     categoryText: {
         color: Colors.light.categoryColor,
         textTransform: 'uppercase',
-        fontSize: 13,
+        fontSize: 16,
         fontFamily: Styles.secondFont,
         paddingTop: 5,
     },
@@ -45,7 +45,8 @@ export const NewsCardStylesLight = StyleSheet.create({
     titleText: {
         fontFamily: Styles.secondFont,
         fontSize: 14,
-        color: Colors.light.primary,
+        color: Colors.light.titleText,
+        paddingTop: 4,
     },
     descriptionView: {
         paddingLeft: 15,
@@ -57,6 +58,7 @@ export const NewsCardStylesLight = StyleSheet.create({
         includeFontPadding: false,
         lineHeight: 14,
         fontSize: 12,
+        paddingTop: 4,
     },
     imageView: {
         flexDirection: 'row',
@@ -103,7 +105,7 @@ export const NewsCardStylesDark = StyleSheet.create({
     categoryText: {
         color: Colors.dark.categoryColor,
         textTransform: 'uppercase',
-        fontSize: 13,
+        fontSize: 16,
         fontFamily: Styles.secondFont,
         paddingTop: 5,
     },
@@ -117,7 +119,8 @@ export const NewsCardStylesDark = StyleSheet.create({
     titleText: {
         fontFamily: Styles.secondFont,
         fontSize: 14,
-        color: Colors.dark.primary,
+        color: Colors.dark.titleText,
+        paddingTop: 4,
     },
     descriptionView: {
         paddingLeft: 15,
@@ -129,6 +132,7 @@ export const NewsCardStylesDark = StyleSheet.create({
         includeFontPadding: false,
         lineHeight: 14,
         fontSize: 12,
+        paddingTop: 4,
     },
     imageView: {
         flexDirection: 'row',

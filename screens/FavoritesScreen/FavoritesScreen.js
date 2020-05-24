@@ -5,7 +5,9 @@ import {SettingsContext} from '../../Data/settingsContext';
 
 export const FavoritesScreen = () => {
 
-    const [currentTheme, setCurrentTheme] = useContext(SettingsContext);
+    const {theme, push} = useContext(SettingsContext);
+    const [currentTheme, setCurrentTheme] = theme;
+    const [sendPushNotification, setSendPushNotification] = push;
 
     return (
         <View style={currentTheme === 'light' ? FavoriteScreenStylesLight.viewContainer : FavoriteScreenStylesDark.viewContainer}>

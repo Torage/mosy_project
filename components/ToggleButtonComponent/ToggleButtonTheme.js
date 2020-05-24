@@ -6,11 +6,33 @@ import {SettingsContext} from '../../Data/settingsContext';
 
 export default ToggleButton = props => {
 
-    const [currentTheme, setCurrentTheme] = useContext(SettingsContext);
+    const {theme, push} = useContext(SettingsContext);
+    const [currentTheme, setCurrentTheme] = theme;
+    const [sendPushNotification, setSendPushNotification] = push;
+    const [toggleEnabled, setToggleEnabled] = useState(false);
+
+    const changeToggleValue = value => {
+
+        setToggleEnabled(value);
+        AsyncStorage.setItem('DarkSkinSetting', JSON.stringify(value));
+
+        if (value === true ? setCurrentTheme('dark') : setCurrentTheme('light'));
+
+    }
+
+    useEffect(() => {
+        AsyncStorage.getItem('DarkSkinSetting').then(storedValue => {
+            if (storedValue != null) {
+                changeToggleValue(JSON.parse(storedValue));
+            }
+        });
+
+    }, []);
+
 
     return (
         <View style={currentTheme === 'light' ? ToggleButtonStylesLight.settingRow : ToggleButtonStylesDark.settingRow} >
-            <TouchableNativeFeedback onPress={() => props.toggleOnPress(!props.toggleValue)}>
+            <TouchableNativeFeedback onPress={() => changeToggleValue(!toggleEnabled)}>
                 <View style={currentTheme === 'light' ? ToggleButtonStylesLight.wrapper : ToggleButtonStylesDark.wrapper}>
                     <View style={currentTheme === 'light' ? ToggleButtonStylesLight.leftContainer : ToggleButtonStylesDark.leftContainer}>
                         <Text style={currentTheme === 'light' ? ToggleButtonStylesLight.titleText : ToggleButtonStylesDark.titleText}>{props.title}</Text>
@@ -18,12 +40,12 @@ export default ToggleButton = props => {
                     </View>
                     <View style={currentTheme === 'light' ? ToggleButtonStylesLight.rightContainer : ToggleButtonStylesDark.rightContainer}>
                         <Switch
-                            trackColor={currentTheme === 'light' ? { false: Colors.light.trackColorDisabled, true: Colors.light.primary } : 
+                            trackColor={currentTheme === 'light' ? { false: Colors.light.trackColorDisabled, true: Colors.light.accent } : 
                                 { false: Colors.dark.trackColorDisabled, true: Colors.dark.accent }}
-                            thumbColor={props.toggleValue ? '#ffffff' : '#ffffff'}
+                            thumbColor={toggleEnabled ? '#ffffff' : '#ffffff'}
                             ios_backgroundColor='#3e3e3e'
-                            value={props.toggleValue}
-                            onValueChange={() => props.toggleOnPress(!props.toggleValue)}
+                            value={toggleEnabled}
+                            onValueChange={() => changeToggleValue(!toggleEnabled)}
                         />
                     </View>
                 </View>

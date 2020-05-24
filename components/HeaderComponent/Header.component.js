@@ -1,15 +1,18 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { SafeAreaView, View, Image, TouchableOpacity, Modal, Text, StatusBar, AsyncStorage } from 'react-native';
 import { MaterialCommunityIcons} from '@expo/vector-icons';
 import { Colors } from '../../constants/colors';
 import { HeaderStylesDark, HeaderStylesLight } from './Header.styles';
 import Constants from 'expo-constants';
-import ToggleButton from '../ToggleButtonComponent/ToggleButton';
+import ToggleButtonTheme from '../ToggleButtonComponent/ToggleButtonTheme';
+import ToggleButtonPush from '../ToggleButtonComponent/ToggleButtonPush';
 import {SettingsContext} from '../../Data/settingsContext';
 
 export const HeaderComponent = props => {
 
-    const [currentTheme, setCurrentTheme] = useContext(SettingsContext);
+    const {theme, push} = useContext(SettingsContext);
+    const [currentTheme, setCurrentTheme] = theme;
+    const [sendPushNotification, setSendPushNotification] = push;
     const [modalVisible, setModalVisible] = useState(false);
     
     return (
@@ -40,7 +43,8 @@ export const HeaderComponent = props => {
                                 </View>
                             </View>
                             <View style={currentTheme === 'light' ? HeaderStylesLight.modalViewContent : HeaderStylesDark.modalViewContent}>
-                               <ToggleButton title='Dark Theme' description='Change to the dark theme' toggleValue={props.toggleValue} toggleOnPress={props.toggleOnPress} currentTheme={currentTheme}></ToggleButton>
+                               <ToggleButtonTheme title='Dark Theme' description='Change to the dark theme'></ToggleButtonTheme>
+                               <ToggleButtonPush title='Push Notification' description='Enable Push Notification'></ToggleButtonPush>
                             </View>
                             <View style={currentTheme === 'light' ? HeaderStylesLight.modalViewFooter : HeaderStylesDark.modalViewFooter}>
                                 <Text style={currentTheme === 'light' ? HeaderStylesLight.modalFooterText : HeaderStylesDark.modalFooterText} >{Constants.manifest.name} {Constants.manifest.version} </Text>
