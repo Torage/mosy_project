@@ -47,7 +47,7 @@ export const HeaderComponent = props => {
                                <ToggleButtonPush title='Push Notification' description='Enable Push Notification'></ToggleButtonPush>
                             </View>
                             <View style={currentTheme === 'light' ? HeaderStylesLight.modalViewFooter : HeaderStylesDark.modalViewFooter}>
-                                <Text style={currentTheme === 'light' ? HeaderStylesLight.modalFooterText : HeaderStylesDark.modalFooterText} >{Constants.manifest.name} {Constants.manifest.version} </Text>
+                                <Text style={currentTheme === 'light' ? HeaderStylesLight.modalFooterText : HeaderStylesDark.modalFooterText} >{Constants.manifest.name} {Constants.manifest.version}</Text>
                             </View>
                         </View>
                     </View>

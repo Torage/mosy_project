@@ -14,10 +14,8 @@ export default ToggleButton = props => {
     const changeToggleValue = value => {
 
         setToggleEnabled(value);
-        AsyncStorage.setItem('DarkSkinSetting', JSON.stringify(value));
-
         if (value === true ? setCurrentTheme('dark') : setCurrentTheme('light'));
-
+        AsyncStorage.setItem('DarkSkinSetting', JSON.stringify(value));
     }
 
     useEffect(() => {
@@ -29,7 +27,6 @@ export default ToggleButton = props => {
 
     }, []);
 
-    //
     return (
         <View style={currentTheme === 'light' ? ToggleButtonStylesLight.settingRow : ToggleButtonStylesDark.settingRow} >
             <TouchableNativeFeedback onPress={() => changeToggleValue(!toggleEnabled)}>

@@ -13,10 +13,9 @@ export default ToggleButton = props => {
     const [toggleEnabled, setToggleEnabled] = useState(false);
 
     const changeToggleValue = value => {
-        console.log("Push Notification enabled : " + value);
+
         setToggleEnabled(value);
         setSendPushNotification(value)
-        
         AsyncStorage.setItem('PushSetting', JSON.stringify(value));
     }
 

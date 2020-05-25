@@ -37,6 +37,7 @@ export const NewsCardStylesLight = StyleSheet.create({
     },
     icons: {
         flexDirection: 'row',
+        paddingTop: 4,
     },
     titleView: {
         paddingLeft: 15,
@@ -111,6 +112,7 @@ export const NewsCardStylesDark = StyleSheet.create({
     },
     icons: {
         flexDirection: 'row',
+        paddingTop: 4,
     },
     titleView: {
         paddingLeft: 15,

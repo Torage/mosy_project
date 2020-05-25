@@ -41,7 +41,7 @@ export const MainNavigator = () => {
                     component={FavoritesNavigator}
                     options={{
                         tabBarLabel: 'Favorites',
-                        tabBarIcon: ({ color }) => <MaterialCommunityIcons name='bookmark-outline' color={color} size={26} />,
+                        tabBarIcon: ({ color }) => <MaterialCommunityIcons name='bookmark-check' color={color} size={26} />,
                     }}
                 />
                 <Tab.Screen
@@ -49,7 +49,7 @@ export const MainNavigator = () => {
                     component={HomeNavigator}
                     options={{
                         tabBarLabel: 'home',
-                        tabBarIcon: ({ color }) => <MaterialCommunityIcons name='home-outline' color={color} size={26} />,
+                        tabBarIcon: ({ color }) => <MaterialCommunityIcons name='home' color={color} size={26} />,
                     }}
                     initialParams
                 />
