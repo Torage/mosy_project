@@ -26,6 +26,13 @@ export const HeaderComponent = props => {
     const [settingsModalVisible, setSettingsModalVisible] = useState(false);
     const [contactModalVisible, setContactModalVisible] = useState(false);
 
+    const clearInputData = () =>{
+        setContactName("");
+        setContactEmail("");
+        setContactSubject("");
+        setContactMessage("");
+    }
+
     return (
         <SafeAreaView style={currentTheme === 'light' ? HeaderStylesLight.safeAreaView : HeaderStylesDark.safeAreaView}>
             <StatusBar barStyle={'light-content'} backgroundColor={currentTheme === 'light' ? Colors.light.statusBarBG : Colors.dark.statusBarBG} />
@@ -140,7 +147,7 @@ export const HeaderComponent = props => {
                                 </View>
                             </View>
                             <View style={currentTheme === 'light' ? HeaderStylesLight.modalViewFooter : HeaderStylesDark.modalViewFooter}>
-                                <TouchableOpacity onPress={console.log("send contact form")}>
+                                <TouchableOpacity onPress={() => clearInputData()}>
                                     <View style={currentTheme === 'light' ? HeaderStylesLight.modalViewFooterButton : HeaderStylesDark.modalViewFooterButton}>
                                         <Text style={currentTheme === 'light' ? HeaderStylesLight.modalViewFooterButtonText : HeaderStylesDark.modalViewFooterButtonText}>Clear</Text>
                                     </View>
