@@ -49,7 +49,7 @@ export const NewsCardComponent = (props) => {
                     <Text style={currentTheme === 'light' ? NewsCardStylesLight.categoryText : NewsCardStylesDark.categoryText}>{props.category}</Text>
                     <View style={currentTheme === 'light' ? NewsCardStylesLight.icons : NewsCardStylesDark.icons}>
                         <TouchableOpacity style={{ marginRight: 5 }} onPress={() => alert('mark as favorite')}>
-                            <MaterialCommunityIcons name='bookmark-plus-outline' color={currentTheme === 'light' ? Colors.light.accent : Colors.dark.accent} size={20} />
+                            <MaterialCommunityIcons name='bookmark-plus' color={currentTheme === 'light' ? Colors.light.accent : Colors.dark.accent} size={20} />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => shareContent()}>
                             <MaterialCommunityIcons name='share-variant' color={currentTheme === 'light' ? Colors.light.accent : Colors.dark.accent} size={20} />

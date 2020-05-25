@@ -6,6 +6,7 @@ import { HeaderStylesDark, HeaderStylesLight } from './Header.styles';
 import Constants from 'expo-constants';
 import ToggleButtonTheme from '../ToggleButtonComponent/ToggleButtonTheme';
 import ToggleButtonPush from '../ToggleButtonComponent/ToggleButtonPush';
+import ContactButton from '../ContactButtonComponent/ContactButton';
 import {SettingsContext} from '../../Data/settingsContext';
 
 export const HeaderComponent = props => {
@@ -13,7 +14,8 @@ export const HeaderComponent = props => {
     const {theme, push} = useContext(SettingsContext);
     const [currentTheme, setCurrentTheme] = theme;
     const [sendPushNotification, setSendPushNotification] = push;
-    const [modalVisible, setModalVisible] = useState(false);
+    const [settingsModalVisible, setSettingsModalVisible] = useState(false);
+    const [contactModalVisible, setContactModalVisible] = useState(false);
     
     return (
         <SafeAreaView style={currentTheme === 'light' ? HeaderStylesLight.safeAreaView : HeaderStylesDark.safeAreaView}>
@@ -22,7 +24,7 @@ export const HeaderComponent = props => {
                 statusBarTranslucent='true'
                 animationType='fade'
                 transparent={true}
-                visible={modalVisible}
+                visible={settingsModalVisible}
                 onRequestClose={() => {
                     console.log('modal closed');
                 }}
@@ -37,7 +39,7 @@ export const HeaderComponent = props => {
                                     <Text style={currentTheme === 'light' ? HeaderStylesLight.modalHeaderText : HeaderStylesDark.modalHeaderText} >Settings</Text>
                                 </View>
                                 <View style={currentTheme === 'light' ? HeaderStylesLight.modalIconContainer: HeaderStylesDark.modalIconContainer}>
-                                    <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+                                    <TouchableOpacity onPress={() => setSettingsModalVisible(!settingsModalVisible)}>
                                         <MaterialCommunityIcons name='close' color={currentTheme === 'light' ? Colors.light.accent: Colors.dark.accent} size={24} />
                                     </TouchableOpacity>
                                 </View>
@@ -45,6 +47,7 @@ export const HeaderComponent = props => {
                             <View style={currentTheme === 'light' ? HeaderStylesLight.modalViewContent : HeaderStylesDark.modalViewContent}>
                                <ToggleButtonTheme title='Dark Theme' description='Change to the dark theme'></ToggleButtonTheme>
                                <ToggleButtonPush title='Push Notification' description='Enable Push Notification'></ToggleButtonPush>
+                               <ContactButton title='Send Feedback' description='Feedback, Questions? Good send us a mail.' setContactModal={setContactModalVisible}></ContactButton>
                             </View>
                             <View style={currentTheme === 'light' ? HeaderStylesLight.modalViewFooter : HeaderStylesDark.modalViewFooter}>
                                 <Text style={currentTheme === 'light' ? HeaderStylesLight.modalFooterText : HeaderStylesDark.modalFooterText} >{Constants.manifest.name} {Constants.manifest.version}</Text>
@@ -53,12 +56,46 @@ export const HeaderComponent = props => {
                     </View>
                 </View>
             </Modal>
+
+            <Modal
+                    statusBarTranslucent='true'
+                    animationType='fade'
+                    transparent={true}
+                    visible={contactModalVisible}
+                    onRequestClose={() => {
+                        console.log('modal closed');
+                    }}
+                >
+                    <View style={currentTheme === 'light' ? HeaderStylesLight.centeredView : HeaderStylesDark.centeredView}>
+                        <View>
+                            <View style={currentTheme === 'light' ? HeaderStylesLight.modalView : HeaderStylesDark.modalView}>
+                                <View style={currentTheme === 'light' ? HeaderStylesLight.modalViewHeader : HeaderStylesDark.modalViewHeader}>
+                                    <View style={currentTheme === 'light' ? HeaderStylesLight.modalIconContainer : HeaderStylesDark.modalIconContainer}>
+                                    </View>
+                                    <View style={currentTheme === 'light' ? HeaderStylesLight.modalTextContainer : HeaderStylesDark.modalTextContainer}>
+                                        <Text style={currentTheme === 'light' ? HeaderStylesLight.modalHeaderText : HeaderStylesDark.modalHeaderText} >Contact</Text>
+                                    </View>
+                                    <View style={currentTheme === 'light' ? HeaderStylesLight.modalIconContainer : HeaderStylesDark.modalIconContainer}>
+                                        <TouchableOpacity onPress={() => setContactModalVisible(!contactModalVisible)}>
+                                            <MaterialCommunityIcons name='close' color={currentTheme === 'light' ? Colors.light.accent : Colors.dark.accent} size={24} />
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                                <View style={currentTheme === 'light' ? HeaderStylesLight.modalViewContent : HeaderStylesDark.modalViewContent}>
+                                </View>
+                                <View style={currentTheme === 'light' ? HeaderStylesLight.modalViewFooter : HeaderStylesDark.modalViewFooter}>
+                                </View>
+                            </View>
+                        </View>
+                    </View>
+                </Modal>
+
             <View style={currentTheme === 'light' ? HeaderStylesLight.headerLeftContainer : HeaderStylesDark.headerLeftContainer}></View>
             <View style={currentTheme === 'light' ? HeaderStylesLight.headerMidContainer : HeaderStylesDark.headerMidContainer}>
                 <Image style={{ width: 250, height: 30 }} source={ currentTheme === 'light' ? require('../../assets/newscope_logo_light.png') : require('../../assets/newscope_logo_dark.png')} />
             </View>
             <View style={currentTheme === 'light' ? HeaderStylesLight.headerRightContainer : HeaderStylesDark.headerRightContainer}>
-                <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+                <TouchableOpacity onPress={() => setSettingsModalVisible(!settingsModalVisible)}>
                     <MaterialCommunityIcons name='settings' color={currentTheme === 'light' ? Colors.light.accent : Colors.dark.accent} size={26} />
                 </TouchableOpacity>
             </View>
