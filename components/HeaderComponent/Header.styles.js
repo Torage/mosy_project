@@ -74,6 +74,42 @@ export const HeaderStylesLight = StyleSheet.create({
         backgroundColor: Colors.light.settingsBG,
     },
 
+    modalViewContentInput: {
+        width: 250,
+        height: 30,
+        paddingTop: 4,
+        paddingLeft: 6,
+        paddingBottom: 2,
+        color: Colors.light.text,
+        borderWidth:1,
+        borderRadius:10,
+        borderColor: Colors.light.accent,
+    },
+
+    modalViewContentInputFull: {
+        width: 250,
+        height: 150,
+        paddingTop: 4,
+        paddingLeft: 6,
+        paddingBottom: 115,
+        color: Colors.light.text,
+        borderWidth:1,
+        borderRadius:10,
+        borderColor: Colors.light.accent,
+    },
+
+    modalViewContentInputContainer: {
+
+    },
+
+    modalViewContentInputText: {
+        paddingTop: 12,
+        fontFamily: Styles.defaultFont,
+        color: Colors.light.accent,
+        paddingLeft: 6,
+
+    },
+
     modalViewFooter: {
         flex: 1,
         width: '100%',
@@ -108,6 +144,24 @@ export const HeaderStylesLight = StyleSheet.create({
         fontFamily: Styles.defaultFont,
         fontSize: 14,
         color: Colors.light.versionColor,
+    },
+
+    modalViewFooterButton: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 124,
+        height: 32,
+        marginHorizontal: 8,
+        backgroundColor: Colors.light.accent,
+        borderRadius: 10,
+    },
+
+    modalViewFooterButtonText: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        color: Colors.light.buttonText,
+        textTransform: 'uppercase',
+
     },
 
 
@@ -187,6 +241,42 @@ export const HeaderStylesDark = StyleSheet.create({
         backgroundColor: Colors.dark.settingsBG,
     },
 
+    modalViewContentInput: {
+        width: 250,
+        height: 30,
+        paddingTop: 4,
+        paddingLeft: 6,
+        paddingBottom: 2,
+        color: Colors.light.text,
+        borderWidth:1,
+        borderRadius:10,
+        borderColor: Colors.dark.accent,
+    },
+
+    modalViewContentInputFull: {
+        width: 250,
+        height: 150,
+        paddingTop: 4,
+        paddingLeft: 6,
+        paddingBottom: 115,
+        color: Colors.light.text,
+        borderWidth:1,
+        borderRadius:10,
+        borderColor: Colors.dark.accent,
+    },
+
+    modalViewContentInputContainer: {
+
+    },
+
+    modalViewContentInputText: {
+        paddingTop: 12,
+        fontFamily: Styles.defaultFont,
+        color: Colors.dark.accent,
+        paddingLeft: 6,
+
+    },
+
     modalViewFooter: {
         flex: 1,
         width: '100%',
@@ -221,6 +311,24 @@ export const HeaderStylesDark = StyleSheet.create({
         fontFamily: Styles.defaultFont,
         fontSize: 14,
         color: Colors.dark.versionColor,
+    },
+
+    modalViewFooterButton: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 124,
+        height: 32,
+        marginHorizontal: 8,
+        backgroundColor: Colors.dark.accent,
+        borderRadius: 10,
+    },
+
+    modalViewFooterButtonText: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        color: Colors.dark.buttonText,
+        textTransform: 'uppercase',
+
     },
 
 
