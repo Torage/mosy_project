@@ -1,12 +1,11 @@
-import React, {useContext} from 'react';
+import React, { useContext, useState } from 'react';
 import { Text, View, TouchableOpacity, Image, Button, Share } from 'react-native';
 import { Colors } from '../../constants/colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { NewsCardStylesDark, NewsCardStylesLight } from './NewsCard.styles';
-import {SettingsContext} from '../../Data/settingsContext';
+import { SettingsContext } from '../../Data/settingsContext';
 
 export const NewsCardComponent = (props) => {
-
     /* Values 
     category={item.source.name}
     title={item.title}
@@ -40,32 +39,66 @@ export const NewsCardComponent = (props) => {
 
     const [currentTheme, setCurrentTheme] = useContext(SettingsContext);
 
+    const [imageStyle, setImageStyle] = useState({ lightTheme: NewsCardStylesLight.image, darkTheme: NewsCardStylesDark.image });
+
     return (
         <View style={currentTheme === 'light' ? NewsCardStylesLight.viewContainer : NewsCardStylesDark.viewContainer}>
             <View style={currentTheme === 'light' ? NewsCardStylesLight.mainView : NewsCardStylesDark.mainView}>
                 <View style={currentTheme === 'light' ? NewsCardStylesLight.categoryView : NewsCardStylesDark.categoryView}>
-                    <Text style={currentTheme === 'light' ? NewsCardStylesLight.categoryText : NewsCardStylesDark.categoryText}>{props.category}</Text>
+                    <Text style={currentTheme === 'light' ? NewsCardStylesLight.categoryText : NewsCardStylesDark.categoryText}>
+                        {props.category}
+                    </Text>
                     <View style={currentTheme === 'light' ? NewsCardStylesLight.icons : NewsCardStylesDark.icons}>
                         <TouchableOpacity style={{ marginRight: 5 }} onPress={() => alert('mark as favorite')}>
-                            <MaterialCommunityIcons name='bookmark-outline' color={currentTheme === 'light' ? Colors.light.accent : Colors.dark.accent} size={20} />
+                            <MaterialCommunityIcons
+                                name='bookmark-outline'
+                                color={currentTheme === 'light' ? Colors.light.accent : Colors.dark.accent}
+                                size={20}
+                            />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => shareContent()}>
-                            <MaterialCommunityIcons name='share-variant' color={currentTheme === 'light' ? Colors.light.accent : Colors.dark.accent} size={20} />
+                            <MaterialCommunityIcons
+                                name='share-variant'
+                                color={currentTheme === 'light' ? Colors.light.accent : Colors.dark.accent}
+                                size={20}
+                            />
                         </TouchableOpacity>
                     </View>
                 </View>
 
                 <View style={currentTheme === 'light' ? NewsCardStylesLight.titleView : NewsCardStylesDark.titleView}>
-                    <Text style={currentTheme === 'light' ? NewsCardStylesLight.titleText : NewsCardStylesDark.titleText}>{props.title}</Text>
+                    <Text style={currentTheme === 'light' ? NewsCardStylesLight.titleText : NewsCardStylesDark.titleText}>
+                        {props.title}
+                    </Text>
                 </View>
 
                 <View style={currentTheme === 'light' ? NewsCardStylesLight.descriptionView : NewsCardStylesDark.descriptionView}>
-                    <Text style={currentTheme === 'light' ? NewsCardStylesLight.descriptionText : NewsCardStylesDark.descriptionText} numberOfLines={3}>
+                    <Text
+                        style={currentTheme === 'light' ? NewsCardStylesLight.descriptionText : NewsCardStylesDark.descriptionText}
+                        numberOfLines={3}
+                    >
                         {props.description}
                     </Text>
                 </View>
                 <View style={currentTheme === 'light' ? NewsCardStylesLight.imageView : NewsCardStylesDark.imageView}>
-                    <Image style={currentTheme === 'light' ? NewsCardStylesLight.image : NewsCardStylesDark.image} source={{ uri: props.imageUrl }} />
+                    <Image
+                        onLoad={() => console.log('valid image')}
+                        onError={() => {
+                            console.log('missing image');
+                            setImageStyle({
+                                lightTheme: {
+                                    borderRadius: 20,
+                                    marginBottom: 15,
+                                },
+                                darkTheme: {
+                                    borderRadius: 20,
+                                    marginBottom: 15,
+                                },
+                            });
+                        }}
+                        style={currentTheme === 'light' ? imageStyle.lightTheme : imageStyle.darkTheme}
+                        source={{ uri: props.imageUrl }}
+                    />
                 </View>
             </View>
         </View>
