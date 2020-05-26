@@ -82,19 +82,15 @@ export const NewsCardComponent = (props) => {
                 </View>
                 <View style={currentTheme === 'light' ? NewsCardStylesLight.imageView : NewsCardStylesDark.imageView}>
                     <Image
-                        onLoad={() => console.log('valid image')}
+                        onLoad={() => {
+                            console.log('valid image', props.imageUrl);
+                            if (!props.imageUrl) {
+                                setImageStyle({});
+                            }
+                        }}
                         onError={() => {
                             console.log('missing image');
-                            setImageStyle({
-                                lightTheme: {
-                                    borderRadius: 20,
-                                    marginBottom: 15,
-                                },
-                                darkTheme: {
-                                    borderRadius: 20,
-                                    marginBottom: 15,
-                                },
-                            });
+                            setImageStyle({});
                         }}
                         style={currentTheme === 'light' ? imageStyle.lightTheme : imageStyle.darkTheme}
                         source={{ uri: props.imageUrl }}
