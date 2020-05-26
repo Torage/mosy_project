@@ -16,12 +16,7 @@ export const NewsCardComponent = (props) => {
     const shareContent = async () => {
         try {
             const result = await Share.share({
-                message:
-                    props.category + '\n\n' +
-                    props.title + '\n\n' +
-                    props.description + '\n\n' +
-                    'Read More: ' + '\n' +
-                    props.url,
+                message: props.category + '\n\n' + props.title + '\n\n' + props.description + '\n\n' + 'Read More: ' + '\n' + props.url,
             });
             if (result.action === Share.sharedAction) {
                 if (result.activityType) {
@@ -38,8 +33,8 @@ export const NewsCardComponent = (props) => {
     };
 
     const [currentTheme, setCurrentTheme] = useContext(SettingsContext);
-
     const [imageStyle, setImageStyle] = useState({ lightTheme: NewsCardStylesLight.image, darkTheme: NewsCardStylesDark.image });
+    const [content, setContent] = useState({ content: props.description, pressed: true });
 
     return (
         <View style={currentTheme === 'light' ? NewsCardStylesLight.viewContainer : NewsCardStylesDark.viewContainer}>
@@ -65,37 +60,41 @@ export const NewsCardComponent = (props) => {
                         </TouchableOpacity>
                     </View>
                 </View>
+                <TouchableOpacity
+                    onPress={() => {
+                        content.pressed
+                            ? setContent({ content: props.content, pressed: false })
+                            : setContent({ content: props.description, pressed: true });
+                    }}
+                >
+                    <View style={currentTheme === 'light' ? NewsCardStylesLight.titleView : NewsCardStylesDark.titleView}>
+                        <Text style={currentTheme === 'light' ? NewsCardStylesLight.titleText : NewsCardStylesDark.titleText}>
+                            {props.title}
+                        </Text>
+                    </View>
 
-                <View style={currentTheme === 'light' ? NewsCardStylesLight.titleView : NewsCardStylesDark.titleView}>
-                    <Text style={currentTheme === 'light' ? NewsCardStylesLight.titleText : NewsCardStylesDark.titleText}>
-                        {props.title}
-                    </Text>
-                </View>
-
-                <View style={currentTheme === 'light' ? NewsCardStylesLight.descriptionView : NewsCardStylesDark.descriptionView}>
-                    <Text
-                        style={currentTheme === 'light' ? NewsCardStylesLight.descriptionText : NewsCardStylesDark.descriptionText}
-                        numberOfLines={3}
-                    >
-                        {props.description}
-                    </Text>
-                </View>
-                <View style={currentTheme === 'light' ? NewsCardStylesLight.imageView : NewsCardStylesDark.imageView}>
-                    <Image
-                        onLoad={() => {
-                            console.log('valid image', props.imageUrl);
-                            if (!props.imageUrl) {
+                    <View style={currentTheme === 'light' ? NewsCardStylesLight.descriptionView : NewsCardStylesDark.descriptionView}>
+                        <Text style={currentTheme === 'light' ? NewsCardStylesLight.descriptionText : NewsCardStylesDark.descriptionText}>
+                            {content.content}
+                        </Text>
+                    </View>
+                    <View style={currentTheme === 'light' ? NewsCardStylesLight.imageView : NewsCardStylesDark.imageView}>
+                        <Image
+                            onLoad={() => {
+                                console.log('valid image', props.imageUrl);
+                                if (!props.imageUrl) {
+                                    setImageStyle({});
+                                }
+                            }}
+                            onError={() => {
+                                console.log('missing image');
                                 setImageStyle({});
-                            }
-                        }}
-                        onError={() => {
-                            console.log('missing image');
-                            setImageStyle({});
-                        }}
-                        style={currentTheme === 'light' ? imageStyle.lightTheme : imageStyle.darkTheme}
-                        source={{ uri: props.imageUrl }}
-                    />
-                </View>
+                            }}
+                            style={currentTheme === 'light' ? imageStyle.lightTheme : imageStyle.darkTheme}
+                            source={{ uri: props.imageUrl }}
+                        />
+                    </View>
+                </TouchableOpacity>
             </View>
         </View>
     );
