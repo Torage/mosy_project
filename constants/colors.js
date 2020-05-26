@@ -34,7 +34,7 @@ export const Colors = {
         dividerColor : '#20d497',
         dividerColorSecond : '#20d497',
         versionColor : '#777777',
-        buttonText: '#ffffff',
+        buttonText: '#000000',
     }
 
 };

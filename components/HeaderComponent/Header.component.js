@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { SafeAreaView, View, Image, TouchableOpacity, Modal, Text, StatusBar, AsyncStorage, TextInput } from 'react-native';
+import { SafeAreaView, View, Image, TouchableOpacity, Modal, Text, StatusBar, AsyncStorage, TextInput, Alert } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Colors } from '../../constants/colors';
 import { HeaderStylesDark, HeaderStylesLight } from './Header.styles';
@@ -8,6 +8,7 @@ import ToggleButtonTheme from '../ToggleButtonComponent/ToggleButtonTheme';
 import ToggleButtonPush from '../ToggleButtonComponent/ToggleButtonPush';
 import ContactButton from '../ContactButtonComponent/ContactButton';
 import { SettingsContext } from '../../Data/settingsContext';
+import RNSmtpMailer from 'react-native-smtp-mailer';
 
 export const HeaderComponent = props => {
 
@@ -26,11 +27,16 @@ export const HeaderComponent = props => {
     const [settingsModalVisible, setSettingsModalVisible] = useState(false);
     const [contactModalVisible, setContactModalVisible] = useState(false);
 
-    const clearInputData = () =>{
+    const clearInputData = () => {
         setContactName("");
         setContactEmail("");
         setContactSubject("");
         setContactMessage("");
+    }
+
+    const sendInputData = () => {
+
+        Alert.alert("todo send mail");
     }
 
     return (
@@ -102,7 +108,7 @@ export const HeaderComponent = props => {
                                     <Text style={currentTheme === 'light' ? HeaderStylesLight.modalViewContentInputText : HeaderStylesDark.modalViewContentInputText}>Name</Text>
                                     <TextInput
                                         style={currentTheme === 'light' ? HeaderStylesLight.modalViewContentInput : HeaderStylesDark.modalViewContentInput}
-                                        onChangeText={text => setContactName(Text)}
+                                        onChangeText={text => setContactName(text)}
                                         value={contactName}
                                         placeholder={'Please enter your name:'}
                                         maxLength={32}
@@ -114,7 +120,7 @@ export const HeaderComponent = props => {
                                     <Text style={currentTheme === 'light' ? HeaderStylesLight.modalViewContentInputText : HeaderStylesDark.modalViewContentInputText}>Email</Text>
                                     <TextInput
                                         style={currentTheme === 'light' ? HeaderStylesLight.modalViewContentInput : HeaderStylesDark.modalViewContentInput}
-                                        onChangeText={text => setContactEmail(Text)}
+                                        onChangeText={text => setContactEmail(text)}
                                         value={contactEmail}
                                         placeholder={'Please enter your email:'}
                                         maxLength={64}
@@ -126,7 +132,7 @@ export const HeaderComponent = props => {
                                     <Text style={currentTheme === 'light' ? HeaderStylesLight.modalViewContentInputText : HeaderStylesDark.modalViewContentInputText}>Subject</Text>
                                     <TextInput
                                         style={currentTheme === 'light' ? HeaderStylesLight.modalViewContentInput : HeaderStylesDark.modalViewContentInput}
-                                        onChangeText={text => setContactSubject(Text)}
+                                        onChangeText={text => setContactSubject(text)}
                                         value={contactSubject}
                                         placeholder={'Please enter your subject:'}
                                         maxLength={32}
@@ -138,7 +144,7 @@ export const HeaderComponent = props => {
                                     <Text style={currentTheme === 'light' ? HeaderStylesLight.modalViewContentInputText : HeaderStylesDark.modalViewContentInputText}>Message</Text>
                                     <TextInput
                                         style={currentTheme === 'light' ? HeaderStylesLight.modalViewContentInputFull : HeaderStylesDark.modalViewContentInputFull}
-                                        onChangeText={text => setContactMessage(Text)}
+                                        onChangeText={text => setContactMessage(text)}
                                         value={contactMessage}
                                         placeholder={'Please enter your message:'}
                                         maxLength={250}
@@ -146,13 +152,13 @@ export const HeaderComponent = props => {
 
                                 </View>
                             </View>
-                            <View style={currentTheme === 'light' ? HeaderStylesLight.modalViewFooter : HeaderStylesDark.modalViewFooter}>
+                            <View style={currentTheme === 'light' ? HeaderStylesLight.modalViewContactFooter : HeaderStylesDark.modalViewContactFooter}>
                                 <TouchableOpacity onPress={() => clearInputData()}>
                                     <View style={currentTheme === 'light' ? HeaderStylesLight.modalViewFooterButton : HeaderStylesDark.modalViewFooterButton}>
                                         <Text style={currentTheme === 'light' ? HeaderStylesLight.modalViewFooterButtonText : HeaderStylesDark.modalViewFooterButtonText}>Clear</Text>
                                     </View>
                                 </TouchableOpacity>
-                                <TouchableOpacity onPress={console.log("send contact form")}>
+                                <TouchableOpacity onPress={() => sendInputData()}>
                                     <View style={currentTheme === 'light' ? HeaderStylesLight.modalViewFooterButton : HeaderStylesDark.modalViewFooterButton}>
                                         <Text style={currentTheme === 'light' ? HeaderStylesLight.modalViewFooterButtonText : HeaderStylesDark.modalViewFooterButtonText}>Send</Text>
                                     </View>

@@ -121,6 +121,15 @@ export const HeaderStylesLight = StyleSheet.create({
         borderColor: Colors.light.dividerColor,
     },
 
+    modalViewContactFooter: {
+        flex: 1,
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 20,
+    },
+
     modalIconContainer: {
         flex: 1,
         marginRight: 5,
@@ -149,9 +158,10 @@ export const HeaderStylesLight = StyleSheet.create({
     modalViewFooterButton: {
         alignItems: 'center',
         justifyContent: 'center',
-        width: 124,
+        width: 122,
         height: 32,
-        marginHorizontal: 8,
+        marginHorizontal: 4,
+        marginBottom: 10,
         backgroundColor: Colors.light.accent,
         borderRadius: 10,
     },
@@ -288,6 +298,15 @@ export const HeaderStylesDark = StyleSheet.create({
         borderColor: Colors.dark.dividerColor,
     },
 
+    modalViewContactFooter: {
+        flex: 1,
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 20,
+    },
+
     modalIconContainer: {
         flex: 1,
         marginRight: 5,
@@ -316,9 +335,10 @@ export const HeaderStylesDark = StyleSheet.create({
     modalViewFooterButton: {
         alignItems: 'center',
         justifyContent: 'center',
-        width: 124,
+        width: 122,
         height: 32,
-        marginHorizontal: 8,
+        marginHorizontal: 4,
+        marginBottom: 10,
         backgroundColor: Colors.dark.accent,
         borderRadius: 10,
     },
