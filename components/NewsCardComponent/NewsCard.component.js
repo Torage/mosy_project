@@ -1,10 +1,12 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Text, View, TouchableOpacity, Image, Button, Share } from 'react-native';
+import { Text, View, TouchableOpacity, Image, Share, Modal } from 'react-native';
+import { WebView } from 'react-native-webview';
 import { Colors } from '../../constants/colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { NewsCardStylesDark, NewsCardStylesLight } from './NewsCard.styles';
 import { SettingsContext } from '../../Data/settingsContext';
-import { NewsModalComponent } from '../NewsModalComponent/NewsModal';
+import { NewsModalStylesDark, NewsModalStylesLight } from './NewsModal.styles';
+import Constants from 'expo-constants';
 export const NewsCardComponent = (props) => {
     /* Values 
     category={item.source.name}
@@ -31,11 +33,11 @@ export const NewsCardComponent = (props) => {
             alert(error.message);
         }
     };
-    useEffect(() => console.log('show modal changed'), [showModal]);
+    useEffect(() => console.log('show modal:', showModal), [showModal]);
     const [currentTheme, setCurrentTheme] = useContext(SettingsContext);
     const [imageStyle, setImageStyle] = useState({ lightTheme: NewsCardStylesLight.image, darkTheme: NewsCardStylesDark.image });
-    const [content, setContent] = useState({ content: props.description, pressed: true });
-    const [showModal, setShowModal] = useState();
+    // const [content, setContent] = useState({ content: props.description, pressed: true });
+    const [showModal, setShowModal] = useState(false);
 
     return (
         <View style={currentTheme === 'light' ? NewsCardStylesLight.viewContainer : NewsCardStylesDark.viewContainer}>
@@ -62,10 +64,11 @@ export const NewsCardComponent = (props) => {
                     </View>
                 </View>
                 <TouchableOpacity
+                    activeOpacity={1}
                     onPress={() => {
-                        console.log(showModal);
-                        !showModal ? setShowModal(<NewsModalComponent />) : setShowModal();
-                        console.log(showModal);
+                        console.log('click');
+                        console.log(props.description);
+                        setShowModal(!showModal);
                     }}
                 >
                     <View style={currentTheme === 'light' ? NewsCardStylesLight.titleView : NewsCardStylesDark.titleView}>
@@ -76,7 +79,7 @@ export const NewsCardComponent = (props) => {
 
                     <View style={currentTheme === 'light' ? NewsCardStylesLight.descriptionView : NewsCardStylesDark.descriptionView}>
                         <Text style={currentTheme === 'light' ? NewsCardStylesLight.descriptionText : NewsCardStylesDark.descriptionText}>
-                            {content.content}
+                            {props.description}
                         </Text>
                     </View>
                     <View style={currentTheme === 'light' ? NewsCardStylesLight.imageView : NewsCardStylesDark.imageView}>
@@ -96,7 +99,83 @@ export const NewsCardComponent = (props) => {
                         />
                     </View>
                 </TouchableOpacity>
-                {showModal}
+
+                <Modal animationType='fade' transparent={true} visible={showModal}>
+                    <View style={currentTheme === 'light' ? NewsModalStylesLight.centeredView : NewsModalStylesDark.centeredView}>
+                        <View style={currentTheme === 'light' ? NewsModalStylesLight.modalView : NewsModalStylesDark.modalView}>
+                            <View
+                                style={
+                                    currentTheme === 'light' ? NewsModalStylesLight.modalViewHeader : NewsModalStylesDark.modalViewHeader
+                                }
+                            >
+                                <View
+                                    style={
+                                        currentTheme === 'light'
+                                            ? NewsModalStylesLight.modalIconContainer
+                                            : NewsModalStylesDark.modalIconContainer
+                                    }
+                                ></View>
+                                <View
+                                    style={
+                                        currentTheme === 'light'
+                                            ? NewsModalStylesLight.modalTextContainer
+                                            : NewsModalStylesDark.modalTextContainer
+                                    }
+                                >
+                                    <Image
+                                        style={{ width: 250, height: 30 }}
+                                        source={
+                                            currentTheme === 'light'
+                                                ? require('../../assets/newscope_logo_light.png')
+                                                : require('../../assets/newscope_logo_dark.png')
+                                        }
+                                    />
+                                </View>
+                                <View
+                                    style={
+                                        currentTheme === 'light'
+                                            ? NewsModalStylesLight.modalIconContainer
+                                            : NewsModalStylesDark.modalIconContainer
+                                    }
+                                >
+                                    <TouchableOpacity
+                                        onPress={() => {
+                                            setShowModal(!showModal);
+                                        }}
+                                    >
+                                        <MaterialCommunityIcons
+                                            name='close'
+                                            color={currentTheme === 'light' ? Colors.light.accent : Colors.dark.accent}
+                                            size={24}
+                                        />
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                            <View
+                                style={
+                                    currentTheme === 'light' ? NewsModalStylesLight.modalViewContent : NewsModalStylesDark.modalViewContent
+                                }
+                            >
+                                <WebView source={{ uri: props.url }} style={{ flex: 1, width: 380, backgroundColor: 'black' }} />
+                            </View>
+                            <View
+                                style={
+                                    currentTheme === 'light' ? NewsModalStylesLight.modalViewFooter : NewsModalStylesDark.modalViewFooter
+                                }
+                            >
+                                <Text
+                                    style={
+                                        currentTheme === 'light'
+                                            ? NewsModalStylesLight.modalFooterText
+                                            : NewsModalStylesDark.modalFooterText
+                                    }
+                                >
+                                    {Constants.manifest.name} {Constants.manifest.version}{' '}
+                                </Text>
+                            </View>
+                        </View>
+                    </View>
+                </Modal>
             </View>
         </View>
     );

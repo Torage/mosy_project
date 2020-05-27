@@ -19,6 +19,7 @@ export const NewsModalStylesLight = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'flex-start',
+        backgroundColor: Colors.light.background,
     },
 
     headerMidContainer: {
@@ -54,17 +55,20 @@ export const NewsModalStylesLight = StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 5,
         borderRadius: 20,
-        width: 300,
-        height: 480,
+        width: 380,
+        height: 700,
     },
 
     modalViewHeader: {
-        flex: 1,
+        // flex: 1,
         width: '100%',
+        height: 35,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 20,
+        borderTopRightRadius: 20,
+        borderTopLeftRadius: 20,
+        backgroundColor: Colors.light.settingsBG,
     },
 
     modalViewContent: {
@@ -75,14 +79,15 @@ export const NewsModalStylesLight = StyleSheet.create({
     },
 
     modalViewFooter: {
-        flex: 1,
+        // flex: 1,
         width: '100%',
+        height: 35,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
+        borderColor: 'white',
+        backgroundColor: Colors.light.settingsBG,
         borderRadius: 20,
-        borderTopWidth: 1,
-        borderColor: Colors.light.dividerColor,
     },
 
     modalIconContainer: {
@@ -97,22 +102,12 @@ export const NewsModalStylesLight = StyleSheet.create({
         backgroundColor: Colors.light.settingsBG,
     },
 
-    modalHeaderText: {
-        fontFamily: Styles.defaultFont,
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: Colors.light.accent,
-    },
-
     modalFooterText: {
         fontFamily: Styles.defaultFont,
         fontSize: 14,
         color: Colors.light.versionColor,
     },
-
-
 });
-
 
 export const NewsModalStylesDark = StyleSheet.create({
     safeAreaView: {
@@ -168,16 +163,19 @@ export const NewsModalStylesDark = StyleSheet.create({
         elevation: 5,
         borderRadius: 20,
         width: 380,
-        height: 600,
+        height: 700,
     },
 
     modalViewHeader: {
-        flex: 1,
+        // flex: 1,
         width: '100%',
+        height: 35,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 20,
+        borderTopRightRadius: 20,
+        borderTopLeftRadius: 20,
+        backgroundColor: Colors.dark.settingsBG,
     },
 
     modalViewContent: {
@@ -188,14 +186,15 @@ export const NewsModalStylesDark = StyleSheet.create({
     },
 
     modalViewFooter: {
-        flex: 1,
+        // flex: 1,
         width: '100%',
+        height: 35,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
+        borderColor: 'white',
+        backgroundColor: Colors.dark.settingsBG,
         borderRadius: 20,
-        borderTopWidth: 1,
-        borderColor: Colors.dark.dividerColor,
     },
 
     modalIconContainer: {
@@ -210,19 +209,9 @@ export const NewsModalStylesDark = StyleSheet.create({
         backgroundColor: Colors.dark.settingsBG,
     },
 
-    modalHeaderText: {
-        fontFamily: Styles.defaultFont,
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: Colors.dark.accent,
-    },
-
     modalFooterText: {
         fontFamily: Styles.defaultFont,
         fontSize: 14,
         color: Colors.dark.versionColor,
     },
-
-
 });
-
