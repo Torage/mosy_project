@@ -65,8 +65,6 @@ export const NewsCardComponent = (props) => {
                 <TouchableOpacity
                     activeOpacity={1}
                     onPress={() => {
-                        console.log('click');
-                        console.log(props.description);
                         setShowModal(!showModal);
                     }}
                 >
