@@ -7,8 +7,8 @@ import Constants from 'expo-constants';
 import ToggleButtonTheme from '../ToggleButtonComponent/ToggleButtonTheme';
 import ToggleButtonPush from '../ToggleButtonComponent/ToggleButtonPush';
 import ContactButton from '../ContactButtonComponent/ContactButton';
+import SelectCountryButton from '../SelectCountryButtonComponent/SelectCountryButton';
 import { SettingsContext } from '../../Data/settingsContext';
-import RNSmtpMailer from 'react-native-smtp-mailer';
 
 export const HeaderComponent = props => {
 
@@ -34,9 +34,27 @@ export const HeaderComponent = props => {
         setContactMessage("");
     }
 
-    const sendInputData = () => {
+    const sendInputData = async () => {
 
-        Alert.alert("todo send mail");
+        try {
+            fetch('https://argames15.com/newsscopeSendMail.php', {
+                method: 'POST',
+                body: JSON.stringify({
+                    to: "newsscope@argames15.com",
+                    name: contactName,
+                    email: contactEmail,
+                    subject: contactSubject,
+                    message: contactMessage,
+                    hash: "okey",
+                })
+            });
+        }catch(error){
+            console.log(error);
+
+        }
+
+        clearInputData();
+        setContactModalVisible(false);
     }
 
     return (
@@ -69,6 +87,7 @@ export const HeaderComponent = props => {
                             <View style={currentTheme === 'light' ? HeaderStylesLight.modalViewContent : HeaderStylesDark.modalViewContent}>
                                 <ToggleButtonTheme title='Dark Theme' description='Change to the dark theme'></ToggleButtonTheme>
                                 <ToggleButtonPush title='Push Notification' description='Enable Push Notification'></ToggleButtonPush>
+                                <SelectCountryButton title='Select Country' description='Select your country for news'></SelectCountryButton>
                                 <ContactButton title='Send Feedback' description='Feedback, Questions? Good send us a mail.' setContactModal={setContactModalVisible}></ContactButton>
                             </View>
                             <View style={currentTheme === 'light' ? HeaderStylesLight.modalViewFooter : HeaderStylesDark.modalViewFooter}>

@@ -16,6 +16,7 @@ export const Colors = {
         dividerColorSecond : '#cccccc',
         versionColor : '#777777',
         buttonText: '#ffffff',
+        newsCardIcon: '#061E86',
     },
 
     dark:{
@@ -35,6 +36,7 @@ export const Colors = {
         dividerColorSecond : '#20d497',
         versionColor : '#777777',
         buttonText: '#000000',
+        newsCardIcon: '#20d497',
     }
 
 };
