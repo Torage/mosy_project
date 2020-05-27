@@ -18,7 +18,7 @@ export const MainNavigator = () => {
 
     const changeToggleValue = value => {
 
-        console.log("test");
+        // console.log("test");
         setToggleEnabled(value);
         AsyncStorage.setItem('DarkSkinSetting', JSON.stringify(value));
 

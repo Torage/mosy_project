@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { Text, View, TouchableOpacity, Image, Share, Modal } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { Colors } from '../../constants/colors';
@@ -33,7 +33,6 @@ export const NewsCardComponent = (props) => {
             alert(error.message);
         }
     };
-    useEffect(() => console.log('show modal:', showModal), [showModal]);
     const [currentTheme, setCurrentTheme] = useContext(SettingsContext);
     const [imageStyle, setImageStyle] = useState({ lightTheme: NewsCardStylesLight.image, darkTheme: NewsCardStylesDark.image });
     // const [content, setContent] = useState({ content: props.description, pressed: true });
@@ -85,7 +84,7 @@ export const NewsCardComponent = (props) => {
                     <View style={currentTheme === 'light' ? NewsCardStylesLight.imageView : NewsCardStylesDark.imageView}>
                         <Image
                             onLoad={() => {
-                                console.log('valid image', props.imageUrl);
+                                // console.log('valid image', props.imageUrl);
                                 if (!props.imageUrl) {
                                     setImageStyle({});
                                 }
