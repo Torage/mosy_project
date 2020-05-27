@@ -1,10 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Text, View, TouchableOpacity, Image, Button, Share } from 'react-native';
 import { Colors } from '../../constants/colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { NewsCardStylesDark, NewsCardStylesLight } from './NewsCard.styles';
 import { SettingsContext } from '../../Data/settingsContext';
-
+import { NewsModalComponent } from '../NewsModalComponent/NewsModal';
 export const NewsCardComponent = (props) => {
     /* Values 
     category={item.source.name}
@@ -31,10 +31,11 @@ export const NewsCardComponent = (props) => {
             alert(error.message);
         }
     };
-
+    useEffect(() => console.log('show modal changed'), [showModal]);
     const [currentTheme, setCurrentTheme] = useContext(SettingsContext);
     const [imageStyle, setImageStyle] = useState({ lightTheme: NewsCardStylesLight.image, darkTheme: NewsCardStylesDark.image });
     const [content, setContent] = useState({ content: props.description, pressed: true });
+    const [showModal, setShowModal] = useState();
 
     return (
         <View style={currentTheme === 'light' ? NewsCardStylesLight.viewContainer : NewsCardStylesDark.viewContainer}>
@@ -62,9 +63,9 @@ export const NewsCardComponent = (props) => {
                 </View>
                 <TouchableOpacity
                     onPress={() => {
-                        content.pressed
-                            ? setContent({ content: props.content, pressed: false })
-                            : setContent({ content: props.description, pressed: true });
+                        console.log(showModal);
+                        !showModal ? setShowModal(<NewsModalComponent />) : setShowModal();
+                        console.log(showModal);
                     }}
                 >
                     <View style={currentTheme === 'light' ? NewsCardStylesLight.titleView : NewsCardStylesDark.titleView}>
@@ -95,6 +96,7 @@ export const NewsCardComponent = (props) => {
                         />
                     </View>
                 </TouchableOpacity>
+                {showModal}
             </View>
         </View>
     );
