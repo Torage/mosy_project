@@ -71,8 +71,8 @@ export const NewsModalStylesLight = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        borderTopRightRadius: 20,
-        borderTopLeftRadius: 20,
+        //borderTopRightRadius: 20,
+        //borderTopLeftRadius: 20,
         backgroundColor: Colors.light.settingsBG,
     },
 
