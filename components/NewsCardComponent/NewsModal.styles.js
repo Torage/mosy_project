@@ -1,6 +1,11 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, StatusBar } from 'react-native';
 import { Colors } from '../../constants/colors';
 import { Styles } from '../../constants/styles';
+
+import {Dimensions} from 'react-native';
+
+const screenWidth = Math.round(Dimensions.get('window').width);
+const screenHeight = Math.round(Dimensions.get('window').height) - StatusBar.currentHeight ;
 
 export const NewsModalStylesLight = StyleSheet.create({
     safeAreaView: {
@@ -55,8 +60,8 @@ export const NewsModalStylesLight = StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 5,
         borderRadius: 20,
-        width: 380,
-        height: 700,
+        width: screenWidth,
+        height: screenHeight,
     },
 
     modalViewHeader: {
@@ -162,8 +167,8 @@ export const NewsModalStylesDark = StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 5,
         borderRadius: 20,
-        width: 380,
-        height: 700,
+        width: screenWidth,
+        height: screenHeight,
     },
 
     modalViewHeader: {
@@ -173,8 +178,8 @@ export const NewsModalStylesDark = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        borderTopRightRadius: 20,
-        borderTopLeftRadius: 20,
+        //borderTopRightRadius: 20,
+        //borderTopLeftRadius: 20,
         backgroundColor: Colors.dark.settingsBG,
     },
 
