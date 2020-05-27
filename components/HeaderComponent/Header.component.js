@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { SafeAreaView, View, Image, TouchableOpacity, Modal, Text, StatusBar, AsyncStorage, TextInput, Alert } from 'react-native';
+import { SafeAreaView, View, Image, TouchableOpacity, Modal, Text, StatusBar, TextInput } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Colors } from '../../constants/colors';
 import { HeaderStylesDark, HeaderStylesLight } from './Header.styles';
@@ -9,6 +9,7 @@ import ToggleButtonPush from '../ToggleButtonComponent/ToggleButtonPush';
 import ContactButton from '../ContactButtonComponent/ContactButton';
 import SelectCountryButton from '../SelectCountryButtonComponent/SelectCountryButton';
 import { SettingsContext } from '../../Data/settingsContext';
+import Toast from 'react-native-simple-toast';
 
 export const HeaderComponent = props => {
 
@@ -37,7 +38,7 @@ export const HeaderComponent = props => {
     const sendInputData = async () => {
 
         try {
-            fetch('https://argames15.com/newsscopeSendMail.php', {
+            fetch('https://argames15.com/newsscopeSendMail.phps', {
                 method: 'POST',
                 body: JSON.stringify({
                     to: "newsscope@argames15.com",
@@ -51,10 +52,15 @@ export const HeaderComponent = props => {
         }catch(error){
             console.log(error);
 
+            if(error != null){
+                Toast.show("Something went wrong. Please try again later.", Toast.LONG);
+            }
+
         }
 
         clearInputData();
         setContactModalVisible(false);
+        Toast.show("Thank you "+ contactName+ "\nYour message has been sent.", Toast.LONG);
     }
 
     return (
