@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+import {AsyncStorage} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -16,6 +17,26 @@ export const MainNavigator = () => {
     const {theme, push} = useContext(SettingsContext);
     const [currentTheme, setCurrentTheme] = theme;
     const [sendPushNotification, setSendPushNotification] = push;
+
+    const changeToggleValue = value => {
+
+        setToggleEnabled(value);
+        AsyncStorage.setItem('DarkSkinSetting', JSON.stringify(value));
+
+        if (value === true ? setCurrentTheme('dark') : setCurrentTheme('light'));
+
+    }
+
+    const [toggleEnabled, setToggleEnabled] = useState(false);
+
+    useEffect(() => {
+        AsyncStorage.getItem('DarkSkinSetting').then(storedValue => {
+            if (storedValue != null) {
+                changeToggleValue(JSON.parse(storedValue));
+            }
+        });
+
+    }, []);
 
     return (
         <NavigationContainer>

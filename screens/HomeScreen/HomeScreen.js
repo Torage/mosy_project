@@ -14,7 +14,7 @@ export const HomeScreen = (props) => {
     
     const [newsState] = useContext(NewsContext);
     const [newsData, setNewsData] = useContext(NewsContext);
-    // called if topnews changes, set
+    // called if newsData changes
     useEffect(() => {
         //logging the id's to the console
         console.log('news status:', newsData.liveTopnews.status, '\n');
@@ -51,6 +51,7 @@ export const HomeScreen = (props) => {
                         description={item.description}
                         imageUrl={item.urlToImage}
                         url={item.url}
+                        content={item.content}
                     />
                 )}
             />
