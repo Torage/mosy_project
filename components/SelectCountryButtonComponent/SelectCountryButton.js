@@ -26,6 +26,7 @@ export default SelectCountryButton = (props) => {
             ></View>
             <TouchableHighlight
                 style={{ flex: 1, justifyContent: 'center', flexDirection: 'row', width: '100%' }}
+                underlayColor='transparent'
                 onPress={() => changeLanguage()}
             >
                 <View style={currentTheme === 'light' ? SelectCountryButtonStylesLight.wrapper : SelectCountryButtonStylesDark.wrapper}>
