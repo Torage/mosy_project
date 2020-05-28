@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Text, View, TouchableNativeFeedback, Switch, AsyncStorage, Modal, TouchableOpacity } from 'react-native';
+import React, { useState, useContext } from 'react';
+import { Text, View,TouchableNativeFeedback } from 'react-native';
 import { Colors } from '../../constants/colors';
 import { SelectCountryButtonStylesDark, SelectCountryButtonStylesLight } from '../SelectCountryButtonComponent/SelectCountryButtonStyle';
 import { SettingsContext } from '../../Data/settingsContext';
@@ -30,7 +30,5 @@ export default SelectCountryButton = props => {
                 </View>
             </TouchableNativeFeedback>
         </View>
-
     );
-
 };
