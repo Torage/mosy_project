@@ -59,15 +59,12 @@ export const HeaderComponent = props => {
 
     return (
         <SafeAreaView style={currentTheme === 'light' ? HeaderStylesLight.safeAreaView : HeaderStylesDark.safeAreaView}>
-            <StatusBar barStyle={'light-content'} backgroundColor={currentTheme === 'light' ? Colors.light.statusBarBG : Colors.dark.statusBarBG} />
+            <StatusBar barStyle={currentTheme === 'light' ? 'dark-content' : 'light-content'} backgroundColor={currentTheme === 'light' ? 'white' : Colors.dark.statusBarBG} />
             <Modal //settings modal
-                statusBarTranslucent='true'
                 animationType='fade'
                 transparent={true}
                 visible={settingsModalVisible}
-                onRequestClose={() => {
-                    console.log('modal closed');
-                }}
+                onRequestClose={() => setSettingsModalVisible(false)}
             >
                 <View style={currentTheme === 'light' ? HeaderStylesLight.centeredView : HeaderStylesDark.centeredView}>
                     <View>

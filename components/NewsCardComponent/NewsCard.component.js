@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Text, View, TouchableOpacity, Image, Share, Modal } from 'react-native';
+import { Text, View, TouchableOpacity, Image, Share, Modal, SafeAreaView } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { Colors } from '../../constants/colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -50,10 +50,18 @@ export const NewsCardComponent = (props) => {
                     </Text>
                     <View style={currentTheme === 'light' ? NewsCardStylesLight.icons : NewsCardStylesDark.icons}>
                         <TouchableOpacity style={{ marginRight: 5 }} onPress={() => alert('mark as favorite')}>
-                            <MaterialCommunityIcons name='bookmark-plus' color={currentTheme === 'light' ? Colors.light.newsCardIcon : Colors.dark.newsCardIcon} size={20} />
+                            <MaterialCommunityIcons
+                                name='bookmark-plus'
+                                color={currentTheme === 'light' ? Colors.light.newsCardIcon : Colors.dark.newsCardIcon}
+                                size={20}
+                            />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => shareContent()}>
-                            <MaterialCommunityIcons name='share-variant' color={currentTheme === 'light' ? Colors.light.newsCardIcon : Colors.dark.newsCardIcon} size={20} />
+                            <MaterialCommunityIcons
+                                name='share-variant'
+                                color={currentTheme === 'light' ? Colors.light.newsCardIcon : Colors.dark.newsCardIcon}
+                                size={20}
+                            />
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -92,82 +100,90 @@ export const NewsCardComponent = (props) => {
                     </View>
                 </TouchableOpacity>
 
-                <Modal animationType='fade' transparent={true} visible={showModal}>
-                    <View style={currentTheme === 'light' ? NewsModalStylesLight.centeredView : NewsModalStylesDark.centeredView}>
-                        <View style={currentTheme === 'light' ? NewsModalStylesLight.modalView : NewsModalStylesDark.modalView}>
-                            <View
-                                style={
-                                    currentTheme === 'light' ? NewsModalStylesLight.modalViewHeader : NewsModalStylesDark.modalViewHeader
-                                }
-                            >
+                <SafeAreaView>
+                    <Modal animationType={'slide'} transparent={true} visible={showModal} statusBarTranslucent={true} onRequestClose={()=>setShowModal(false)} >
+                        <View style={currentTheme === 'light' ? NewsModalStylesLight.centeredView : NewsModalStylesDark.centeredView}>
+                            <View style={currentTheme === 'light' ? NewsModalStylesLight.modalView : NewsModalStylesDark.modalView}>
                                 <View
                                     style={
                                         currentTheme === 'light'
-                                            ? NewsModalStylesLight.modalIconContainer
-                                            : NewsModalStylesDark.modalIconContainer
-                                    }
-                                ></View>
-                                <View
-                                    style={
-                                        currentTheme === 'light'
-                                            ? NewsModalStylesLight.modalTextContainer
-                                            : NewsModalStylesDark.modalTextContainer
+                                            ? NewsModalStylesLight.modalViewHeader
+                                            : NewsModalStylesDark.modalViewHeader
                                     }
                                 >
-                                    <Image
-                                        style={{ width: 250, height: 30 }}
-                                        source={
+                                    <View
+                                        style={
                                             currentTheme === 'light'
-                                                ? require('../../assets/newscope_logo_light.png')
-                                                : require('../../assets/newscope_logo_dark.png')
+                                                ? NewsModalStylesLight.modalIconContainer
+                                                : NewsModalStylesDark.modalIconContainer
                                         }
-                                    />
+                                    ></View>
+                                    <View
+                                        style={
+                                            currentTheme === 'light'
+                                                ? NewsModalStylesLight.modalTextContainer
+                                                : NewsModalStylesDark.modalTextContainer
+                                        }
+                                    >
+                                        <Image
+                                            style={{ width: 250, height: 30 }}
+                                            source={
+                                                currentTheme === 'light'
+                                                    ? require('../../assets/newscope_logo_light.png')
+                                                    : require('../../assets/newscope_logo_dark.png')
+                                            }
+                                        />
+                                    </View>
+                                    <View
+                                        style={
+                                            currentTheme === 'light'
+                                                ? NewsModalStylesLight.modalIconContainer
+                                                : NewsModalStylesDark.modalIconContainer
+                                        }
+                                    >
+                                        <TouchableOpacity
+                                            onPress={() => {
+                                                setShowModal(!showModal);
+                                            }}
+                                        >
+                                            <MaterialCommunityIcons
+                                                name='close'
+                                                color={currentTheme === 'light' ? Colors.light.accent : Colors.dark.accent}
+                                                size={24}
+                                            />
+                                        </TouchableOpacity>
+                                    </View>
                                 </View>
                                 <View
                                     style={
                                         currentTheme === 'light'
-                                            ? NewsModalStylesLight.modalIconContainer
-                                            : NewsModalStylesDark.modalIconContainer
+                                            ? NewsModalStylesLight.modalViewContent
+                                            : NewsModalStylesDark.modalViewContent
                                     }
                                 >
-                                    <TouchableOpacity
-                                        onPress={() => {
-                                            setShowModal(!showModal);
-                                        }}
-                                    >
-                                        <MaterialCommunityIcons
-                                            name='close'
-                                            color={currentTheme === 'light' ? Colors.light.accent : Colors.dark.accent}
-                                            size={24}
-                                        />
-                                    </TouchableOpacity>
+                                    <WebView source={{ uri: props.url }} style={{ flex: 1, width: 380, backgroundColor: 'transparent' }} />
                                 </View>
-                            </View>
-                            <View
-                                style={
-                                    currentTheme === 'light' ? NewsModalStylesLight.modalViewContent : NewsModalStylesDark.modalViewContent
-                                }
-                            >
-                                <WebView source={{ uri: props.url }} style={{ flex: 1, width: 380, backgroundColor: 'black' }} />
-                            </View>
-                            <View
-                                style={
-                                    currentTheme === 'light' ? NewsModalStylesLight.modalViewFooter : NewsModalStylesDark.modalViewFooter
-                                }
-                            >
-                                <Text
+                                <View
                                     style={
                                         currentTheme === 'light'
-                                            ? NewsModalStylesLight.modalFooterText
-                                            : NewsModalStylesDark.modalFooterText
+                                            ? NewsModalStylesLight.modalViewFooter
+                                            : NewsModalStylesDark.modalViewFooter
                                     }
                                 >
-                                    {Constants.manifest.name} {Constants.manifest.version}{' '}
-                                </Text>
+                                    <Text
+                                        style={
+                                            currentTheme === 'light'
+                                                ? NewsModalStylesLight.modalFooterText
+                                                : NewsModalStylesDark.modalFooterText
+                                        }
+                                    >
+                                        {Constants.manifest.name} {Constants.manifest.version}{' '}
+                                    </Text>
+                                </View>
                             </View>
                         </View>
-                    </View>
-                </Modal>
+                    </Modal>
+                </SafeAreaView>
             </View>
         </View>
     );
