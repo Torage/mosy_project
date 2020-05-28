@@ -11,14 +11,13 @@ import * as Permissions from 'expo-permissions';
 import * as Location from 'expo-location';
 
 export default function App() {
-   
     const [newsData, setNewsData] = useState({
         liveTopnews: DUMMY_TOPNEWS,
     });
     const [currentTheme, setCurrentTheme] = useState('light');
     const [sendPushNotification, setSendPushNotification] = useState(false);
     const [currentCountry, setCurrentCountry] = useState('US');
-    const [currentLocation, setCurrentLocation] = useState({coords:{latitude: 0, longitude: 0}})
+    const [currentLocation, setCurrentLocation] = useState({ coords: { latitude: 0, longitude: 0 } });
 
     useEffect(() => {
         AsyncStorage.getItem('DarkSkinSetting').then((storedValue) => {
@@ -35,25 +34,32 @@ export default function App() {
 
         AsyncStorage.getItem('CountrySetting').then((storedValue) => {
             if (storedValue != null) {
+                getLocation().then((res) => console.log(res));
                 setCurrentCountry(storedValue);
-            }
-
-            else{
+            } else {
                 getLocation();
             }
         });
         // fetchNews();
     }, []);
 
-    const getLocation = async () =>{
-        const result = await Permissions.askAsync(Permissions.LOCATION);
-
-        if(result.status === 'granted'){
-            const location = await Location.getCurrentPositionAsync({timeout: 5000});
-            setCurrentLocation(location);
+    const getLocation = async () => {
+        let permissionRequest = 'denied';
+        await Permissions.askAsync(Permissions.LOCATION).then((permissionResponse) => {
+            permissionRequest = permissionResponse.status;
+            console.log('permissionRequest:',result)
+        });
+        if (permissionRequest === 'granted') {
+            console.log('getting current Position ...')
+            await Location.getCurrentPositionAsync().then((res) => {
+                const currentPosition = { coords: { latitude: res.coords.latitude, longitude: res.coords.longitude } };
+                console.log(currentPosition);
+                setCurrentLocation(currentPosition);
+            });
+        } else {
+            console.log('no permission granted');
         }
-
-    }
+    };
 
     let [fontsLoaded] = useFonts({
         NoyhRBlack: require('./assets/fonts/NoyhRBlack.otf'),
@@ -75,7 +81,13 @@ export default function App() {
         return <AppLoading />;
     } else {
         return (
-            <SettingsContext.Provider value={{theme : [currentTheme, setCurrentTheme], push : [sendPushNotification, setSendPushNotification], country : [currentCountry, setCurrentCountry]}}>
+            <SettingsContext.Provider
+                value={{
+                    theme: [currentTheme, setCurrentTheme],
+                    push: [sendPushNotification, setSendPushNotification],
+                    country: [currentCountry, setCurrentCountry],
+                }}
+            >
                 <NewsContext.Provider value={[newsData, setNewsData]}>
                     <MainNavigator />
                 </NewsContext.Provider>
