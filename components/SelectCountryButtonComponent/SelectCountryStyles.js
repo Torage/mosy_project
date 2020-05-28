@@ -1,11 +1,11 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet} from 'react-native';
 import { Styles } from '../../constants/styles';
-import { Colors } from '../../constants/colors';
+import { Colors} from '../../constants/colors';
 
-export const SelectCountryButtonStylesLight = StyleSheet.create({
+export const SelectCountryStylesLight = StyleSheet.create({
     settingRow: {
         width: '96%',
-        height: 60,
+        height: 40,
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
         borderBottomWidth: 1,
@@ -39,7 +39,7 @@ export const SelectCountryButtonStylesLight = StyleSheet.create({
         color: Colors.light.accent,
     },
 
-    descriptionText: {
+    abbreviationText: {
         fontFamily: Styles.defaultFont,
         fontSize: 12,
         marginLeft: 10,
@@ -48,10 +48,10 @@ export const SelectCountryButtonStylesLight = StyleSheet.create({
     },
 });
 
-export const SelectCountryButtonStylesDark = StyleSheet.create({
+export const SelectCountryStylesDark = StyleSheet.create({
     settingRow: {
         width: '96%',
-        height: 60,
+        height: 40,
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
         borderBottomWidth: 1,
@@ -85,11 +85,11 @@ export const SelectCountryButtonStylesDark = StyleSheet.create({
         color: Colors.dark.accent,
     },
 
-    descriptionText: {
+    abbreviationText: {
         fontFamily: Styles.defaultFont,
         fontSize: 12,
         marginLeft: 10,
         color: Colors.dark.descriptionText,
 
-    },
+    }
 });

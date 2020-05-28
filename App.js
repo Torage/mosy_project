@@ -7,30 +7,53 @@ import { DUMMY_TOPNEWS } from './Data/data';
 import { NewsContext } from './Data/newsContext';
 import { Topnews } from './Models/TopnewsModel';
 import { SettingsContext } from './Data/settingsContext';
+import * as Permissions from 'expo-permissions';
+import * as Location from 'expo-location';
 
 export default function App() {
+   
     const [newsData, setNewsData] = useState({
         liveTopnews: DUMMY_TOPNEWS,
     });
     const [currentTheme, setCurrentTheme] = useState('light');
     const [sendPushNotification, setSendPushNotification] = useState(false);
+    const [currentCountry, setCurrentCountry] = useState('US');
+    const [currentLocation, setCurrentLocation] = useState({coords:{latitude: 0, longitude: 0}})
 
     useEffect(() => {
         AsyncStorage.getItem('DarkSkinSetting').then((storedValue) => {
-            console.log("Saved value in DarkSkinSetting " + JSON.stringify(storedValue));
             if (storedValue != null) {
                 if (JSON.parse(storedValue) === true ? setCurrentTheme('dark') : setCurrentTheme('light'));
             }
         });
 
         AsyncStorage.getItem('PushSetting').then((storedValue) => {
-            console.log("Saved value in PushSetting " + JSON.stringify(storedValue));
             if (storedValue != null) {
                 setSendPushNotification(JSON.parse(storedValue));
             }
         });
+
+        AsyncStorage.getItem('CountrySetting').then((storedValue) => {
+            if (storedValue != null) {
+                setCurrentCountry(storedValue);
+            }
+
+            else{
+                getLocation();
+            }
+        });
         // fetchNews();
     }, []);
+
+    const getLocation = async () =>{
+        const result = await Permissions.askAsync(Permissions.LOCATION);
+
+        if(result.status === 'granted'){
+            const location = await Location.getCurrentPositionAsync({timeout: 5000});
+            setCurrentLocation(location);
+        }
+
+    }
 
     let [fontsLoaded] = useFonts({
         NoyhRBlack: require('./assets/fonts/NoyhRBlack.otf'),
@@ -52,7 +75,7 @@ export default function App() {
         return <AppLoading />;
     } else {
         return (
-            <SettingsContext.Provider value={{theme : [currentTheme, setCurrentTheme], push : [sendPushNotification, setSendPushNotification]}}>
+            <SettingsContext.Provider value={{theme : [currentTheme, setCurrentTheme], push : [sendPushNotification, setSendPushNotification], country : [currentCountry, setCurrentCountry]}}>
                 <NewsContext.Provider value={[newsData, setNewsData]}>
                     <MainNavigator />
                 </NewsContext.Provider>
