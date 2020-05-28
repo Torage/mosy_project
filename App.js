@@ -31,7 +31,8 @@ export default function App() {
 
         AsyncStorage.getItem('CountrySetting').then((storedValue) => {
             if (storedValue != null) {
-                setCurrentCountry(JSON.stringify(storedValue));
+                console.log(storedValue);
+                setCurrentCountry(storedValue);
             }
         });
         // fetchNews();

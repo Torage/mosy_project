@@ -1,0 +1,39 @@
+import React, { useState, useEffect, useContext } from 'react';
+import { Text, View, TouchableNativeFeedback, Switch, AsyncStorage } from 'react-native';
+import { Colors } from '../../constants/colors';
+import { SelectCountryStylesDark, SelectCountryStylesLight } from '../SelectCountryButtonComponent/SelectCountryStyles';
+import {SettingsContext} from '../../Data/settingsContext';
+import Flag from 'react-native-flags';
+
+export default SelectCountry = props => {
+
+    const {theme, push, country} = useContext(SettingsContext);
+    const [currentTheme, setCurrentTheme] = theme;
+    const [sendPushNotification, setSendPushNotification] = push;
+    const [currentCountry, setCurrentCountry] = country;
+
+    const changeCountry = () =>{
+        setCurrentCountry(props.id);
+        AsyncStorage.setItem('CountrySetting', props.id);
+        props.setCountryModalVisible(false);
+    }
+    
+
+    return (
+        <View style={currentTheme === 'light' ? SelectCountryStylesLight.settingRow : SelectCountryStylesDark.settingRow} >
+            <TouchableNativeFeedback onPress={() => changeCountry()}>
+                <View style={currentTheme === 'light' ? SelectCountryStylesLight.wrapper : SelectCountryStylesDark.wrapper}>
+                    <View style={currentTheme === 'light' ? SelectCountryStylesLight.leftContainer : SelectCountryStylesDark.leftContainer}>
+                        <Text style={currentTheme === 'light' ? SelectCountryStylesLight.titleText : SelectCountryStylesDark.titleText}>{props.name}</Text>
+                        <Text style={currentTheme === 'light' ? SelectCountryStylesLight.abbreviationText : SelectCountryStylesDark.abbreviationText}>{props.id}</Text>
+                    </View>
+                    <View style={currentTheme === 'light' ? SelectCountryStylesLight.rightContainer : SelectCountryStylesDark.rightContainer}>
+                    <Flag code={props.id} size={32} type="flat"/>    
+                    </View>
+                </View>
+            </TouchableNativeFeedback>
+        </View>
+
+    );
+
+};

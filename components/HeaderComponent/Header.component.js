@@ -7,11 +7,16 @@ import Constants from 'expo-constants';
 import ToggleButtonTheme from '../ToggleButtonComponent/ToggleButtonTheme';
 import ToggleButtonPush from '../ToggleButtonComponent/ToggleButtonPush';
 import ContactButton from '../ContactButtonComponent/ContactButton';
+import SelectCountry from '../SelectCountryButtonComponent/SelectCountry';
 import SelectCountryButton from '../SelectCountryButtonComponent/SelectCountryButton';
 import { SettingsContext } from '../../Data/settingsContext';
 import Toast from 'react-native-simple-toast';
+import { FlatList } from 'react-native-gesture-handler';
+import {COUNTRIES} from '../../Data/countrys';
 
 export const HeaderComponent = props => {
+
+    const countries = COUNTRIES;
 
     //global states
     const { theme, push, country } = useContext(SettingsContext);
@@ -154,10 +159,16 @@ export const HeaderComponent = props => {
                                 </View>
                             </View>
                             <View style={currentTheme === 'light' ? HeaderStylesLight.modalViewContent : HeaderStylesDark.modalViewContent}>
-                              
+                                <FlatList
+                                    data={countries}
+                                    style={{ width: '100%' }}
+                                    contentContainerStyle={{ alignItems: 'center'}}
+                                    renderItem={(itemData) => (<SelectCountry id={itemData.item.id} name={itemData.item.name} setCountryModalVisible={setCountryModalVisible}/>)}
+                                    keyExtractor={(item) => item.id}
+                                />
                             </View>
-                            <View style={currentTheme === 'light' ? HeaderStylesLight.modalViewFooter : HeaderStylesDark.modalViewFooter}>
-                                <Text style={currentTheme === 'light' ? HeaderStylesLight.modalFooterText : HeaderStylesDark.modalFooterText} >{Constants.manifest.name} {Constants.manifest.version}</Text>
+                            <View style={currentTheme === 'light' ? HeaderStylesLight.modalViewContactFooter : HeaderStylesDark.modalViewContactFooter}>
+                                
                             </View>
                         </View>
                     </View>
