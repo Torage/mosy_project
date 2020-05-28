@@ -7,14 +7,18 @@ import { DUMMY_TOPNEWS } from './Data/data';
 import { NewsContext } from './Data/newsContext';
 import { Topnews } from './Models/TopnewsModel';
 import { SettingsContext } from './Data/settingsContext';
+import * as Permissions from 'expo-permissions';
+import * as Location from 'expo-location';
 
 export default function App() {
+   
     const [newsData, setNewsData] = useState({
         liveTopnews: DUMMY_TOPNEWS,
     });
     const [currentTheme, setCurrentTheme] = useState('light');
     const [sendPushNotification, setSendPushNotification] = useState(false);
     const [currentCountry, setCurrentCountry] = useState('US');
+    const [currentLocation, setCurrentLocation] = useState({coords:{latitude: 0, longitude: 0}})
 
     useEffect(() => {
         AsyncStorage.getItem('DarkSkinSetting').then((storedValue) => {
@@ -31,12 +35,25 @@ export default function App() {
 
         AsyncStorage.getItem('CountrySetting').then((storedValue) => {
             if (storedValue != null) {
-                console.log(storedValue);
                 setCurrentCountry(storedValue);
+            }
+
+            else{
+                getLocation();
             }
         });
         // fetchNews();
     }, []);
+
+    const getLocation = async () =>{
+        const result = await Permissions.askAsync(Permissions.LOCATION);
+
+        if(result.status === 'granted'){
+            const location = await Location.getCurrentPositionAsync({timeout: 5000});
+            setCurrentLocation(location);
+        }
+
+    }
 
     let [fontsLoaded] = useFonts({
         NoyhRBlack: require('./assets/fonts/NoyhRBlack.otf'),
