@@ -2,10 +2,10 @@ import { StyleSheet, StatusBar } from 'react-native';
 import { Colors } from '../../constants/colors';
 import { Styles } from '../../constants/styles';
 
-import {Dimensions} from 'react-native';
+import { Dimensions } from 'react-native';
 
 const screenWidth = Math.round(Dimensions.get('window').width);
-const screenHeight = Math.round(Dimensions.get('window').height) - StatusBar.currentHeight ;
+const screenHeight = StatusBar.currentHeight? Math.round(Dimensions.get('window').height)-StatusBar.currentHeight: Math.round(Dimensions.get('window').height)-35;
 
 export const NewsModalStylesLight = StyleSheet.create({
     safeAreaView: {
@@ -48,32 +48,19 @@ export const NewsModalStylesLight = StyleSheet.create({
     },
     modalView: {
         backgroundColor: Colors.light.settingsBG,
-        //borderRadius: 20,
         alignItems: 'center',
         justifyContent: 'center',
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
-        borderRadius: 20,
         width: screenWidth,
-        height: screenHeight,
+        height: StatusBar.currentHeight?screenHeight:screenHeight+35,
+        paddingTop: StatusBar.currentHeight?0:20
     },
 
     modalViewHeader: {
-        // flex: 1,
         width: '100%',
         height: 35,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        //borderTopRightRadius: 20,
-        //borderTopLeftRadius: 20,
-        backgroundColor: Colors.light.settingsBG,
     },
 
     modalViewContent: {
@@ -151,36 +138,22 @@ export const NewsModalStylesDark = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.3)',
+        backgroundColor: Colors.dark.settingsBG
     },
     modalView: {
-        backgroundColor: Colors.dark.settingsBG,
-        //borderRadius: 20,
         alignItems: 'center',
         justifyContent: 'center',
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
-        borderRadius: 20,
         width: screenWidth,
-        height: screenHeight,
+        height: StatusBar.currentHeight?screenHeight:screenHeight+35,
+        paddingTop: StatusBar.currentHeight?0:20
     },
 
     modalViewHeader: {
-        // flex: 1,
         width: '100%',
         height: 35,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        //borderTopRightRadius: 20,
-        //borderTopLeftRadius: 20,
-        backgroundColor: Colors.dark.settingsBG,
     },
 
     modalViewContent: {
