@@ -71,6 +71,12 @@ export const SelectCountryButtonStylesDark = StyleSheet.create({
         alignItems: 'flex-start',
     },
 
+    rightContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
     titleText: {
         fontFamily: Styles.defaultFont,
         fontWeight: 'bold',
@@ -86,5 +92,4 @@ export const SelectCountryButtonStylesDark = StyleSheet.create({
         color: Colors.dark.descriptionText,
 
     },
-
 });

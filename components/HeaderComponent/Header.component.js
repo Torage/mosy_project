@@ -14,9 +14,11 @@ import Toast from 'react-native-simple-toast';
 export const HeaderComponent = props => {
 
     //global states
-    const { theme, push } = useContext(SettingsContext);
+    const { theme, push, country } = useContext(SettingsContext);
     const [currentTheme, setCurrentTheme] = theme;
     const [sendPushNotification, setSendPushNotification] = push;
+    const [currentCountry, setCurrentCountry] = country;
+
 
     //local States
     const [contactName, setContactName] = useState("");
@@ -27,6 +29,13 @@ export const HeaderComponent = props => {
     //Modals
     const [settingsModalVisible, setSettingsModalVisible] = useState(false);
     const [contactModalVisible, setContactModalVisible] = useState(false);
+    const [countryModalVisible, setCountryModalVisible] = useState(false);
+
+    //simple validate function
+    function validateEmail(email) {
+        var re = /\S+@\S+\.\S+/;
+        return re.test(email);
+    }
 
     const clearInputData = () => {
         setContactName("");
@@ -37,30 +46,46 @@ export const HeaderComponent = props => {
 
     const sendInputData = async () => {
 
-        try {
-            fetch('https://argames15.com/newsscopeSendMail.phps', {
-                method: 'POST',
-                body: JSON.stringify({
-                    to: "newsscope@argames15.com",
-                    name: contactName,
-                    email: contactEmail,
-                    subject: contactSubject,
-                    message: contactMessage,
-                    hash: "okey",
-                })
-            });
-        }catch(error){
-            console.log(error);
+        if (contactName === "" || contactSubject === "" || contactMessage === "") {
 
-            if(error != null){
-                Toast.show("Something went wrong. Please try again later.", Toast.LONG);
-            }
-
+            Toast.show("Fields cant be empty.", Toast.LONG);
         }
 
-        clearInputData();
-        setContactModalVisible(false);
-        Toast.show("Thank you "+ contactName+ "\nYour message has been sent.", Toast.LONG);
+        else {
+
+            if (validateEmail(contactEmail)) {
+
+                try {
+                    fetch('https://argames15.com/newsscopeSendMail.php', {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            to: "newsscope@argames15.com",
+                            name: contactName,
+                            email: contactEmail,
+                            subject: contactSubject,
+                            message: contactMessage,
+                            hash: "okey",
+                        })
+                    });
+                } catch (error) {
+                    console.log(error);
+
+                    if (error != null) {
+                        Toast.show("Something went wrong. Please try again later.", Toast.LONG);
+                    }
+
+                }
+
+                clearInputData();
+                setContactModalVisible(false);
+                Toast.show("Thank you " + contactName + "\nYour message has been sent.", Toast.LONG);
+            }
+            else {
+
+                Toast.show("Please enter a valid email adresss.", Toast.LONG);
+            }
+        }
+
     }
 
     return (
@@ -93,8 +118,43 @@ export const HeaderComponent = props => {
                             <View style={currentTheme === 'light' ? HeaderStylesLight.modalViewContent : HeaderStylesDark.modalViewContent}>
                                 <ToggleButtonTheme title='Dark Theme' description='Change to the dark theme'></ToggleButtonTheme>
                                 <ToggleButtonPush title='Push Notification' description='Enable Push Notification'></ToggleButtonPush>
-                                <SelectCountryButton title='Select Country' description='Select your country for news'></SelectCountryButton>
+                                <SelectCountryButton title='Select Country' description='Select your country for news' setCountryModal={setCountryModalVisible}></SelectCountryButton>
                                 <ContactButton title='Send Feedback' description='Feedback, Questions? Good send us a mail.' setContactModal={setContactModalVisible}></ContactButton>
+                            </View>
+                            <View style={currentTheme === 'light' ? HeaderStylesLight.modalViewFooter : HeaderStylesDark.modalViewFooter}>
+                                <Text style={currentTheme === 'light' ? HeaderStylesLight.modalFooterText : HeaderStylesDark.modalFooterText} >{Constants.manifest.name} {Constants.manifest.version}</Text>
+                            </View>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
+
+            <Modal //country modal
+                statusBarTranslucent='true'
+                animationType='fade'
+                transparent={true}
+                visible={countryModalVisible}
+                onRequestClose={() => {
+                    console.log('modal closed');
+                }}
+            >
+                <View style={currentTheme === 'light' ? HeaderStylesLight.centeredView : HeaderStylesDark.centeredView}>
+                    <View>
+                        <View style={currentTheme === 'light' ? HeaderStylesLight.modalView : HeaderStylesDark.modalView}>
+                            <View style={currentTheme === 'light' ? HeaderStylesLight.modalViewHeader : HeaderStylesDark.modalViewHeader}>
+                                <View style={currentTheme === 'light' ? HeaderStylesLight.modalIconContainer : HeaderStylesDark.modalIconContainer}>
+                                </View>
+                                <View style={currentTheme === 'light' ? HeaderStylesLight.modalTextContainer : HeaderStylesDark.modalTextContainer}>
+                                    <Text style={currentTheme === 'light' ? HeaderStylesLight.modalHeaderText : HeaderStylesDark.modalHeaderText} >Country</Text>
+                                </View>
+                                <View style={currentTheme === 'light' ? HeaderStylesLight.modalIconContainer : HeaderStylesDark.modalIconContainer}>
+                                    <TouchableOpacity onPress={() => setCountryModalVisible(!countryModalVisible)}>
+                                        <MaterialCommunityIcons name='close' color={currentTheme === 'light' ? Colors.light.accent : Colors.dark.accent} size={24} />
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                            <View style={currentTheme === 'light' ? HeaderStylesLight.modalViewContent : HeaderStylesDark.modalViewContent}>
+                              
                             </View>
                             <View style={currentTheme === 'light' ? HeaderStylesLight.modalViewFooter : HeaderStylesDark.modalViewFooter}>
                                 <Text style={currentTheme === 'light' ? HeaderStylesLight.modalFooterText : HeaderStylesDark.modalFooterText} >{Constants.manifest.name} {Constants.manifest.version}</Text>

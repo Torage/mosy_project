@@ -14,19 +14,24 @@ export default function App() {
     });
     const [currentTheme, setCurrentTheme] = useState('light');
     const [sendPushNotification, setSendPushNotification] = useState(false);
+    const [currentCountry, setCurrentCountry] = useState('US');
 
     useEffect(() => {
         AsyncStorage.getItem('DarkSkinSetting').then((storedValue) => {
-            console.log("Saved value in DarkSkinSetting " + JSON.stringify(storedValue));
             if (storedValue != null) {
                 if (JSON.parse(storedValue) === true ? setCurrentTheme('dark') : setCurrentTheme('light'));
             }
         });
 
         AsyncStorage.getItem('PushSetting').then((storedValue) => {
-            console.log("Saved value in PushSetting " + JSON.stringify(storedValue));
             if (storedValue != null) {
                 setSendPushNotification(JSON.parse(storedValue));
+            }
+        });
+
+        AsyncStorage.getItem('CountrySetting').then((storedValue) => {
+            if (storedValue != null) {
+                setCurrentCountry(JSON.stringify(storedValue));
             }
         });
         // fetchNews();
@@ -52,7 +57,7 @@ export default function App() {
         return <AppLoading />;
     } else {
         return (
-            <SettingsContext.Provider value={{theme : [currentTheme, setCurrentTheme], push : [sendPushNotification, setSendPushNotification]}}>
+            <SettingsContext.Provider value={{theme : [currentTheme, setCurrentTheme], push : [sendPushNotification, setSendPushNotification], country : [currentCountry, setCurrentCountry]}}>
                 <NewsContext.Provider value={[newsData, setNewsData]}>
                     <MainNavigator />
                 </NewsContext.Provider>
