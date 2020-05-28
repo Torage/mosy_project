@@ -5,7 +5,7 @@ import { Colors} from '../../constants/colors';
 export const SelectCountryStylesLight = StyleSheet.create({
     settingRow: {
         width: '96%',
-        height: 60,
+        height: 40,
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
         borderBottomWidth: 1,
@@ -51,7 +51,7 @@ export const SelectCountryStylesLight = StyleSheet.create({
 export const SelectCountryStylesDark = StyleSheet.create({
     settingRow: {
         width: '96%',
-        height: 60,
+        height: 40,
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
         borderBottomWidth: 1,
