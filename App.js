@@ -47,10 +47,10 @@ export default function App() {
         let permissionRequest = 'denied';
         await Permissions.askAsync(Permissions.LOCATION).then((permissionResponse) => {
             permissionRequest = permissionResponse.status;
-            console.log('permissionRequest:',result)
+            console.log('permissionRequest:', permissionRequest);
         });
         if (permissionRequest === 'granted') {
-            console.log('getting current Position ...')
+            console.log('getting current Position ...');
             await Location.getCurrentPositionAsync().then((res) => {
                 const currentPosition = { coords: { latitude: res.coords.latitude, longitude: res.coords.longitude } };
                 console.log(currentPosition);
