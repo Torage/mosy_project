@@ -69,8 +69,6 @@ export const NewsCardComponent = (props) => {
 
             // save new id
             AsyncStorage.setItem('FavoriteID', id.toString());
-
-            console.log(JSON.stringify(jsonString));
         });
 
 
