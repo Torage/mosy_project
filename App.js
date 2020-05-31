@@ -43,6 +43,13 @@ export default function App() {
         // fetchNews();
     }, []);
 
+    useEffect(() => {
+        if (currentLocation.coords.latitude != 0 && currentLocation.coords.longitude != 0) {
+            console.log('CurrentLocation:', 'lat', currentLocation.coords.latitude, 'lng', currentLocation.coords.longitude);
+            getCountynameByGps(currentLocation.coords.latitude, currentLocation.coords.longitude);
+        }
+    }, [currentLocation]);
+
     const getLocation = async () => {
         let permissionRequest = 'denied';
         await Permissions.askAsync(Permissions.LOCATION).then((permissionResponse) => {
@@ -53,7 +60,6 @@ export default function App() {
             console.log('getting current Position ...');
             await Location.getCurrentPositionAsync().then((res) => {
                 const currentPosition = { coords: { latitude: res.coords.latitude, longitude: res.coords.longitude } };
-                console.log(currentPosition);
                 setCurrentLocation(currentPosition);
             });
         } else {
@@ -75,6 +81,18 @@ export default function App() {
             }));
         };
         xhr.send();
+    }
+    function getCountynameByGps(lat, lng) {
+        const xhr = new XMLHttpRequest();
+        const url = 'http://api.geonames.org/findNearbyJSON?lat=' + lat + '&lng=' + lng + '&username=newscope';
+        xhr.open('GET', url, true);
+        xhr.onload = () => {
+            console.log(JSON.parse(xhr.response));
+            // console.log('You are located in:', JSON.parse(xhr.response).geonames);
+            JSON.parse(xhr.response).geonames.map((location) => console.log('You are located in:', location.countryCode));
+        };
+        xhr.send();
+        // console.log(url);
     }
 
     if (!fontsLoaded) {
