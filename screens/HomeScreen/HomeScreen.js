@@ -8,10 +8,11 @@ import { SettingsContext } from '../../Data/settingsContext';
 
 export const HomeScreen = (props) => {
     // Global State object
-    const {theme, push} = useContext(SettingsContext);
+    const { theme, push, country } = useContext(SettingsContext);
     const [currentTheme, setCurrentTheme] = theme;
     const [sendPushNotification, setSendPushNotification] = push;
-    
+    const [currentCountry, setCurrentCountry] = country;
+
     const [newsState] = useContext(NewsContext);
     const [newsData, setNewsData] = useContext(NewsContext);
     // called if newsData changes
@@ -19,14 +20,14 @@ export const HomeScreen = (props) => {
         //logging the id's to the console
         console.log('news status:', newsData.liveTopnews.status, '\n');
         newsData.liveTopnews.articles.map((article) => {
-            console.log('Article ID:', article.source.id);
+            //console.log('Article ID:', article.source.id);
         });
-        console.log('Number of Articles', newsData.liveTopnews.articles.length);
+       // console.log('Number of Articles', newsData.liveTopnews.articles.length);
     }, [newsData]);
 
     function fetchNews() {
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', 'http://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=f4635151d8bf47af94cec511748e296e', true);
+        xhr.open('GET', 'http://newsapi.org/v2/top-headlines?country=' + currentCountry + '&category=business&apiKey=f4635151d8bf47af94cec511748e296e', true);
         xhr.onload = () => {
             setNewsData((newsData) => ({
                 liveTopnews: new Topnews(JSON.parse(xhr.response)),

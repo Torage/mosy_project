@@ -9,8 +9,12 @@ import { Topnews } from './Models/TopnewsModel';
 import { SettingsContext } from './Data/settingsContext';
 import * as Permissions from 'expo-permissions';
 import * as Location from 'expo-location';
+import { COUNTRIES } from './Data/countrys';
 
 export default function App() {
+
+    const countries = COUNTRIES;
+
     const [newsData, setNewsData] = useState({
         liveTopnews: DUMMY_TOPNEWS,
     });
@@ -34,7 +38,6 @@ export default function App() {
 
         AsyncStorage.getItem('CountrySetting').then((storedValue) => {
             if (storedValue != null) {
-                getLocation().then((res) => console.log(res));
                 setCurrentCountry(storedValue);
             } else {
                 getLocation();
@@ -45,8 +48,8 @@ export default function App() {
 
     useEffect(() => {
         if (currentLocation.coords.latitude != 0 && currentLocation.coords.longitude != 0) {
-            console.log('CurrentLocation:', 'lat', currentLocation.coords.latitude, 'lng', currentLocation.coords.longitude);
-            getCountynameByGps(currentLocation.coords.latitude, currentLocation.coords.longitude);
+           // console.log('CurrentLocation:', 'lat', currentLocation.coords.latitude, 'lng', currentLocation.coords.longitude);
+            getCountrynameByGps(currentLocation.coords.latitude, currentLocation.coords.longitude);
         }
     }, [currentLocation]);
 
@@ -54,16 +57,16 @@ export default function App() {
         let permissionRequest = 'denied';
         await Permissions.askAsync(Permissions.LOCATION).then((permissionResponse) => {
             permissionRequest = permissionResponse.status;
-            console.log('permissionRequest:', permissionRequest);
+            //console.log('permissionRequest:', permissionRequest);
         });
         if (permissionRequest === 'granted') {
-            console.log('getting current Position ...');
+           // console.log('getting current Position ...');
             await Location.getCurrentPositionAsync().then((res) => {
                 const currentPosition = { coords: { latitude: res.coords.latitude, longitude: res.coords.longitude } };
                 setCurrentLocation(currentPosition);
             });
         } else {
-            console.log('no permission granted');
+            //console.log('no permission granted');
         }
     };
 
@@ -82,14 +85,16 @@ export default function App() {
         };
         xhr.send();
     }
-    function getCountynameByGps(lat, lng) {
+    function getCountrynameByGps(lat, lng) {
         const xhr = new XMLHttpRequest();
         const url = 'http://api.geonames.org/findNearbyJSON?lat=' + lat + '&lng=' + lng + '&username=newscope';
         xhr.open('GET', url, true);
         xhr.onload = () => {
-            console.log(JSON.parse(xhr.response));
+            //console.log(JSON.parse(xhr.response));
             // console.log('You are located in:', JSON.parse(xhr.response).geonames);
-            JSON.parse(xhr.response).geonames.map((location) => console.log('You are located in:', location.countryCode));
+            JSON.parse(xhr.response).geonames.map((location) => {
+                  countries.filter(country => country.id === location.countryCode).length > 0 ? setCurrentCountry(location.countryCode) : setCurrentCountry('US');
+            });
         };
         xhr.send();
         // console.log(url);

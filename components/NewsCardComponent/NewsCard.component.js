@@ -1,5 +1,5 @@
-import React, { useContext, useState } from 'react';
-import { Text, View, TouchableOpacity, Image, Share, Modal, SafeAreaView } from 'react-native';
+import React, { useContext, useState, useEffect } from 'react';
+import { Text, View, TouchableOpacity, Image, Share, Modal, SafeAreaView, AsyncStorage } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { Colors } from '../../constants/colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -34,6 +34,48 @@ export const NewsCardComponent = (props) => {
         }
     };
 
+    const saveAsFavorite = async () => {
+
+        // get the favorite last id
+        AsyncStorage.getItem('FavoriteID').then((storedValue) => {
+
+            let id = 0;
+
+            if (storedValue != null) {
+
+                id = parseInt(storedValue);
+            } else {
+                AsyncStorage.setItem('FavoriteID', id.toString());
+            }
+
+
+            //generate a json string with the data
+            var jsonString = {
+                id: id.toString(),
+                category: props.category,
+                title: props.title,
+                description: props.description,
+                url: props.url,
+                urlToImage: props.imageUrl,
+                content: props.content,
+            };
+
+
+            //save the data into the async storage
+            AsyncStorage.setItem('Favorite' + id.toString(), JSON.stringify(jsonString));
+
+            //increase id
+            id = id + 1;
+
+            // save new id
+            AsyncStorage.setItem('FavoriteID', id.toString());
+
+            console.log(JSON.stringify(jsonString));
+        });
+
+
+    }
+
     const { theme, push } = useContext(SettingsContext);
     const [currentTheme, setCurrentTheme] = theme;
     const [sendPushNotification, setSendPushNotification] = push;
@@ -49,7 +91,7 @@ export const NewsCardComponent = (props) => {
                         {props.category}
                     </Text>
                     <View style={currentTheme === 'light' ? NewsCardStylesLight.icons : NewsCardStylesDark.icons}>
-                        <TouchableOpacity style={{ marginRight: 5 }} onPress={() => alert('mark as favorite')}>
+                        <TouchableOpacity style={{ marginRight: 5 }} onPress={() => saveAsFavorite()}>
                             <MaterialCommunityIcons
                                 name='bookmark-plus'
                                 color={currentTheme === 'light' ? Colors.light.newsCardIcon : Colors.dark.newsCardIcon}
@@ -101,7 +143,7 @@ export const NewsCardComponent = (props) => {
                 </TouchableOpacity>
 
                 <SafeAreaView>
-                    <Modal animationType={'slide'} transparent={true} visible={showModal} statusBarTranslucent={true} onRequestClose={()=>setShowModal(false)} >
+                    <Modal animationType={'slide'} transparent={true} visible={showModal} statusBarTranslucent={true} onRequestClose={() => setShowModal(false)} >
                         <View style={currentTheme === 'light' ? NewsModalStylesLight.centeredView : NewsModalStylesDark.centeredView}>
                             <View style={currentTheme === 'light' ? NewsModalStylesLight.modalView : NewsModalStylesDark.modalView}>
                                 <View
