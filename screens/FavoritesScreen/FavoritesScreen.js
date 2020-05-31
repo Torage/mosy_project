@@ -32,18 +32,40 @@ export const FavoritesScreen = () => {
             }
 
             var i;
-            var j;
+            var k;
+            var counter = 0;
 
             for (i = 0; i < id; i++) {
 
                 AsyncStorage.getItem('Favorite' + i.toString()).then((storedValue) => {
-                    if (storedValue != null) {favData.push(JSON.parse(storedValue));}});
-            }
+                    if (storedValue != null) {
 
-            for(j = 0; j < favData.length; j++){
-                console.log(favData[j].title);
-            }
+                        if (favData.length > 0) {
 
+                            counter = 0;
+
+                            for (k = 0; k < favData.length; k++) {
+
+                                if (JSON.parse(storedValue).title == favData[k].title) {
+                                    counter++;
+                                }
+                            }
+
+                            if (counter > 0) {
+                                //do nothing
+                            }
+
+                            else {
+                                favData.push(JSON.parse(storedValue));
+                            }
+                        }
+
+                        else {
+                            favData.push(JSON.parse(storedValue));
+                        }
+                    }
+                });
+            }
 
             setFavoriteData(favData);
         });
