@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Text, View, TouchableOpacity, Image, Share, Modal, SafeAreaView, AsyncStorage } from 'react-native';
+import { Text, View, TouchableOpacity, Image, Share, Modal, SafeAreaView, AsyncStorage, Alert } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { Colors } from '../../constants/colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -69,11 +69,14 @@ export const NewsCardComponent = (props) => {
 
             // save new id
             AsyncStorage.setItem('FavoriteID', id.toString());
-
-            console.log(JSON.stringify(jsonString));
         });
 
 
+    }
+
+    const deleteFavorite = () =>{
+
+        Alert.alert("Delete Favorite");
     }
 
     const { theme, push } = useContext(SettingsContext);
@@ -91,9 +94,9 @@ export const NewsCardComponent = (props) => {
                         {props.category}
                     </Text>
                     <View style={currentTheme === 'light' ? NewsCardStylesLight.icons : NewsCardStylesDark.icons}>
-                        <TouchableOpacity style={{ marginRight: 5 }} onPress={() => saveAsFavorite()}>
+                        <TouchableOpacity style={{ marginRight: 5 }} onPress={props.screen === 'Home' || props.screen === 'Search' ?  () => saveAsFavorite() :  () => deleteFavorite()}>
                             <MaterialCommunityIcons
-                                name='bookmark-plus'
+                                name={props.screen === 'Home' || props.screen === 'Search' ? 'bookmark-plus' : 'bookmark-minus' }
                                 color={currentTheme === 'light' ? Colors.light.newsCardIcon : Colors.dark.newsCardIcon}
                                 size={20}
                             />

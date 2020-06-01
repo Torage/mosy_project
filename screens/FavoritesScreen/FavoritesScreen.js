@@ -17,7 +17,7 @@ export const FavoritesScreen = () => {
         fillData();
     }, []);
 
-    function fillData() {
+    const fillData = async () => {
 
         // get the favorite last id
         AsyncStorage.getItem('FavoriteID').then((storedValue) => {
@@ -47,7 +47,8 @@ export const FavoritesScreen = () => {
                             for (k = 0; k < favData.length; k++) {
 
                                 if (JSON.parse(storedValue).title == favData[k].title) {
-                                    counter++;
+
+                                    AsyncStorage.removeItem('Favorite' + i.toString()).then(counter++);
                                 }
                             }
 
@@ -88,6 +89,7 @@ export const FavoritesScreen = () => {
                         imageUrl={item.urlToImage}
                         url={item.url}
                         content={item.content}
+                        screen = "Favorite"
                     />
                 )}
             />

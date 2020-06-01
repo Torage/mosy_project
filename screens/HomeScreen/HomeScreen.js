@@ -53,6 +53,7 @@ export const HomeScreen = (props) => {
                         imageUrl={item.urlToImage}
                         url={item.url}
                         content={item.content}
+                        screen = "Home"
                     />
                 )}
             />
