@@ -17,8 +17,8 @@ export const FavoritesScreen = () => {
         fillData();
     }, []);
 
-    const fillData = async () => {
-
+    const fillData = () => {
+        
         // get the favorite last id
         AsyncStorage.getItem('FavoriteID').then((storedValue) => {
 
@@ -27,49 +27,48 @@ export const FavoritesScreen = () => {
             if (storedValue != null) {
 
                 id = parseInt(storedValue);
-            } else {
-                AsyncStorage.setItem('FavoriteID', id.toString());
-            }
+            } 
 
-            var i;
-            var k;
-            var counter = 0;
 
-            for (i = 0; i < id; i++) {
+            for (var i = 0; i < id; i++) {
 
                 AsyncStorage.getItem('Favorite' + i.toString()).then((storedValue) => {
+                   
                     if (storedValue != null) {
+                        
+                        if(favData.length > 0){
 
-                        if (favData.length > 0) {
+                            var Counter = 0;
+                            for (var j = 0; j < favData.length; j++) {
+                           
+                                if(JSON.parse(storedValue).title == favData[j].title){
 
-                            counter = 0;
-
-                            for (k = 0; k < favData.length; k++) {
-
-                                if (JSON.parse(storedValue).title == favData[k].title) {
-
-                                    AsyncStorage.removeItem('Favorite' + i.toString()).then(counter++);
+                                    AsyncStorage.removeItem('Favorite' + id.toString());
+                                    Counter++;
                                 }
+
                             }
 
-                            if (counter > 0) {
-                                //do nothing
+                            if(Counter > 0){
+
                             }
 
-                            else {
+                            else{
                                 favData.push(JSON.parse(storedValue));
                             }
                         }
 
-                        else {
+                        else{
+                            
                             favData.push(JSON.parse(storedValue));
                         }
+
                     }
                 });
             }
-
-            setFavoriteData(favData);
         });
+
+        setFavoriteData(favData);
     }
 
     return (
@@ -79,7 +78,7 @@ export const FavoritesScreen = () => {
                 onRefresh={() => {
                     fillData();
                 }}
-                keyExtractor={(article) => article.id}
+                keyExtractor={data => data.id}
                 data={favoriteData}
                 renderItem={({ item }) => (
                     <NewsCardComponent
@@ -90,6 +89,7 @@ export const FavoritesScreen = () => {
                         url={item.url}
                         content={item.content}
                         screen = "Favorite"
+                        id = {item.id}
                     />
                 )}
             />

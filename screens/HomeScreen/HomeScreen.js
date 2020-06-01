@@ -5,6 +5,7 @@ import { NewsCardComponent } from '../../components/NewsCardComponent/NewsCard.c
 import { NewsContext } from '../../Data/newsContext';
 import { Topnews } from '../../Models/TopnewsModel';
 import { SettingsContext } from '../../Data/settingsContext';
+import Toast from 'react-native-simple-toast';
 
 export const HomeScreen = (props) => {
     // Global State object
@@ -54,6 +55,7 @@ export const HomeScreen = (props) => {
                         url={item.url}
                         content={item.content}
                         screen = "Home"
+                        id = "0"
                     />
                 )}
             />

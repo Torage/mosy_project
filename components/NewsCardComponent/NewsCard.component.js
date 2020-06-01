@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Text, View, TouchableOpacity, Image, Share, Modal, SafeAreaView, AsyncStorage, Alert } from 'react-native';
+import { Text, View, TouchableOpacity, Image, Share, Modal, SafeAreaView, AsyncStorage, Alert, ToastAndroid } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { Colors } from '../../constants/colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -7,6 +7,8 @@ import { NewsCardStylesDark, NewsCardStylesLight } from './NewsCard.styles';
 import { SettingsContext } from '../../Data/settingsContext';
 import { NewsModalStylesDark, NewsModalStylesLight } from './NewsModal.styles';
 import Constants from 'expo-constants';
+import Toast from 'react-native-simple-toast';
+
 export const NewsCardComponent = (props) => {
     /* Values 
     category={item.source.name}
@@ -35,11 +37,13 @@ export const NewsCardComponent = (props) => {
     };
 
     const saveAsFavorite = async () => {
-
+        
+        var md5 = require('md5');
+        
         // get the favorite last id
-        AsyncStorage.getItem('FavoriteID').then((storedValue) => {
+        await AsyncStorage.getItem('FavoriteID').then((storedValue) => {
 
-            let id = 0;
+            var id = 0;
 
             if (storedValue != null) {
 
@@ -52,6 +56,7 @@ export const NewsCardComponent = (props) => {
             //generate a json string with the data
             var jsonString = {
                 id: id.toString(),
+                uniqueKey: md5(props.title),
                 category: props.category,
                 title: props.title,
                 description: props.description,
@@ -69,14 +74,19 @@ export const NewsCardComponent = (props) => {
 
             // save new id
             AsyncStorage.setItem('FavoriteID', id.toString());
+
+            Toast.show("Added to Favorites.", Toast.SHORT);
         });
 
 
     }
 
-    const deleteFavorite = () =>{
+    const deleteFavorite = async () =>{
 
-        Alert.alert("Delete Favorite");
+        AsyncStorage.removeItem('Favorite' + props.id).then((storedValue) =>{
+
+            Toast.show("Favorite deleted", Toast.SHORT);
+        });
     }
 
     const { theme, push } = useContext(SettingsContext);
