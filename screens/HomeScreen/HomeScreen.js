@@ -22,15 +22,16 @@ export const HomeScreen = (props) => {
     useEffect(() => {
         //logging the id's to the console
         console.log('news status:', newsData.liveTopnews.status, '\n');
+        console.log('totalresults:', newsData.liveTopnews.totalResults, '\n');
         newsData.liveTopnews.articles.map((article) => {
-            //console.log('Article ID:', article.source.id);
+            console.log('Article ID:', article.source.id);
         });
        // console.log('Number of Articles', newsData.liveTopnews.articles.length);
     }, [newsData]);
 
     function fetchNews() {
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', 'http://newsapi.org/v2/top-headlines?country=' + currentCountry + '&category=business&apiKey=f4635151d8bf47af94cec511748e296e', true);
+        xhr.open('GET', 'http://newsapi.org/v2/top-headlines?country=' + currentCountry + '&pageSize=100&apiKey=f4635151d8bf47af94cec511748e296e', true);
         xhr.onload = () => {
             setNewsData((newsData) => ({
                 liveTopnews: new Topnews(JSON.parse(xhr.response)),

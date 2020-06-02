@@ -3,7 +3,6 @@ import { AsyncStorage } from 'react-native';
 import { useFonts } from '@use-expo/font';
 import { AppLoading } from 'expo';
 import { MainNavigator } from './navigation/MainNavigator';
-import { DUMMY_TOPNEWS } from './Data/data';
 import { NewsContext } from './Data/newsContext';
 import { Topnews } from './Models/TopnewsModel';
 import { SettingsContext } from './Data/settingsContext';
@@ -12,10 +11,27 @@ import * as Location from 'expo-location';
 import { COUNTRIES } from './Data/countrys';
 
 export default function App() {
-
     const countries = COUNTRIES;
 
-    const [newsData, setNewsData] = useState({ liveTopnews: DUMMY_TOPNEWS, });
+    const [newsData, setNewsData] = useState({
+        liveTopnews: new Topnews({
+            status: 'init',
+            totalResults: 1,
+            articles: [
+                {
+                    source: { id: 42, name: 'newscope' },
+                    author: 'newscope',
+                    title: 'Fetching Live Newsdata',
+                    description: 'there is a problem with your network conectivity or something terrible has gone wrong',
+                    url: 'https://www.youtube.com/watch?v=JQghgR9kbRs',
+                    urlToImage:
+                        'https://external-preview.redd.it/BWGcTEoCHnY5_wypxGb1zCgxJ_nhRwsZ7nB8Yt3V0b0.png?auto=webp&s=77143dd39e651c6634b97de775149d29fc9910bb',
+                    publishedAt: '1982-10-16T07:23:00Z',
+                    content: 'newscope',
+                },
+            ],
+        }),
+    });
     const [favoriteData, setFavoriteData] = useState([]);
     const [currentTheme, setCurrentTheme] = useState('light');
     const [sendPushNotification, setSendPushNotification] = useState(false);
@@ -38,11 +54,11 @@ export default function App() {
         AsyncStorage.getItem('CountrySetting').then((storedValue) => {
             if (storedValue != null) {
                 setCurrentCountry(storedValue);
+                fetchNews(storedValue);
             } else {
                 getLocation();
             }
         });
-        // fetchNews();
     }, []);
 
     useEffect(() => {
@@ -59,12 +75,13 @@ export default function App() {
             //console.log('permissionRequest:', permissionRequest);
         });
         if (permissionRequest === 'granted') {
-            // console.log('getting current Position ...');
+            console.log('getting current Position ...');
             await Location.getCurrentPositionAsync().then((res) => {
                 const currentPosition = { coords: { latitude: res.coords.latitude, longitude: res.coords.longitude } };
                 setCurrentLocation(currentPosition);
             });
         } else {
+            fetchNews(currentCountry);
             //console.log('no permission granted');
         }
     };
@@ -74,9 +91,13 @@ export default function App() {
         'Roboto-Regular': require('./assets/fonts/Roboto-Regular.ttf'),
     });
 
-    function fetchNews() {
+    function fetchNews(country) {
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', 'http://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=f4635151d8bf47af94cec511748e296e', true);
+        xhr.open(
+            'GET',
+            'http://newsapi.org/v2/top-headlines?country=' + country + '&pageSize=100&apiKey=f4635151d8bf47af94cec511748e296e',
+            true
+        );
         xhr.onload = () => {
             setNewsData((newsData) => ({
                 liveTopnews: new Topnews(JSON.parse(xhr.response)),
@@ -84,6 +105,7 @@ export default function App() {
         };
         xhr.send();
     }
+
     function getCountrynameByGps(lat, lng) {
         const xhr = new XMLHttpRequest();
         const url = 'http://api.geonames.org/findNearbyJSON?lat=' + lat + '&lng=' + lng + '&username=newscope';
@@ -92,7 +114,10 @@ export default function App() {
             //console.log(JSON.parse(xhr.response));
             // console.log('You are located in:', JSON.parse(xhr.response).geonames);
             JSON.parse(xhr.response).geonames.map((location) => {
-                countries.filter(country => country.id === location.countryCode).length > 0 ? setCurrentCountry(location.countryCode) : setCurrentCountry('US');
+                countries.filter((country) => country.id === location.countryCode).length > 0
+                    ? setCurrentCountry(location.countryCode)
+                    : setCurrentCountry('US');
+                fetchNews(location.countryCode);
             });
         };
         xhr.send();
@@ -114,7 +139,8 @@ export default function App() {
                     value={{
                         topNews: [newsData, setNewsData],
                         favoriteNews: [favoriteData, setFavoriteData],
-                    }}>
+                    }}
+                >
                     <MainNavigator />
                 </NewsContext.Provider>
             </SettingsContext.Provider>
