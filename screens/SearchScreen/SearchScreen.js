@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useContext, useEffect, useState } from 'react';
 import { View, FlatList } from 'react-native';
 import { SearchScreenStylesLight, SearchScreenStylesDark } from './SearchScreen.styles';
@@ -9,6 +10,13 @@ import { Input } from 'react-native-elements';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Toast from 'react-native-simple-toast';
 import { Colors } from '../../constants/colors';
+=======
+import React, {useContext} from 'react';
+import { View} from 'react-native';
+import { SearchScreenStylesDark, SearchScreenStylesLight } from './SearchScreen.styles';
+import {SettingsContext} from '../../Data/settingsContext';
+import SearchComponent from '../../components/SearchComponent/Search.component';
+>>>>>>> added search component
 
 export const SearchScreen = (props) => {
     // Global State object
@@ -39,6 +47,7 @@ export const SearchScreen = (props) => {
 
     return (
         <View style={currentTheme === 'light' ? SearchScreenStylesLight.viewContainer : SearchScreenStylesDark.viewContainer}>
+<<<<<<< HEAD
             <View style={currentTheme === 'light' ? SearchScreenStylesLight.inputView : SearchScreenStylesDark.inputView}>
                 <Input
                     inputStyle={currentTheme === 'light' ? SearchScreenStylesLight.inputText : SearchScreenStylesDark.inputText}
@@ -78,6 +87,9 @@ export const SearchScreen = (props) => {
                     />
                 )}
             />
+=======
+            <SearchComponent />
+>>>>>>> added search component
         </View>
     );
 };
