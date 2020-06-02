@@ -14,24 +14,27 @@ export const HomeScreen = (props) => {
     const [sendPushNotification, setSendPushNotification] = push;
     const [currentCountry, setCurrentCountry] = country;
 
-    const {topNews, favoriteNews} = useContext(NewsContext);
+    const { topNews, favoriteNews } = useContext(NewsContext);
     const [newsData, setNewsData] = topNews;
     const [favoriteData, setFavoriteData] = favoriteNews;
-    
+
     // called if newsData changes
     useEffect(() => {
         //logging the id's to the console
-        console.log('news status:', newsData.liveTopnews.status, '\n');
+        console.log('news status:', newsData.liveTopnews.status);
         console.log('totalresults:', newsData.liveTopnews.totalResults, '\n');
         newsData.liveTopnews.articles.map((article) => {
             console.log('Article ID:', article.source.id);
         });
-       // console.log('Number of Articles', newsData.liveTopnews.articles.length);
     }, [newsData]);
 
     function fetchNews() {
         const xhr = new XMLHttpRequest();
-        xhr.open('GET', 'http://newsapi.org/v2/top-headlines?country=' + currentCountry + '&pageSize=100&apiKey=f4635151d8bf47af94cec511748e296e', true);
+        xhr.open(
+            'GET',
+            'http://newsapi.org/v2/top-headlines?country=' + currentCountry + '&pageSize=100&apiKey=f4635151d8bf47af94cec511748e296e',
+            true
+        );
         xhr.onload = () => {
             setNewsData((newsData) => ({
                 liveTopnews: new Topnews(JSON.parse(xhr.response)),
@@ -57,8 +60,8 @@ export const HomeScreen = (props) => {
                         imageUrl={item.urlToImage}
                         url={item.url}
                         content={item.content}
-                        screen = "Home"
-                        id = "0"
+                        screen='Home'
+                        id='0'
                     />
                 )}
             />
