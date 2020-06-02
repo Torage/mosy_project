@@ -5,17 +5,17 @@ import { Colors } from '../../constants/colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { NewsCardStylesDark, NewsCardStylesLight } from './NewsCard.styles';
 import { SettingsContext } from '../../Data/settingsContext';
+import { NewsContext } from '../../Data/newsContext';
 import { NewsModalStylesDark, NewsModalStylesLight } from './NewsModal.styles';
 import Constants from 'expo-constants';
 import Toast from 'react-native-simple-toast';
+import NewsCard from '../../Models/NewscardModel';
 
 export const NewsCardComponent = (props) => {
-    /* Values 
-    category={item.source.name}
-    title={item.title}
-    description={item.description}
-    imageUrl={item.urlToImage} 
-    */
+
+    const {topNews, favoriteNews} = useContext(NewsContext);
+    const [newsData, setNewsData] = topNews;
+    const [favoriteData, setFavoriteData] = favoriteNews;
 
     const shareContent = async () => {
         try {
@@ -37,56 +37,58 @@ export const NewsCardComponent = (props) => {
     };
 
     const saveAsFavorite = async () => {
-        
-        var md5 = require('md5');
-        
-        // get the favorite last id
-        await AsyncStorage.getItem('FavoriteID').then((storedValue) => {
 
-            var id = 0;
+        var md5 = require('md5');
+
+        AsyncStorage.getItem('Favorites').then((storedValue) => {
+
+            let favoritesArray = [];
 
             if (storedValue != null) {
 
-                id = parseInt(storedValue);
-            } else {
-                AsyncStorage.setItem('FavoriteID', id.toString());
+                favoritesArray = JSON.parse(storedValue);
             }
 
+            let id = md5(props.title);
+            favoritesArray.push(new NewsCard(id, props.category, props.title, props.description, props.url, props.imageUrl, props.content));
 
-            //generate a json string with the data
-            var jsonString = {
-                id: id.toString(),
-                uniqueKey: md5(props.title),
-                category: props.category,
-                title: props.title,
-                description: props.description,
-                url: props.url,
-                urlToImage: props.imageUrl,
-                content: props.content,
-            };
-
+            //delete all duplicates
+            const uniqueFavorites = Array.from(new Set(favoritesArray.map(object => object.id)))
+                .map(id => {
+                    return favoritesArray.find(object => object.id === id)
+                })
 
             //save the data into the async storage
-            AsyncStorage.setItem('Favorite' + id.toString(), JSON.stringify(jsonString));
+            AsyncStorage.setItem('Favorites', JSON.stringify(uniqueFavorites)).then(() => {
 
-            //increase id
-            id = id + 1;
-
-            // save new id
-            AsyncStorage.setItem('FavoriteID', id.toString());
-
-            Toast.show("Added to Favorites.", Toast.SHORT);
+                setFavoriteData(uniqueFavorites);
+                Toast.show("Added to Favorites.", Toast.SHORT);
+            });
         });
-
-
     }
 
-    const deleteFavorite = async () =>{
+    const deleteFavorite = async () => {
 
-        AsyncStorage.removeItem('Favorite' + props.id).then((storedValue) =>{
+        AsyncStorage.getItem('Favorites').then((storedValue) => {
 
-            Toast.show("Favorite deleted", Toast.SHORT);
+            let favoritesArray = [];
+
+            if (storedValue != null) {
+
+                favoritesArray = JSON.parse(storedValue);
+            }
+
+            //delete value out of array
+            const filteredArray = favoritesArray.filter(object => object.id !== props.id);
+
+            //save the data into the async storage
+            AsyncStorage.setItem('Favorites', JSON.stringify(filteredArray)).then(() => {
+
+                setFavoriteData(filteredArray);
+                Toast.show("Favorite deleted.", Toast.SHORT);
+            });
         });
+        
     }
 
     const { theme, push } = useContext(SettingsContext);
@@ -104,9 +106,9 @@ export const NewsCardComponent = (props) => {
                         {props.category}
                     </Text>
                     <View style={currentTheme === 'light' ? NewsCardStylesLight.icons : NewsCardStylesDark.icons}>
-                        <TouchableOpacity style={{ marginRight: 5 }} onPress={props.screen === 'Home' || props.screen === 'Search' ?  () => saveAsFavorite() :  () => deleteFavorite()}>
+                        <TouchableOpacity style={{ marginRight: 5 }} onPress={props.screen === 'Home' || props.screen === 'Search' ? () => saveAsFavorite() : () => deleteFavorite()}>
                             <MaterialCommunityIcons
-                                name={props.screen === 'Home' || props.screen === 'Search' ? 'bookmark-plus' : 'bookmark-minus' }
+                                name={props.screen === 'Home' || props.screen === 'Search' ? 'bookmark-plus' : 'bookmark-minus'}
                                 color={currentTheme === 'light' ? Colors.light.newsCardIcon : Colors.dark.newsCardIcon}
                                 size={20}
                             />

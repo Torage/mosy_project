@@ -14,8 +14,10 @@ export const HomeScreen = (props) => {
     const [sendPushNotification, setSendPushNotification] = push;
     const [currentCountry, setCurrentCountry] = country;
 
-    const [newsState] = useContext(NewsContext);
-    const [newsData, setNewsData] = useContext(NewsContext);
+    const {topNews, favoriteNews} = useContext(NewsContext);
+    const [newsData, setNewsData] = topNews;
+    const [favoriteData, setFavoriteData] = favoriteNews;
+    
     // called if newsData changes
     useEffect(() => {
         //logging the id's to the console

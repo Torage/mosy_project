@@ -15,9 +15,8 @@ export default function App() {
 
     const countries = COUNTRIES;
 
-    const [newsData, setNewsData] = useState({
-        liveTopnews: DUMMY_TOPNEWS,
-    });
+    const [newsData, setNewsData] = useState({ liveTopnews: DUMMY_TOPNEWS, });
+    const [favoriteData, setFavoriteData] = useState([]);
     const [currentTheme, setCurrentTheme] = useState('light');
     const [sendPushNotification, setSendPushNotification] = useState(false);
     const [currentCountry, setCurrentCountry] = useState('US');
@@ -48,7 +47,7 @@ export default function App() {
 
     useEffect(() => {
         if (currentLocation.coords.latitude != 0 && currentLocation.coords.longitude != 0) {
-           // console.log('CurrentLocation:', 'lat', currentLocation.coords.latitude, 'lng', currentLocation.coords.longitude);
+            // console.log('CurrentLocation:', 'lat', currentLocation.coords.latitude, 'lng', currentLocation.coords.longitude);
             getCountrynameByGps(currentLocation.coords.latitude, currentLocation.coords.longitude);
         }
     }, [currentLocation]);
@@ -60,7 +59,7 @@ export default function App() {
             //console.log('permissionRequest:', permissionRequest);
         });
         if (permissionRequest === 'granted') {
-           // console.log('getting current Position ...');
+            // console.log('getting current Position ...');
             await Location.getCurrentPositionAsync().then((res) => {
                 const currentPosition = { coords: { latitude: res.coords.latitude, longitude: res.coords.longitude } };
                 setCurrentLocation(currentPosition);
@@ -93,7 +92,7 @@ export default function App() {
             //console.log(JSON.parse(xhr.response));
             // console.log('You are located in:', JSON.parse(xhr.response).geonames);
             JSON.parse(xhr.response).geonames.map((location) => {
-                  countries.filter(country => country.id === location.countryCode).length > 0 ? setCurrentCountry(location.countryCode) : setCurrentCountry('US');
+                countries.filter(country => country.id === location.countryCode).length > 0 ? setCurrentCountry(location.countryCode) : setCurrentCountry('US');
             });
         };
         xhr.send();
@@ -111,7 +110,11 @@ export default function App() {
                     country: [currentCountry, setCurrentCountry],
                 }}
             >
-                <NewsContext.Provider value={[newsData, setNewsData]}>
+                <NewsContext.Provider
+                    value={{
+                        topNews: [newsData, setNewsData],
+                        favoriteNews: [favoriteData, setFavoriteData],
+                    }}>
                     <MainNavigator />
                 </NewsContext.Provider>
             </SettingsContext.Provider>
