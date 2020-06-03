@@ -71,18 +71,30 @@ export const NewsCardComponent = (props) => {
                 )
             );
 
+            let length = favoritesArray.filter((object) => object.id === id).length;
+
             //delete all duplicates
-            const uniqueFavorites = Array.from(new Set(favoritesArray.map((object) => object.id))).map((id) => {
-                return favoritesArray.find((object) => object.id === id);
-            });
+            const uniqueFavorites = Array.from(new Set(favoritesArray.map(object => object.id)))
+                .map(id => {
+                    return favoritesArray.find(object => object.id === id)
+                })
+                
 
             //save the data into the async storage
             AsyncStorage.setItem('Favorites', JSON.stringify(uniqueFavorites)).then(() => {
+
                 setFavoriteData(uniqueFavorites);
-                Toast.show('Added to Favorites.', Toast.SHORT);
+
+                if(length >= 2){
+                    Toast.show("This favorite is already in Favorites.", Toast.SHORT);
+                }
+                else{
+                    Toast.show("Added to Favorites.", Toast.SHORT);
+                }
+                
             });
         });
-    };
+    }
 
     const deleteFavorite = async () => {
         AsyncStorage.getItem('Favorites').then((storedValue) => {
