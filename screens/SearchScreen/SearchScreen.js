@@ -24,18 +24,13 @@ export const SearchScreen = (props) => {
     function fetchNews(query) {
         const xhr = new XMLHttpRequest();
         if (query == '' || query == null) {
-            console.log('query is empty null!');
-            // xhr.open('GET', 'https://newsapi.org/v2/everything?q=' + query + '&apiKey=f4635151d8bf47af94cec511748e296e', true);
             xhr.open(
                 'GET',
                 'http://newsapi.org/v2/top-headlines?country=' + currentCountry + '&pageSize=100&apiKey=f4635151d8bf47af94cec511748e296e',
                 true
             );
         } else {
-            console.log('query is  FILLED!');
-            // console.log('https://newsapi.org/v2/everything?q=' + query + '&apiKey=f4635151d8bf47af94cec511748e296e');
-            console.log('&apiKey=f4635151d8bf47af94cec511748e296e');
-            xhr.open('GET', 'https://newsapi.org/v2/everything?q=' + query + '&apiKey=f4635151d8bf47af94cec511748e296e', true);
+            xhr.open('GET', 'https://newsapi.org/v2/everything?q=' + query + '&pageSize=100&apiKey=f4635151d8bf47af94cec511748e296e', true);
         }
         xhr.onload = () => {
             setNewsData((newsData) => ({
@@ -49,6 +44,7 @@ export const SearchScreen = (props) => {
         <View style={currentTheme === 'light' ? SearchScreenStylesLight.viewContainer : SearchScreenStylesDark.viewContainer}>
             <View style={currentTheme === 'light' ? SearchScreenStylesLight.inputView : SearchScreenStylesDark.inputView}>
                 <Input
+                    inputStyle={currentTheme === 'light' ? SearchScreenStylesLight.inputText : SearchScreenStylesDark.inputText}
                     inputContainerStyle={currentTheme === 'light' ? SearchScreenStylesLight.input : SearchScreenStylesDark.input}
                     placeholder='Search for News...'
                     leftIcon={
