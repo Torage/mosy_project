@@ -57,7 +57,19 @@ export const NewsCardComponent = (props) => {
             }
 
             let id = md5(props.title);
-            favoritesArray.push(new NewsCard(id, props.category, props.title, props.description, props.url, props.imageUrl, props.content));
+            favoritesArray.push(
+                new NewsCard(
+                    id,
+                    props.category,
+                    props.title,
+                    props.description,
+                    props.url,
+                    props.imageUrl,
+                    props.content,
+                    props.author,
+                    props.publishedAt
+                )
+            );
 
             //delete all duplicates
             const uniqueFavorites = Array.from(new Set(favoritesArray.map((object) => object.id))).map((id) => {
@@ -132,7 +144,6 @@ export const NewsCardComponent = (props) => {
                     <Text style={currentTheme === 'light' ? NewsCardStylesLight.authorText : NewsCardStylesDark.authorText}>
                         {parsedDate}
                     </Text>
-                    
                 </View>
                 <TouchableOpacity
                     activeOpacity={1}
