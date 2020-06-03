@@ -62,16 +62,15 @@ export const NewsCardStylesLight = StyleSheet.create({
         paddingTop: 4,
     },
     imageView: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
         marginTop: 10,
     },
     image: {
+        alignItems: 'center',
+        justifyContent: 'center',
         height: 170,
-        width: 325,
-        borderRadius: 20,
-        marginBottom: 15,
+        width: '100%',
+        borderBottomLeftRadius: 18,
+        borderBottomRightRadius: 18,
     },
 });
 
@@ -112,7 +111,7 @@ export const NewsCardStylesDark = StyleSheet.create({
     },
     icons: {
         flexDirection: 'row',
-        paddingTop:4,
+        paddingTop: 4,
     },
     titleView: {
         paddingLeft: 15,
@@ -135,18 +134,18 @@ export const NewsCardStylesDark = StyleSheet.create({
         lineHeight: 14,
         fontSize: 12,
         paddingTop: 4,
+        // height:60
     },
     imageView: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
         marginTop: 10,
     },
     image: {
+        alignItems: 'center',
+        justifyContent: 'center',
         height: 170,
-        width: 325,
-        borderRadius: 20,
-        marginBottom: 15,
+        width: 347,
+        borderBottomLeftRadius: 18,
+        borderBottomRightRadius: 18,
+        // marginBottom: 15,
     },
 });
-
