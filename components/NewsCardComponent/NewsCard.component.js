@@ -12,10 +12,20 @@ import Toast from 'react-native-simple-toast';
 import NewsCard from '../../Models/NewscardModel';
 
 export const NewsCardComponent = (props) => {
-
-    const {topNews, favoriteNews} = useContext(NewsContext);
+    const { topNews, favoriteNews } = useContext(NewsContext);
     const [newsData, setNewsData] = topNews;
     const [favoriteData, setFavoriteData] = favoriteNews;
+    const date = new Date(props.publishedAt);
+    const parsedDate =
+        date.getDay() +
+        '.' +
+        date.getMonth() +
+        '.' +
+        date.getFullYear() +
+        ' | ' +
+        (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) +
+        ':' +
+        (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
 
     const shareContent = async () => {
         try {
@@ -37,15 +47,12 @@ export const NewsCardComponent = (props) => {
     };
 
     const saveAsFavorite = async () => {
-
         var md5 = require('md5');
 
         AsyncStorage.getItem('Favorites').then((storedValue) => {
-
             let favoritesArray = [];
 
             if (storedValue != null) {
-
                 favoritesArray = JSON.parse(storedValue);
             }
 
@@ -53,43 +60,36 @@ export const NewsCardComponent = (props) => {
             favoritesArray.push(new NewsCard(id, props.category, props.title, props.description, props.url, props.imageUrl, props.content));
 
             //delete all duplicates
-            const uniqueFavorites = Array.from(new Set(favoritesArray.map(object => object.id)))
-                .map(id => {
-                    return favoritesArray.find(object => object.id === id)
-                })
+            const uniqueFavorites = Array.from(new Set(favoritesArray.map((object) => object.id))).map((id) => {
+                return favoritesArray.find((object) => object.id === id);
+            });
 
             //save the data into the async storage
             AsyncStorage.setItem('Favorites', JSON.stringify(uniqueFavorites)).then(() => {
-
                 setFavoriteData(uniqueFavorites);
-                Toast.show("Added to Favorites.", Toast.SHORT);
+                Toast.show('Added to Favorites.', Toast.SHORT);
             });
         });
-    }
+    };
 
     const deleteFavorite = async () => {
-
         AsyncStorage.getItem('Favorites').then((storedValue) => {
-
             let favoritesArray = [];
 
             if (storedValue != null) {
-
                 favoritesArray = JSON.parse(storedValue);
             }
 
             //delete value out of array
-            const filteredArray = favoritesArray.filter(object => object.id !== props.id);
+            const filteredArray = favoritesArray.filter((object) => object.id !== props.id);
 
             //save the data into the async storage
             AsyncStorage.setItem('Favorites', JSON.stringify(filteredArray)).then(() => {
-
                 setFavoriteData(filteredArray);
-                Toast.show("Favorite deleted.", Toast.SHORT);
+                Toast.show('Favorite deleted.', Toast.SHORT);
             });
         });
-        
-    }
+    };
 
     const { theme, push } = useContext(SettingsContext);
     const [currentTheme, setCurrentTheme] = theme;
@@ -105,8 +105,14 @@ export const NewsCardComponent = (props) => {
                     <Text style={currentTheme === 'light' ? NewsCardStylesLight.categoryText : NewsCardStylesDark.categoryText}>
                         {props.category}
                     </Text>
+                    <Text style={currentTheme === 'light' ? NewsCardStylesLight.categoryText : NewsCardStylesDark.categoryText}>
+                        {parsedDate}
+                    </Text>
                     <View style={currentTheme === 'light' ? NewsCardStylesLight.icons : NewsCardStylesDark.icons}>
-                        <TouchableOpacity style={{ marginRight: 5 }} onPress={props.screen === 'Home' || props.screen === 'Search' ? () => saveAsFavorite() : () => deleteFavorite()}>
+                        <TouchableOpacity
+                            style={{ marginRight: 5 }}
+                            onPress={props.screen === 'Home' || props.screen === 'Search' ? () => saveAsFavorite() : () => deleteFavorite()}
+                        >
                             <MaterialCommunityIcons
                                 name={props.screen === 'Home' || props.screen === 'Search' ? 'bookmark-plus' : 'bookmark-minus'}
                                 color={currentTheme === 'light' ? Colors.light.newsCardIcon : Colors.dark.newsCardIcon}
@@ -158,7 +164,13 @@ export const NewsCardComponent = (props) => {
                 </TouchableOpacity>
 
                 <SafeAreaView>
-                    <Modal animationType={'slide'} transparent={true} visible={showModal} statusBarTranslucent={true} onRequestClose={() => setShowModal(false)} >
+                    <Modal
+                        animationType={'slide'}
+                        transparent={true}
+                        visible={showModal}
+                        statusBarTranslucent={true}
+                        onRequestClose={() => setShowModal(false)}
+                    >
                         <View style={currentTheme === 'light' ? NewsModalStylesLight.centeredView : NewsModalStylesDark.centeredView}>
                             <View style={currentTheme === 'light' ? NewsModalStylesLight.modalView : NewsModalStylesDark.modalView}>
                                 <View

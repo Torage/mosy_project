@@ -105,7 +105,7 @@ export const NewsCardStylesDark = StyleSheet.create({
     categoryText: {
         color: Colors.dark.categoryColor,
         textTransform: 'uppercase',
-        fontSize: 16,
+        fontSize: 14,
         fontFamily: Styles.secondFont,
         paddingTop: 5,
     },
@@ -119,7 +119,7 @@ export const NewsCardStylesDark = StyleSheet.create({
     },
     titleText: {
         fontFamily: Styles.secondFont,
-        fontSize: 14,
+        fontSize: 17,
         color: Colors.dark.titleText,
         paddingTop: 4,
     },

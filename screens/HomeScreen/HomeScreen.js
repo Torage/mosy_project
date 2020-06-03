@@ -60,6 +60,7 @@ export const HomeScreen = (props) => {
                         imageUrl={item.urlToImage}
                         url={item.url}
                         content={item.content}
+                        publishedAt={item.publishedAt}
                         screen='Home'
                         id='0'
                     />
