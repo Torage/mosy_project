@@ -112,7 +112,7 @@ export const NewsCardStylesDark = StyleSheet.create({
     categoryText: {
         color: Colors.dark.categoryColor,
         textTransform: 'uppercase',
-        fontSize: 14,
+        fontSize: 16,
         fontFamily: Styles.secondFont,
         paddingTop: 5,
     },
