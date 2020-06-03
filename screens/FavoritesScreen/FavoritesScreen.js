@@ -13,7 +13,6 @@ export const FavoritesScreen = () => {
     const { topNews, favoriteNews } = useContext(NewsContext);
     const [newsData, setNewsData] = topNews;
     const [favoriteData, setFavoriteData] = favoriteNews;
-    console.log(favoriteData);
 
     useEffect(() => {
         fillData();
