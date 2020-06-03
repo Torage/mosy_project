@@ -61,6 +61,7 @@ export const HomeScreen = (props) => {
                         url={item.url}
                         content={item.content}
                         publishedAt={item.publishedAt}
+                        author={item.author}
                         screen='Home'
                         id='0'
                     />

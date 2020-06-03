@@ -35,6 +35,13 @@ export const NewsCardStylesLight = StyleSheet.create({
         fontFamily: Styles.secondFont,
         paddingTop: 5,
     },
+    authorText: {
+        color: Colors.light.categoryColor,
+        textTransform: 'uppercase',
+        fontSize: 12,
+        fontFamily: Styles.secondFont,
+        paddingTop: 5,
+    },
     icons: {
         flexDirection: 'row',
         paddingTop: 4,
@@ -45,7 +52,7 @@ export const NewsCardStylesLight = StyleSheet.create({
     },
     titleText: {
         fontFamily: Styles.secondFont,
-        fontSize: 14,
+        fontSize: 17,
         color: Colors.light.titleText,
         paddingTop: 4,
     },
@@ -106,6 +113,13 @@ export const NewsCardStylesDark = StyleSheet.create({
         color: Colors.dark.categoryColor,
         textTransform: 'uppercase',
         fontSize: 14,
+        fontFamily: Styles.secondFont,
+        paddingTop: 5,
+    },
+    authorText: {
+        color: Colors.dark.categoryColor,
+        textTransform: 'uppercase',
+        fontSize: 12,
         fontFamily: Styles.secondFont,
         paddingTop: 5,
     },

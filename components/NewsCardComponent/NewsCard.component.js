@@ -105,9 +105,6 @@ export const NewsCardComponent = (props) => {
                     <Text style={currentTheme === 'light' ? NewsCardStylesLight.categoryText : NewsCardStylesDark.categoryText}>
                         {props.category}
                     </Text>
-                    <Text style={currentTheme === 'light' ? NewsCardStylesLight.categoryText : NewsCardStylesDark.categoryText}>
-                        {parsedDate}
-                    </Text>
                     <View style={currentTheme === 'light' ? NewsCardStylesLight.icons : NewsCardStylesDark.icons}>
                         <TouchableOpacity
                             style={{ marginRight: 5 }}
@@ -127,6 +124,15 @@ export const NewsCardComponent = (props) => {
                             />
                         </TouchableOpacity>
                     </View>
+                </View>
+                <View style={currentTheme === 'light' ? NewsCardStylesLight.categoryView : NewsCardStylesDark.categoryView}>
+                    <Text style={currentTheme === 'light' ? NewsCardStylesLight.authorText : NewsCardStylesDark.authorText}>
+                        {props.author}
+                    </Text>
+                    <Text style={currentTheme === 'light' ? NewsCardStylesLight.authorText : NewsCardStylesDark.authorText}>
+                        {parsedDate}
+                    </Text>
+                    
                 </View>
                 <TouchableOpacity
                     activeOpacity={1}
