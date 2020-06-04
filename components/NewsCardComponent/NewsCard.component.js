@@ -19,7 +19,7 @@ export const NewsCardComponent = (props) => {
     const parsedDate =
         date.getDay() +
         '.' +
-        date.getMonth() +
+        (date.getMonth() + 1) +
         '.' +
         date.getFullYear() +
         ' | ' +
@@ -183,7 +183,7 @@ export const NewsCardComponent = (props) => {
                                 }
                             }}
                             onError={() => {
-                                console.log('missing image');
+                                // console.log('missing image');
                                 setImageStyle({});
                             }}
                             style={currentTheme === 'light' ? imageStyle.lightTheme : imageStyle.darkTheme}

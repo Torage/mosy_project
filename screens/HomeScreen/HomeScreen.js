@@ -23,9 +23,9 @@ export const HomeScreen = (props) => {
         //logging the id's to the console
         console.log('news status:', newsData.liveTopnews.status);
         console.log('totalresults:', newsData.liveTopnews.totalResults, '\n');
-        newsData.liveTopnews.articles.map((article) => {
-            console.log('Article ID:', article.source.id);
-        });
+        // newsData.liveTopnews.articles.map((article) => {
+        //     console.log('Article ID:', article.source.id);
+        // });
     }, [newsData]);
 
     function fetchNews() {
