@@ -41,6 +41,7 @@ export const NewsCardStylesLight = StyleSheet.create({
         fontSize: 12,
         fontFamily: Styles.secondFont,
         paddingTop: 5,
+        maxWidth:225
     },
     icons: {
         flexDirection: 'row',
@@ -122,6 +123,7 @@ export const NewsCardStylesDark = StyleSheet.create({
         fontSize: 12,
         fontFamily: Styles.secondFont,
         paddingTop: 5,
+        maxWidth:225
     },
     icons: {
         flexDirection: 'row',
