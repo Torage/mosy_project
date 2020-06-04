@@ -33,6 +33,7 @@ export default function App() {
         }),
     });
     const [favoriteData, setFavoriteData] = useState([]);
+    const [searchData, setSearchData] = useState([]);
     const [currentTheme, setCurrentTheme] = useState('light');
     const [sendPushNotification, setSendPushNotification] = useState(false);
     const [currentCountry, setCurrentCountry] = useState('US');
@@ -139,6 +140,7 @@ export default function App() {
                     value={{
                         topNews: [newsData, setNewsData],
                         favoriteNews: [favoriteData, setFavoriteData],
+                        searchNews: [searchData, setSearchData],
                     }}
                 >
                     <MainNavigator />

@@ -17,9 +17,8 @@ export const SearchScreen = (props) => {
     const [sendPushNotification, setSendPushNotification] = push;
     const [currentCountry, setCurrentCountry] = country;
 
-    const { topNews, favoriteNews } = useContext(NewsContext);
-    const [newsData, setNewsData] = topNews;
-    const [favoriteData, setFavoriteData] = favoriteNews;
+    const { topNews, favoriteNews, searchNews } = useContext(NewsContext);
+    const [searchData, setSearchData] = searchNews;
 
     function fetchNews(query) {
         const xhr = new XMLHttpRequest();
@@ -33,9 +32,7 @@ export const SearchScreen = (props) => {
             xhr.open('GET', 'https://newsapi.org/v2/everything?q=' + query + '&pageSize=100&apiKey=f4635151d8bf47af94cec511748e296e', true);
         }
         xhr.onload = () => {
-            setNewsData((newsData) => ({
-                liveTopnews: new Topnews(JSON.parse(xhr.response)),
-            }));
+            setSearchData(new Topnews(JSON.parse(xhr.response)));
         };
         xhr.send();
     }
@@ -62,10 +59,10 @@ export const SearchScreen = (props) => {
             <FlatList
                 refreshing={false}
                 onRefresh={() => {
-                    // fetchNews();
+                    fetchNews();
                 }}
                 keyExtractor={(article) => article.source.id}
-                data={newsData.liveTopnews.articles}
+                data={searchData.articles}
                 renderItem={({ item }) => (
                     <NewsCardComponent
                         category={item.source.name}
