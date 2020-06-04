@@ -26,7 +26,6 @@ export const NewsCardComponent = (props) => {
         (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) +
         ':' +
         (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
-        console.log(props.publishedAt, parsedDate)
     const shareContent = async () => {
         try {
             const result = await Share.share({
