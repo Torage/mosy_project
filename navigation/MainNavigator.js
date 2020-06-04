@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import {AsyncStorage} from 'react-native';
+import { AsyncStorage } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -10,13 +10,19 @@ import { SearchNavigator } from './SearchNavigator';
 import { Colors } from '../constants/colors';
 import { Styles } from '../constants/styles';
 import { SettingsContext } from '../Data/settingsContext';
+import { NewsContext } from '../Data/newsContext';
+import { IconWithBadge } from '../components/IconWithBadgeComponent/IconWithBadge';
 
 const Tab = createMaterialTopTabNavigator();
 export const MainNavigator = () => {
 
-    const {theme, push} = useContext(SettingsContext);
+    const { theme, push } = useContext(SettingsContext);
     const [currentTheme, setCurrentTheme] = theme;
     const [sendPushNotification, setSendPushNotification] = push;
+
+    const { topNews, favoriteNews } = useContext(NewsContext);
+    const [newsData, setNewsData] = topNews;
+    const [favoriteData, setFavoriteData] = favoriteNews;
 
     const changeToggleValue = value => {
 
@@ -40,7 +46,7 @@ export const MainNavigator = () => {
 
     return (
         <NavigationContainer>
-            <HeaderComponent/>
+            <HeaderComponent />
             <Tab.Navigator
                 initialRouteName='Home'
                 tabBarPosition='bottom'
@@ -62,7 +68,7 @@ export const MainNavigator = () => {
                     component={FavoritesNavigator}
                     options={{
                         tabBarLabel: 'Favorites',
-                        tabBarIcon: ({ color }) => <MaterialCommunityIcons name='bookmark-check' color={color} size={26} />,
+                        tabBarIcon: ({ color }) => <IconWithBadge iconName={'bookmark-check'} iconColor={color} iconSize={26} data={favoriteData} />,
                     }}
                 />
                 <Tab.Screen
