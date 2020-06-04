@@ -17,7 +17,7 @@ export const NewsCardComponent = (props) => {
     const [favoriteData, setFavoriteData] = favoriteNews;
     const date = new Date(props.publishedAt);
     const parsedDate =
-        date.getDay() +
+        date.getDate() +
         '.' +
         ( date.getMonth() + 1 ) +
         '.' +
