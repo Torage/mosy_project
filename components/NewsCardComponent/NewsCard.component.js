@@ -17,7 +17,7 @@ export const NewsCardComponent = (props) => {
     const [favoriteData, setFavoriteData] = favoriteNews;
     const date = new Date(props.publishedAt);
     const parsedDate =
-        ( date.getDay() + 1 ) +
+        date.getDay() +
         '.' +
         ( date.getMonth() + 1 ) +
         '.' +
@@ -26,7 +26,7 @@ export const NewsCardComponent = (props) => {
         (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) +
         ':' +
         (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
-
+        console.log(props.publishedAt, parsedDate)
     const shareContent = async () => {
         try {
             const result = await Share.share({
@@ -151,7 +151,7 @@ export const NewsCardComponent = (props) => {
                 </View>
                 <View style={currentTheme === 'light' ? NewsCardStylesLight.categoryView : NewsCardStylesDark.categoryView}>
                     <Text style={currentTheme === 'light' ? NewsCardStylesLight.authorText : NewsCardStylesDark.authorText}>
-                        {props.author}
+                        {props.author?props.author:'no mention of an author'}
                     </Text>
                     <Text style={currentTheme === 'light' ? NewsCardStylesLight.authorText : NewsCardStylesDark.authorText}>
                         {parsedDate}
