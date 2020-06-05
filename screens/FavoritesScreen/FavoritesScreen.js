@@ -4,6 +4,7 @@ import { FavoriteScreenStylesDark, FavoriteScreenStylesLight } from './Favorites
 import { SettingsContext } from '../../Data/settingsContext';
 import { NewsContext } from '../../Data/newsContext';
 import { NewsCardComponent } from '../../components/NewsCardComponent/NewsCard.component';
+import { Colors } from '../../constants/colors';
 
 export const FavoritesScreen = () => {
     const { theme, push } = useContext(SettingsContext);
@@ -31,6 +32,9 @@ export const FavoritesScreen = () => {
     return (
         <View style={currentTheme === 'light' ? FavoriteScreenStylesLight.viewContainer : FavoriteScreenStylesDark.viewContainer}>
             <FlatList
+                style={
+                    currentTheme === 'light' ? { backgroundColor: Colors.light.background } : { backgroundColor: Colors.dark.background }
+                }
                 refreshing={false}
                 onRefresh={() => {
                     fillData();
