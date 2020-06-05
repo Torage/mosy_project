@@ -5,6 +5,7 @@ import { NewsCardComponent } from '../../components/NewsCardComponent/NewsCard.c
 import { NewsContext } from '../../Data/newsContext';
 import { Topnews } from '../../Models/TopnewsModel';
 import { SettingsContext } from '../../Data/settingsContext';
+import { Colors } from '../../constants/colors';
 import Toast from 'react-native-simple-toast';
 
 export const HomeScreen = (props) => {
@@ -46,6 +47,9 @@ export const HomeScreen = (props) => {
     return (
         <View style={currentTheme === 'light' ? HomeScreenStylesLight.viewContainer : HomeScreenStylesDark.viewContainer}>
             <FlatList
+                style={
+                    currentTheme === 'light' ? { backgroundColor: Colors.light.background } : { backgroundColor: Colors.dark.background }
+                }
                 refreshing={false}
                 onRefresh={() => {
                     fetchNews();
