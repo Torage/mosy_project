@@ -45,7 +45,11 @@ export const MainNavigator = () => {
     }, []);
 
     return (
-        <NavigationContainer>
+        <NavigationContainer
+            theme={
+                currentTheme === 'light' ? { colors: { background: Colors.light.background } } : { colors: { background: Colors.dark.background } }
+            }
+        >
             <HeaderComponent />
             <Tab.Navigator
                 initialRouteName='Home'
