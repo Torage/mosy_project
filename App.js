@@ -37,6 +37,7 @@ export default function App() {
     const [currentTheme, setCurrentTheme] = useState('light');
     const [sendPushNotification, setSendPushNotification] = useState(false);
     const [currentCountry, setCurrentCountry] = useState('US');
+    const [currentCategory, setCurrentCategory] = useState('General');
     const [currentLocation, setCurrentLocation] = useState({ coords: { latitude: 0, longitude: 0 } });
 
     useEffect(() => {
@@ -55,11 +56,21 @@ export default function App() {
         AsyncStorage.getItem('CountrySetting').then((storedValue) => {
             if (storedValue != null) {
                 setCurrentCountry(storedValue);
-                fetchNews(storedValue);
             } else {
                 getLocation();
             }
         });
+
+        AsyncStorage.getItem('CategorySetting').then((storedValue) => {
+            if (storedValue != null) {
+                setCurrentCategory(storedValue);
+
+            }
+            else{
+                setCurrentCategory('General');
+            }
+        });
+
     }, []);
 
     useEffect(() => {
@@ -82,7 +93,7 @@ export default function App() {
                 setCurrentLocation(currentPosition);
             });
         } else {
-            fetchNews(currentCountry);
+            fetchNews();
             //console.log('no permission granted');
         }
     };
@@ -92,11 +103,11 @@ export default function App() {
         'Roboto-Regular': require('./assets/fonts/Roboto-Regular.ttf'),
     });
 
-    function fetchNews(country) {
+    function fetchNews() {
         const xhr = new XMLHttpRequest();
         xhr.open(
             'GET',
-            'http://newsapi.org/v2/top-headlines?country=' + country + '&pageSize=100&apiKey=f4635151d8bf47af94cec511748e296e',
+            'http://newsapi.org/v2/top-headlines?country=' + currentCountry + '&category=' + currentCategory + '&pageSize=100&apiKey=f4635151d8bf47af94cec511748e296e',
             true
         );
         xhr.onload = () => {
@@ -134,6 +145,7 @@ export default function App() {
                     theme: [currentTheme, setCurrentTheme],
                     push: [sendPushNotification, setSendPushNotification],
                     country: [currentCountry, setCurrentCountry],
+                    category: [currentCategory, setCurrentCategory],
                 }}
             >
                 <NewsContext.Provider

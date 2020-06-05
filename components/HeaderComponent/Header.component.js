@@ -9,14 +9,18 @@ import ToggleButtonPush from '../ToggleButtonComponent/ToggleButtonPush';
 import ContactButton from '../ContactButtonComponent/ContactButton';
 import SelectCountry from '../SelectCountryButtonComponent/SelectCountry';
 import SelectCountryButton from '../SelectCountryButtonComponent/SelectCountryButton';
+import SelectCategoryButton from '../SelectCategoryButtonComponent/SelectCategoryButton';
+import SelectCategory from '../SelectCategoryButtonComponent/SelectCategory';
 import { SettingsContext } from '../../Data/settingsContext';
 import Toast from 'react-native-simple-toast';
 import { FlatList } from 'react-native-gesture-handler';
 import {COUNTRIES} from '../../Data/countrys';
+import {CATEGORIES} from '../../Data/categories';
 
 export const HeaderComponent = props => {
 
     const countries = COUNTRIES;
+    const categories = CATEGORIES;
 
     //global states
     const { theme, push, country } = useContext(SettingsContext);
@@ -35,6 +39,7 @@ export const HeaderComponent = props => {
     const [settingsModalVisible, setSettingsModalVisible] = useState(false);
     const [contactModalVisible, setContactModalVisible] = useState(false);
     const [countryModalVisible, setCountryModalVisible] = useState(false);
+    const [categoryModalVisible, setCategoryModalVisible] = useState(false);
 
     //simple validate function
     function validateEmail(email) {
@@ -120,6 +125,7 @@ export const HeaderComponent = props => {
                                 <ToggleButtonTheme title='Dark Theme' description='Change to the dark theme'></ToggleButtonTheme>
                                 <ToggleButtonPush title='Push Notification' description='Enable Push Notification'></ToggleButtonPush>
                                 <SelectCountryButton title='Select Country' description='Select your country for news' setCountryModal={setCountryModalVisible}></SelectCountryButton>
+                                <SelectCategoryButton title='Select Category' description='Category for home news' setCategoryModal={setCategoryModalVisible}></SelectCategoryButton>
                                 <ContactButton title='Send Feedback' description='Feedback, Questions? Good send us a mail.' setContactModal={setContactModalVisible}></ContactButton>
                             </View>
                             <View style={currentTheme === 'light' ? HeaderStylesLight.modalViewFooter : HeaderStylesDark.modalViewFooter}>
@@ -160,6 +166,47 @@ export const HeaderComponent = props => {
                                     style={{ width: '100%' }}
                                     contentContainerStyle={{ alignItems: 'center'}}
                                     renderItem={(itemData) => (<SelectCountry id={itemData.item.id} name={itemData.item.name} setCountryModalVisible={setCountryModalVisible}/>)}
+                                    keyExtractor={(item) => item.id}
+                                />
+                            </View>
+                            <View style={currentTheme === 'light' ? HeaderStylesLight.modalViewContactFooter : HeaderStylesDark.modalViewContactFooter}>
+                                
+                            </View>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
+
+            <Modal //category modal
+                statusBarTranslucent='true'
+                animationType='fade'
+                transparent={true}
+                visible={categoryModalVisible}
+                onRequestClose={() => {
+                    console.log('modal closed');
+                }}
+            >
+                <View style={currentTheme === 'light' ? HeaderStylesLight.centeredView : HeaderStylesDark.centeredView}>
+                    <View>
+                        <View style={currentTheme === 'light' ? HeaderStylesLight.modalView : HeaderStylesDark.modalView}>
+                            <View style={currentTheme === 'light' ? HeaderStylesLight.modalViewHeader : HeaderStylesDark.modalViewHeader}>
+                                <View style={currentTheme === 'light' ? HeaderStylesLight.modalIconContainer : HeaderStylesDark.modalIconContainer}>
+                                </View>
+                                <View style={currentTheme === 'light' ? HeaderStylesLight.modalTextContainer : HeaderStylesDark.modalTextContainer}>
+                                    <Text style={currentTheme === 'light' ? HeaderStylesLight.modalHeaderText : HeaderStylesDark.modalHeaderText} >Select Category</Text>
+                                </View>
+                                <View style={currentTheme === 'light' ? HeaderStylesLight.modalIconContainer : HeaderStylesDark.modalIconContainer}>
+                                    <TouchableOpacity onPress={() => setCategoryModalVisible(!categoryModalVisible)}>
+                                        <MaterialCommunityIcons name='close' color={currentTheme === 'light' ? Colors.light.accent : Colors.dark.accent} size={24} />
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                            <View style={currentTheme === 'light' ? HeaderStylesLight.modalViewContent : HeaderStylesDark.modalViewContent}>
+                                <FlatList
+                                    data={categories}
+                                    style={{ width: '100%' }}
+                                    contentContainerStyle={{ alignItems: 'center'}}
+                                    renderItem={(itemData) => (<SelectCategory id={itemData.item.id} name={itemData.item.name} setCategoryModalVisible={setCategoryModalVisible}/>)}
                                     keyExtractor={(item) => item.id}
                                 />
                             </View>

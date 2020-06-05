@@ -10,10 +10,11 @@ import Toast from 'react-native-simple-toast';
 
 export const HomeScreen = (props) => {
     // Global State object
-    const { theme, push, country } = useContext(SettingsContext);
+    const { theme, push, country, category } = useContext(SettingsContext);
     const [currentTheme, setCurrentTheme] = theme;
     const [sendPushNotification, setSendPushNotification] = push;
     const [currentCountry, setCurrentCountry] = country;
+    const [currentCategory, setCurrentCategory] = category;
 
     const { topNews, favoriteNews } = useContext(NewsContext);
     const [newsData, setNewsData] = topNews;
@@ -29,11 +30,22 @@ export const HomeScreen = (props) => {
         // });
     }, [newsData]);
 
+    useEffect(() => {
+
+        fetchNews();
+    }, [currentCountry]);
+
+    useEffect(() => {
+
+        fetchNews();
+    }, [currentCategory]);
+
+
     function fetchNews() {
         const xhr = new XMLHttpRequest();
         xhr.open(
             'GET',
-            'http://newsapi.org/v2/top-headlines?country=' + currentCountry + '&pageSize=100&apiKey=f4635151d8bf47af94cec511748e296e',
+            'http://newsapi.org/v2/top-headlines?country=' + currentCountry + '&category=' + currentCategory + '&pageSize=100&apiKey=f4635151d8bf47af94cec511748e296e',
             true
         );
         xhr.onload = () => {

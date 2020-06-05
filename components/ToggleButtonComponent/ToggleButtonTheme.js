@@ -5,9 +5,11 @@ import { ToggleButtonStylesDark, ToggleButtonStylesLight } from '../ToggleButton
 import { SettingsContext } from '../../Data/settingsContext';
 
 export default ToggleButton = (props) => {
-    const { theme, push } = useContext(SettingsContext);
+    const { theme, push, country, category } = useContext(SettingsContext);
     const [currentTheme, setCurrentTheme] = theme;
     const [sendPushNotification, setSendPushNotification] = push;
+    const [currentCountry, setCurrentCountry] = country;
+    const [currentCategory, setCurrentCategory] = category
     const [toggleEnabled, setToggleEnabled] = useState(false);
 
     const changeToggleValue = (value) => {
