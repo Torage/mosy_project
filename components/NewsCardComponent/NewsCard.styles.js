@@ -1,6 +1,10 @@
 import { StyleSheet } from 'react-native';
 import { Colors } from '../../constants/colors';
 import { Styles } from '../../constants/styles';
+import { Dimensions } from 'react-native';
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 export const NewsCardStylesLight = StyleSheet.create({
     viewContainer: {
@@ -9,7 +13,7 @@ export const NewsCardStylesLight = StyleSheet.create({
     },
     mainView: {
         backgroundColor: Colors.light.background,
-        width: 350,
+        width: windowWidth - 10,
         borderRadius: 20,
         elevation: 10,
         shadowColor: '#000',
@@ -41,7 +45,7 @@ export const NewsCardStylesLight = StyleSheet.create({
         fontSize: 12,
         fontFamily: Styles.secondFont,
         paddingTop: 5,
-        maxWidth:225
+        maxWidth: 225
     },
     icons: {
         flexDirection: 'row',
@@ -76,7 +80,7 @@ export const NewsCardStylesLight = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         height: 170,
-        width: '100%',
+        width: windowWidth - 12,
         borderBottomLeftRadius: 18,
         borderBottomRightRadius: 18,
     },
@@ -89,7 +93,7 @@ export const NewsCardStylesDark = StyleSheet.create({
     },
     mainView: {
         backgroundColor: Colors.dark.background,
-        width: 350,
+        width: windowWidth - 10,
         borderRadius: 20,
         elevation: 10,
         shadowColor: '#000',
@@ -123,7 +127,7 @@ export const NewsCardStylesDark = StyleSheet.create({
         fontSize: 12,
         fontFamily: Styles.secondFont,
         paddingTop: 5,
-        maxWidth:225
+        maxWidth: 225
     },
     icons: {
         flexDirection: 'row',
@@ -159,7 +163,7 @@ export const NewsCardStylesDark = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         height: 170,
-        width: 347,
+        width: windowWidth - 12,
         borderBottomLeftRadius: 18,
         borderBottomRightRadius: 18,
         // marginBottom: 15,

@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { AsyncStorage } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { AsyncStorage, StatusBar } from 'react-native';
+import { NavigationContainer,useFocusEffect } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { HeaderComponent } from '../components/HeaderComponent/Header.component';
@@ -50,6 +50,7 @@ export const MainNavigator = () => {
                 currentTheme === 'light' ? { colors: { background: Colors.light.background } } : { colors: { background: Colors.dark.background } }
             }
         >
+            <StatusBar barStyle='light-content' backgroundColor={currentTheme === 'light' ? Colors.light.statusBarBG : Colors.dark.statusBarBG}/>
             <HeaderComponent />
             <Tab.Navigator
                 initialRouteName='Home'

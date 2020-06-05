@@ -95,7 +95,6 @@ export const HeaderComponent = props => {
 
     return (
         <SafeAreaView style={currentTheme === 'light' ? HeaderStylesLight.safeAreaView : HeaderStylesDark.safeAreaView}>
-            <StatusBar barStyle={currentTheme === 'light' ? 'dark-content' : 'light-content'} backgroundColor={currentTheme === 'light' ? 'white' : Colors.dark.statusBarBG} />
             <Modal //settings modal
                 animationType='fade'
                 transparent={true}

@@ -7,7 +7,7 @@ export const Colors = {
         text: '#2A2A3A',
         categoryColor: '#061E86',
         titleText: '#20d497',
-        statusBarBG: '#2b2a3a',
+        statusBarBG: '#061E86',
         settingsBG: '#ffffff',
         settingsSecondBG: '#dddddd',
         trackColorDisabled : '#cccccc',
