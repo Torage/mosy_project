@@ -5,7 +5,7 @@ import { SelectLanguageStylesDark, SelectLanguageStylesLight } from './SelectLan
 import { SettingsContext } from '../../Data/settingsContext';
 import Flag from 'react-native-flags';
 
-export default SelectLanguage = props => {
+export default SelectLanguage = (props) => {
 
     const { theme, push, country} = useContext(SettingsContext);
     const [currentTheme, setCurrentTheme] = theme;
@@ -16,13 +16,16 @@ export default SelectLanguage = props => {
 
     return (
         <View style={currentTheme === 'light' ? SelectLanguageStylesLight.settingRow : SelectLanguageStylesDark.settingRow} >
-            <TouchableNativeFeedback onPress={() => {props.setLang(props.id)}}>
+            <TouchableNativeFeedback 
+                onPress={() => {
+                    props.setLang(props.id)
+                    }}>
                 <View style={currentTheme === 'light' ? SelectLanguageStylesLight.wrapper : SelectLanguageStylesDark.wrapper}>
                     <View style={currentTheme === 'light' ? SelectLanguageStylesLight.leftContainer : SelectLanguageStylesDark.leftContainer}>
                         <Text style={currentTheme === 'light' ? SelectLanguageStylesLight.titleText : SelectLanguageStylesDark.titleText}>{props.id} - {props.name}</Text>
                     </View>
                     <View style={currentTheme === 'light' ? SelectLanguageStylesLight.rightContainer : SelectLanguageStylesDark.rightContainer}>
-                        <Flag code={props.id} size={32} type="flat" />
+                        <Flag code={props.flag} size={32} type="flat" />
                     </View>
                 </View>
             </TouchableNativeFeedback>

@@ -63,7 +63,7 @@ export const SearchScreen = ({navigation}) => {
                                     data={language}
                                     style={{ width: '100%' }}
                                     contentContainerStyle={{ alignItems: 'center'}}
-                                    renderItem={(itemData) => (<SelectLanguage id={itemData.item.id} name={itemData.item.name} setLang={setLang}/>)}
+                                    renderItem={(itemData) => (<SelectLanguage id={itemData.item.id} name={itemData.item.name} flag={itemData.item.flag} setLang={setLang}/>)}
                                     keyExtractor={(item) => item.id}
                                 />
                             </View>

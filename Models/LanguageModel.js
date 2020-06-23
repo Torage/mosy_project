@@ -1,7 +1,8 @@
 class Language {
-    constructor(id, name) {
+    constructor(id, name, flag) {
       this.id = id;
       this.name = name;
+      this.flag = flag;
     }
   }
   
