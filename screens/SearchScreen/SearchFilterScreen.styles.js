@@ -8,20 +8,20 @@ export const SearchFilterScreenStylesLight = StyleSheet.create({
         backgroundColor: Colors.light.background,
     },
     headerView: {
-        marginHorizontal: '10%',
+        marginHorizontal: '5%',
         flexDirection: 'row',
     },
-    input: {},
-    inputText: {
-        color: Colors.light.accent,
+    backButton: {
+        paddingTop: 6,
+        marginRight: 10,
     },
     headerText: {
-        paddingTop: 3,
         color: Colors.light.categoryColor,
         fontFamily: Styles.defaultFont,
         textTransform: 'uppercase',
-        fontSize: 14,
+        fontSize: 17,
         marginVertical: 15,
+        marginLeft: 10,
     },
     searchText: {
         paddingLeft: 5,
@@ -39,20 +39,21 @@ export const SearchFilterScreenStylesDark = StyleSheet.create({
         backgroundColor: Colors.dark.background,
     },
     headerView: {
-        marginHorizontal: '10%',
+        marginHorizontal: '5%',
         flexDirection: 'row',
+        justifyContent: 'flex-start'
     },
-    input: {},
-    inputText: {
-        color: Colors.dark.accent,
+    backButton: {
+        paddingTop: 6,
+        marginRight: 10,
     },
     headerText: {
-        paddingTop: 3,
         color: Colors.dark.categoryColor,
         fontFamily: Styles.defaultFont,
         textTransform: 'uppercase',
-        fontSize: 14,
+        fontSize: 17,
         marginVertical: 15,
+        marginLeft: 10,
     },
     searchText: {
         paddingLeft: 5,

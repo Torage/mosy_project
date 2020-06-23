@@ -30,6 +30,11 @@ export const SearchNavigator = () => {
             />
             <SearchStack.Screen
                 name='SearchFilter'
+                options={
+                    currentTheme === 'light'
+                        ? { cardStyle: { backgroundColor: Colors.light.background } }
+                        : { cardStyle: { backgroundColor: Colors.dark.background } }
+                }
                 component={SearchFilterScreen}
             />
         </SearchStack.Navigator>
