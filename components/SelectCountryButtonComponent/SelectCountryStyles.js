@@ -39,13 +39,6 @@ export const SelectCountryStylesLight = StyleSheet.create({
         color: Colors.light.accent,
     },
 
-    abbreviationText: {
-        fontFamily: Styles.defaultFont,
-        fontSize: 12,
-        marginLeft: 10,
-        color: Colors.light.descriptionText,
-
-    },
 });
 
 export const SelectCountryStylesDark = StyleSheet.create({
@@ -85,11 +78,4 @@ export const SelectCountryStylesDark = StyleSheet.create({
         color: Colors.dark.accent,
     },
 
-    abbreviationText: {
-        fontFamily: Styles.defaultFont,
-        fontSize: 12,
-        marginLeft: 10,
-        color: Colors.dark.descriptionText,
-
-    }
 });
