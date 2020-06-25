@@ -10,7 +10,7 @@ export default SelectCategory = (props) => {
   const [currentTheme, setCurrentTheme] = theme;
   const [sendPushNotification, setSendPushNotification] = push;
   const [currentCountry, setCurrentCountry] = country;
-  const [currentCategoryuntry, setCurrentCategory] = category;
+  const [currentCategory, setCurrentCategory] = category;
 
   const changeCategory = () => {
     setCurrentCategory(props.name);
@@ -24,7 +24,6 @@ export default SelectCategory = (props) => {
         <View style={currentTheme === 'light' ? SelectCategoryStylesLight.wrapper : SelectCategoryStylesDark.wrapper}>
           <View style={currentTheme === 'light' ? SelectCategoryStylesLight.leftContainer : SelectCategoryStylesDark.leftContainer}>
             <MaterialCommunityIcons
-              style={currentTheme === 'light' ? SelectCategoryStylesLight.icon : SelectCategoryStylesDark.icon}
               name={props.iconName}
               color={currentTheme === 'light' ? Colors.light.accent : Colors.dark.accent}
               size={26}
