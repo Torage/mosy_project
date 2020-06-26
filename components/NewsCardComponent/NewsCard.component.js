@@ -259,7 +259,14 @@ export const NewsCardComponent = (props) => {
                                             : NewsModalStylesDark.modalViewContent
                                     }
                                 >
-                                    <WebView source={{ uri: props.url }} style={{ flex: 1, width: 380, backgroundColor: 'transparent' }} />
+                                    <WebView 
+                                        source={{ uri: props.url }} 
+                                        style={
+                                            currentTheme === 'light'
+                                            ? NewsModalStylesLight.webView
+                                            : NewsModalStylesDark.webView
+                                        } 
+                                    />
                                 </View>
                                 <View
                                     style={
