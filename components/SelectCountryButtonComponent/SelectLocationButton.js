@@ -1,11 +1,9 @@
 import React, { useContext } from 'react';
-import { TouchableNativeFeedback, View, StyleSheet, AsyncStorage, Text, Alert } from 'react-native';
+import { TouchableNativeFeedback, View, Text, Alert } from 'react-native';
 import { SettingsContext } from '../../Data/settingsContext';
 import { FontAwesome } from '@expo/vector-icons';
-
-import { Styles } from '../../constants/styles';
+import { SelectLocationButtonStylesLight, SelectLocationButtonStylesDark} from './SelectLocationButtonStyles';
 import { Colors } from '../../constants/colors';
-
 import * as Permissions from 'expo-permissions';
 import * as Location from 'expo-location';
 
@@ -19,8 +17,8 @@ export default SelectCountryButton = props => {
     const getLocation = async () => {
         const hasPermission = await verifyPermissions();
         if (!hasPermission){
+            Alert.alert('Permission denied', "Can't access location service", [{title: 'ok'}]);
             return;
-            // error handling
         }
         try {
             const location = await Location.getCurrentPositionAsync({timeout: 5000}).then((answer) => {
@@ -29,7 +27,7 @@ export default SelectCountryButton = props => {
                 setCurrentLocation(fetchedPosition);
             });
         } catch (error) {
-            Alert.alert('Cant get location', 'try again', [{title: 'ok'}]);
+            Alert.alert("Can't get location", 'try again', [{title: 'ok'}]);
         }
     };
 
@@ -50,13 +48,13 @@ const verifyPermissions = async () =>{
     }
 
     return(
-        <View style={styles.settingsRow} >
+        <View style={currentTheme === 'light' ? SelectLocationButtonStylesLight.settingsRow : SelectLocationButtonStylesDark.settingsRow} >
         <TouchableNativeFeedback onPress={() => locationHandler()}>
-            <View style={styles.wrapper}>
-                <View style={styles.left}>
-                    <Text style={styles.text}>Get your current position</Text>
+            <View style={currentTheme === 'light' ? SelectLocationButtonStylesLight.wrapper : SelectLocationButtonStylesDark.wrapper}>
+                <View style={currentTheme === 'light' ? SelectLocationButtonStylesLight.left : SelectLocationButtonStylesDark.left}>
+                    <Text style={currentTheme === 'light' ? SelectLocationButtonStylesLight.text : SelectLocationButtonStylesDark.text}>Get your current position</Text>
                 </View>
-                <View style={styles.right}>
+                <View style={currentTheme === 'light' ? SelectLocationButtonStylesLight.right : SelectLocationButtonStylesDark.right}>
                     <FontAwesome 
                         name="map-marker" 
                         size={24} 
@@ -69,36 +67,4 @@ const verifyPermissions = async () =>{
     );
 }
 
-const styles = StyleSheet.create({
-    settingsRow: {
-        width: '96%',
-        marginVertical: 5,
-        height: 40,
-        borderRadius: 10,
-        borderWidth: 1,
-        borderColor: Colors.dark.dividerColor,
-        backgroundColor: Colors.dark.background,
-    },
-    wrapper: {
-        flex: 1,
-        flexDirection: 'row',
-    },
-        left:{
-            flex: 4,
-            justifyContent: 'center',
-            alignItems: 'flex-start',
-        },
-        right:{
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-        },
-        text:{
-            fontFamily: Styles.defaultFont,
-            fontWeight: 'bold',
-            fontSize: 14,
-            marginLeft: 10,
-            color: Colors.dark.accent,
-        },
 
-});
