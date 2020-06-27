@@ -24,6 +24,12 @@ export const SelectCountryStylesLight = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'flex-start',
     },
+    
+    selectContainer:{
+        flex:1, 
+        justifyContent:'center', 
+        alignItems:'center'
+    },
 
     rightContainer: {
         flex: 1,
@@ -66,9 +72,15 @@ export const SelectCountryStylesDark = StyleSheet.create({
     },
 
     leftContainer: {
-        flex: 4,
+        flex: 3,
         justifyContent: 'center',
         alignItems: 'flex-start',
+    },
+
+    selectContainer:{
+        flex:1, 
+        justifyContent:'center', 
+        alignItems:'center'
     },
 
     rightContainer: {
