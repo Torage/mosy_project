@@ -12,6 +12,7 @@ import SelectCountryButton from '../SelectCountryButtonComponent/SelectCountryBu
 import SelectCategoryButton from '../SelectCategoryButtonComponent/SelectCategoryButton';
 import SelectCategory from '../SelectCategoryButtonComponent/SelectCategory';
 import { SettingsContext } from '../../Data/settingsContext';
+import Toast from 'react-native-simple-toast';
 import { FlatList } from 'react-native-gesture-handler';
 import { COUNTRIES } from '../../Data/countrys';
 import { CATEGORIES } from '../../Data/categories';
@@ -53,7 +54,7 @@ export const HeaderComponent = (props) => {
 
   const sendInputData = async () => {
     if (contactName === '' || contactSubject === '' || contactMessage === '') {
-      console.log('Fields cant be empty.');
+      Toast.show('Fields cant be empty.', Toast.LONG);
     } else {
       if (validateEmail(contactEmail)) {
         try {
@@ -72,15 +73,15 @@ export const HeaderComponent = (props) => {
           console.log(error);
 
           if (error != null) {
-            console.log('Something went wrong. Please try again later.');
+            Toast.show('Something went wrong. Please try again later.', Toast.LONG);
           }
         }
 
         clearInputData();
         setContactModalVisible(false);
-        console.log('Thank you ' + contactName + '\nYour message has been sent.');
+        Toast.show('Thank you ' + contactName + '\nYour message has been sent.', Toast.LONG);
       } else {
-        console.log('Please enter a valid email adresss.');
+        Toast.show('Please enter a valid email adresss.', Toast.LONG);
       }
     }
   };
