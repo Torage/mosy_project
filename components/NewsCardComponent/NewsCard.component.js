@@ -90,7 +90,6 @@ export const NewsCardComponent = (props) => {
                 else{
                     Toast.show("Added to Favorites.", Toast.SHORT);
                 }
-                
             });
         });
     }

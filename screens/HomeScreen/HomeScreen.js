@@ -5,8 +5,8 @@ import { NewsCardComponent } from '../../components/NewsCardComponent/NewsCard.c
 import { NewsContext } from '../../Data/newsContext';
 import { Topnews } from '../../Models/TopnewsModel';
 import { SettingsContext } from '../../Data/settingsContext';
-import { Colors } from '../../constants/colors';
 import Toast from 'react-native-simple-toast';
+import { Colors } from '../../constants/colors';
 
 export const HomeScreen = (props) => {
     // Global State object
