@@ -30,7 +30,7 @@ export const SearchScreen = ({navigation}) => {
     const [domains, setDomains] = useState('');
     const [exDomains, setExDomains] = useState('');
     const [sortBy, setSortBy] = useState('publishedAt');
-    const [lang, setLang] = useState('');
+    const [lang, setLang] = useState('FR');
 
 
 
@@ -242,7 +242,7 @@ export const SearchScreen = ({navigation}) => {
                         onPress={() => setLanguageModalVisible(!languageModalVisible)}
                         >
                             <Text style={currentTheme === 'light' ? SearchScreenStylesLight.buttonText : SearchScreenStylesDark.buttonText}>
-                                Select Language : GER
+                                Select Language : {lang}
                             </Text>                    
                     </TouchableOpacity>
                 </View>
