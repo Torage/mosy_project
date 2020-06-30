@@ -35,7 +35,7 @@
         "react-native-smtp-mailer": "^1.2.2",
         "react-native-tab-view": "^2.14.0",
         "react-native-web": "~0.11.7",
-        "react-native-webview": "^10.1.0"
+        "react-native-webview": "^10.1.0",
         "react-native-appearance": "~0.3.3"
     },
     "devDependencies": {
