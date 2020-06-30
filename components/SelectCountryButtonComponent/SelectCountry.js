@@ -15,6 +15,7 @@ export default SelectCountry = props => {
     const changeCountry = () => {
         setCurrentCountry(props.id);
         AsyncStorage.setItem('CountrySetting', props.id);
+        console.log(props.id + ' selected');
         props.setCountryModalVisible(false);
     }
 
