@@ -23,7 +23,7 @@ export const MainNavigator = () => {
     const { topNews, favoriteNews } = useContext(NewsContext);
     const [newsData, setNewsData] = topNews;
     const [favoriteData, setFavoriteData] = favoriteNews;
-
+/*
     const changeToggleValue = value => {
 
         setToggleEnabled(value);
@@ -43,7 +43,7 @@ export const MainNavigator = () => {
         });
 
     }, []);
-
+*/
     return (
         <NavigationContainer
             theme={

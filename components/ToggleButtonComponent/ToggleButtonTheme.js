@@ -3,6 +3,7 @@ import { Text, View, TouchableHighlight, Switch, AsyncStorage } from 'react-nati
 import { Colors } from '../../constants/colors';
 import { ToggleButtonStylesDark, ToggleButtonStylesLight } from '../ToggleButtonComponent/ToggleButtonStyles';
 import { SettingsContext } from '../../Data/settingsContext';
+import { Appearance, useColorScheme } from 'react-native-appearance';
 
 export default ToggleButton = (props) => {
     const { theme, push, country, category } = useContext(SettingsContext);
@@ -11,13 +12,20 @@ export default ToggleButton = (props) => {
     const [currentCountry, setCurrentCountry] = country;
     const [currentCategory, setCurrentCategory] = category
     const [toggleEnabled, setToggleEnabled] = useState(false);
+    const [deviceTheme, setDeviceTheme] = useState(true)
 
     const changeToggleValue = (value) => {
         setToggleEnabled(value);
         if (value === true ? setCurrentTheme('dark') : setCurrentTheme('light'));
         AsyncStorage.setItem('DarkSkinSetting', JSON.stringify(value));
     };
-
+/*
+    const changeDeviceTheme = (value) => {
+        setDeviceTheme(value);
+        if (value === true ? )
+    };
+*/
+/*  on App start get stored Theme
     useEffect(() => {
         AsyncStorage.getItem('DarkSkinSetting').then((storedValue) => {
             if (storedValue != null) {
@@ -25,13 +33,14 @@ export default ToggleButton = (props) => {
             }
         });
     }, []);
-
+*/
     return (
         <View style={currentTheme === 'light' ? ToggleButtonStylesLight.settingRow : ToggleButtonStylesDark.settingRow}>
             <TouchableHighlight
                 style={{ flex: 1, justifyContent: 'center', flexDirection: 'row', width: '100%' }}
                 underlayColor='transparent'
                 onPress={() => changeToggleValue(!toggleEnabled)}
+                onLongPress={() => changeDeviceTheme(!deviceTheme)}
             >
                 <View style={currentTheme === 'light' ? ToggleButtonStylesLight.wrapper : ToggleButtonStylesDark.wrapper}>
                     <View style={currentTheme === 'light' ? ToggleButtonStylesLight.leftContainer : ToggleButtonStylesDark.leftContainer}>
