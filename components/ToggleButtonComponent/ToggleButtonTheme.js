@@ -3,29 +3,45 @@ import { Text, View, TouchableHighlight, Switch, AsyncStorage } from 'react-nati
 import { Colors } from '../../constants/colors';
 import { ToggleButtonStylesDark, ToggleButtonStylesLight } from '../ToggleButtonComponent/ToggleButtonStyles';
 import { SettingsContext } from '../../Data/settingsContext';
-import { Appearance, useColorScheme } from 'react-native-appearance';
+import { Appearance } from 'react-native-appearance';
 
 export default ToggleButton = (props) => {
+    let globalTheme;
+
     const { theme, push, country, category } = useContext(SettingsContext);
     const [currentTheme, setCurrentTheme] = theme;
     const [sendPushNotification, setSendPushNotification] = push;
     const [currentCountry, setCurrentCountry] = country;
     const [currentCategory, setCurrentCategory] = category
     const [toggleEnabled, setToggleEnabled] = useState(false);
-    const [deviceTheme, setDeviceTheme] = useState(true)
+    const [deviceTheme, setDeviceTheme] = useState(false)
 
     const changeToggleValue = (value) => {
+        console.log('press');
         setToggleEnabled(value);
         if (value === true ? setCurrentTheme('dark') : setCurrentTheme('light'));
         AsyncStorage.setItem('DarkSkinSetting', JSON.stringify(value));
     };
-/*
-    const changeDeviceTheme = (value) => {
-        setDeviceTheme(value);
-        if (value === true ? )
+
+    let themeListener;
+
+    const changeDeviceTheme = () => {
+        console.log('longPress');
+        if (deviceTheme === true){
+            setDeviceTheme(false);
+            themeListener.remove();
+
+        }else{
+            setDeviceTheme(true);
+            setCurrentTheme(globalTheme);
+            themeListener = Appearance.addChangeListener(({ colorScheme }) => {
+                globalTheme = colorScheme;
+                console.log('global theme changed to: ' + colorScheme);
+            });
+        }
     };
-*/
-/*  on App start get stored Theme
+
+//  Get current value
     useEffect(() => {
         AsyncStorage.getItem('DarkSkinSetting').then((storedValue) => {
             if (storedValue != null) {
@@ -33,14 +49,14 @@ export default ToggleButton = (props) => {
             }
         });
     }, []);
-*/
+
     return (
         <View style={currentTheme === 'light' ? ToggleButtonStylesLight.settingRow : ToggleButtonStylesDark.settingRow}>
             <TouchableHighlight
                 style={{ flex: 1, justifyContent: 'center', flexDirection: 'row', width: '100%' }}
                 underlayColor='transparent'
                 onPress={() => changeToggleValue(!toggleEnabled)}
-                onLongPress={() => changeDeviceTheme(!deviceTheme)}
+                onLongPress={() => changeDeviceTheme()}
             >
                 <View style={currentTheme === 'light' ? ToggleButtonStylesLight.wrapper : ToggleButtonStylesDark.wrapper}>
                     <View style={currentTheme === 'light' ? ToggleButtonStylesLight.leftContainer : ToggleButtonStylesDark.leftContainer}>

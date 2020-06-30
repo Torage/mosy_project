@@ -109,7 +109,7 @@ export const HeaderComponent = (props) => {
                 </View>
               </View>
               <View style={currentTheme === 'light' ? HeaderStylesLight.modalViewContent : HeaderStylesDark.modalViewContent}>
-                <ToggleButtonTheme title='Dark Theme' description='Change to the dark theme'></ToggleButtonTheme>
+                <ToggleButtonTheme title='Change Theme' description='Press to switch or hold for device theming'></ToggleButtonTheme>
                 <ToggleButtonPush title='Push Notification' description='Enable Push Notification'></ToggleButtonPush>
                 <SelectCountryButton title='Select Country' description='Select your country for news' setCountryModal={setCountryModalVisible}></SelectCountryButton>
                 <SelectCategoryButton title='Select Category' description='Category for home news' setCategoryModal={setCategoryModalVisible}></SelectCategoryButton>
