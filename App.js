@@ -9,10 +9,14 @@ import { SettingsContext } from './Data/settingsContext';
 import * as Permissions from 'expo-permissions';
 import * as Location from 'expo-location';
 import { COUNTRIES } from './Data/countrys';
+import { AppearanceProvider, Appearance, } from 'react-native-appearance';
 
 export default function App() {
+    
+    // Our list of supported countrys 
     const countries = COUNTRIES;
 
+    // Data states for news, favorites and search (initial newsCard while loading)
     const [newsData, setNewsData] = useState({
         liveTopnews: new Topnews({
             status: 'init',
@@ -34,25 +38,34 @@ export default function App() {
     });
     const [favoriteData, setFavoriteData] = useState([]);
     const [searchData, setSearchData] = useState([]);
-    const [currentTheme, setCurrentTheme] = useState('light');
+
+    // Settings states (initial values for push, country, category, location)
+    const [currentTheme, setCurrentTheme] = useState();
     const [sendPushNotification, setSendPushNotification] = useState(false);
     const [currentCountry, setCurrentCountry] = useState('US');
     const [currentCategory, setCurrentCategory] = useState('General');
     const [currentLocation, setCurrentLocation] = useState({ coords: { latitude: 0, longitude: 0 } });
 
+    // On app start get stored settings > one time; 
     useEffect(() => {
+
+        //Theme Settings; if none stored set device preferance
         AsyncStorage.getItem('DarkSkinSetting').then((storedValue) => {
             if (storedValue != null) {
                 if (JSON.parse(storedValue) === true ? setCurrentTheme('dark') : setCurrentTheme('light'));
+            }else{
+                setCurrentTheme(Appearance.getColorScheme());
             }
         });
 
+        // Push notification
         AsyncStorage.getItem('PushSetting').then((storedValue) => {
             if (storedValue != null) {
                 setSendPushNotification(JSON.parse(storedValue));
             }
         });
 
+        // Country settings; if none, ask for Location
         AsyncStorage.getItem('CountrySetting').then((storedValue) => {
             if (storedValue != null) {
                 setCurrentCountry(storedValue);
@@ -61,6 +74,7 @@ export default function App() {
             }
         });
 
+        // Category settings; if none set default "general"
         AsyncStorage.getItem('CategorySetting').then((storedValue) => {
             if (storedValue != null) {
                 setCurrentCategory(storedValue);
@@ -73,17 +87,21 @@ export default function App() {
 
     }, []);
 
+    // everytime location changes with proper values, getCountrynameByGps() 
     useEffect(() => {
         if (currentLocation.coords.latitude != 0 && currentLocation.coords.longitude != 0) {
+            // debug location
             // console.log('CurrentLocation:', 'lat', currentLocation.coords.latitude, 'lng', currentLocation.coords.longitude);
             getCountrynameByGps(currentLocation.coords.latitude, currentLocation.coords.longitude);
         }
     }, [currentLocation]);
 
+    // Ask for location permission if granted get latitude and longitude and set them to location state
     const getLocation = async () => {
         let permissionRequest = 'denied';
         await Permissions.askAsync(Permissions.LOCATION).then((permissionResponse) => {
             permissionRequest = permissionResponse.status;
+            // debug permission response
             //console.log('permissionRequest:', permissionRequest);
         });
         if (permissionRequest === 'granted') {
@@ -93,16 +111,18 @@ export default function App() {
                 setCurrentLocation(currentPosition);
             });
         } else {
+            // Error handling here (current just fetchNews)
             fetchNews();
             //console.log('no permission granted');
         }
     };
-
+    // Load custom fonts
     let [fontsLoaded] = useFonts({
         NoyhRBlack: require('./assets/fonts/NoyhRBlack.otf'),
         'Roboto-Regular': require('./assets/fonts/Roboto-Regular.ttf'),
     });
 
+    // Api call using country and category state
     function fetchNews() {
         const xhr = new XMLHttpRequest();
         xhr.open(
@@ -117,14 +137,17 @@ export default function App() {
         };
         xhr.send();
     }
-
+    // Api call to get current country using latitude and longitude. 
     function getCountrynameByGps(lat, lng) {
         const xhr = new XMLHttpRequest();
         const url = 'http://api.geonames.org/findNearbyJSON?lat=' + lat + '&lng=' + lng + '&username=newscope';
         xhr.open('GET', url, true);
         xhr.onload = () => {
-            //console.log(JSON.parse(xhr.response));
+            // debug api response(whole object) and api response(key geonames) 
+            // console.log(JSON.parse(xhr.response));
             // console.log('You are located in:', JSON.parse(xhr.response).geonames);
+            
+            // checks if returned country is supported, else sets default US
             JSON.parse(xhr.response).geonames.map((location) => {
                 countries.filter((country) => country.id === location.countryCode).length > 0
                     ? setCurrentCountry(location.countryCode)
@@ -133,31 +156,36 @@ export default function App() {
             });
         };
         xhr.send();
+        // debug api call
         // console.log(url);
     }
 
+    // Show AppLoading while fonts not loads,
     if (!fontsLoaded) {
         return <AppLoading />;
     } else {
+        // Start the app with MainNavigator, provide NewsContext, SettingsContext and Appearance
         return (
-            <SettingsContext.Provider
-                value={{
-                    theme: [currentTheme, setCurrentTheme],
-                    push: [sendPushNotification, setSendPushNotification],
-                    country: [currentCountry, setCurrentCountry],
-                    category: [currentCategory, setCurrentCategory],
-                }}
-            >
-                <NewsContext.Provider
+            <AppearanceProvider>
+                <SettingsContext.Provider
                     value={{
-                        topNews: [newsData, setNewsData],
-                        favoriteNews: [favoriteData, setFavoriteData],
-                        searchNews: [searchData, setSearchData],
+                        theme: [currentTheme, setCurrentTheme],
+                        push: [sendPushNotification, setSendPushNotification],
+                        country: [currentCountry, setCurrentCountry],
+                        category: [currentCategory, setCurrentCategory],
                     }}
                 >
-                    <MainNavigator />
-                </NewsContext.Provider>
-            </SettingsContext.Provider>
+                    <NewsContext.Provider
+                        value={{
+                            topNews: [newsData, setNewsData],
+                            favoriteNews: [favoriteData, setFavoriteData],
+                            searchNews: [searchData, setSearchData],
+                        }}
+                    >
+                        <MainNavigator />
+                    </NewsContext.Provider>
+                </SettingsContext.Provider>
+            </AppearanceProvider>
         );
     }
 }
