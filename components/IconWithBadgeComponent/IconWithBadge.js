@@ -1,12 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Text, View, TouchableOpacity, Image, Share, Modal, SafeAreaView, AsyncStorage, Alert, ToastAndroid } from 'react-native';
+import { Text, View, TouchableOpacity, Image, Share, Modal, SafeAreaView, AsyncStorage, Alert } from 'react-native';
 import { Colors } from '../../constants/colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { SettingsContext } from '../../Data/settingsContext';
 import { NewsContext } from '../../Data/newsContext';
 import { IconWithBadgeStylesDark, IconWithBadgeStylesLight } from './IconWithBadgeStyles';
 import Constants from 'expo-constants';
-import Toast from 'react-native-simple-toast';
 import NewsCard from '../../Models/NewscardModel';
 import { color } from 'react-native-reanimated';
 

@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Text, View, TouchableOpacity, Image, Share, Modal, SafeAreaView, AsyncStorage, Alert, ToastAndroid } from 'react-native';
+import { Text, View, TouchableOpacity, Image, Share, Modal, SafeAreaView, AsyncStorage, Alert } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { Colors } from '../../constants/colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -8,7 +8,7 @@ import { SettingsContext } from '../../Data/settingsContext';
 import { NewsContext } from '../../Data/newsContext';
 import { NewsModalStylesDark, NewsModalStylesLight } from './NewsModal.styles';
 import Constants from 'expo-constants';
-import Toast from 'react-native-simple-toast';
+import Toast from 'react-native-tiny-toast'
 import NewsCard from '../../Models/NewscardModel';
 
 export const NewsCardComponent = (props) => {
