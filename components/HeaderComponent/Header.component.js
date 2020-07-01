@@ -13,7 +13,7 @@ import SelectLocationButton from '../SelectCountryButtonComponent/SelectLocation
 import SelectCategoryButton from '../SelectCategoryButtonComponent/SelectCategoryButton';
 import SelectCategory from '../SelectCategoryButtonComponent/SelectCategory';
 import { SettingsContext } from '../../Data/settingsContext';
-import Toast from 'react-native-simple-toast';
+import Toast from 'react-native-tiny-toast'
 import { FlatList } from 'react-native-gesture-handler';
 import { COUNTRIES } from '../../Data/countrys';
 import { CATEGORIES } from '../../Data/categories';
