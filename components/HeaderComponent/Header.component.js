@@ -9,6 +9,7 @@ import ToggleButtonPush from '../ToggleButtonComponent/ToggleButtonPush';
 import ContactButton from '../ContactButtonComponent/ContactButton';
 import SelectCountry from '../SelectCountryButtonComponent/SelectCountry';
 import SelectCountryButton from '../SelectCountryButtonComponent/SelectCountryButton';
+import SelectLocationButton from '../SelectCountryButtonComponent/SelectLocationButton';
 import SelectCategoryButton from '../SelectCategoryButtonComponent/SelectCategoryButton';
 import SelectCategory from '../SelectCategoryButtonComponent/SelectCategory';
 import { SettingsContext } from '../../Data/settingsContext';
@@ -147,6 +148,7 @@ export const HeaderComponent = (props) => {
                 </View>
               </View>
               <View style={currentTheme === 'light' ? HeaderStylesLight.modalViewContent : HeaderStylesDark.modalViewContent}>
+                <SelectLocationButton setCountryModalVisible={setCountryModalVisible}/>
                 <FlatList
                   data={countries}
                   style={{ width: '100%' }}
