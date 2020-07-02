@@ -3,41 +3,35 @@ import { Text, View, TouchableHighlight, Switch, AsyncStorage } from 'react-nati
 import { Colors } from '../../constants/colors';
 import { ToggleButtonStylesDark, ToggleButtonStylesLight } from '../ToggleButtonComponent/ToggleButtonStyles';
 import { SettingsContext } from '../../Data/settingsContext';
-import { Appearance } from 'react-native-appearance';
+import {Appearance} from 'react-native-appearance';
 
 export default ToggleButton = (props) => {
-    let globalTheme;
 
-    const { theme, push, country, category } = useContext(SettingsContext);
+    const { theme, push, country, category, global } = useContext(SettingsContext);
     const [currentTheme, setCurrentTheme] = theme;
     const [sendPushNotification, setSendPushNotification] = push;
     const [currentCountry, setCurrentCountry] = country;
     const [currentCategory, setCurrentCategory] = category
     const [toggleEnabled, setToggleEnabled] = useState(false);
-    const [deviceTheme, setDeviceTheme] = useState(false)
+    const [globalTheme, setGlobalTheme] = global;
 
     const changeToggleValue = (value) => {
         console.log('press');
-        setToggleEnabled(value);
-        if (value === true ? setCurrentTheme('dark') : setCurrentTheme('light'));
-        AsyncStorage.setItem('DarkSkinSetting', JSON.stringify(value));
+        if(globalTheme === false){
+            setToggleEnabled(value);
+            if (value === true ? setCurrentTheme('dark') : setCurrentTheme('light'));
+            AsyncStorage.setItem('DarkSkinSetting', JSON.stringify(value));
+        }
     };
 
-    let themeListener;
-
-    const changeDeviceTheme = () => {
-        console.log('longPress');
-        if (deviceTheme === true){
-            setDeviceTheme(false);
-            themeListener.remove();
-
-        }else{
-            setDeviceTheme(true);
-            setCurrentTheme(globalTheme);
-            themeListener = Appearance.addChangeListener(({ colorScheme }) => {
-                globalTheme = colorScheme;
-                console.log('global theme changed to: ' + colorScheme);
-            });
+    const globalHandler = (value) => {
+        console.log('Global Theming ' + value)
+        setGlobalTheme(value);
+        if (value === true){
+            var toSwitch = Appearance.getColorScheme();
+            setCurrentTheme(toSwitch);
+            if(toSwitch === 'dark' ? setToggleEnabled(true):setToggleEnabled(false))
+            AsyncStorage.setItem('GlobalThemeSetting', JSON.stringify(value));
         }
     };
 
@@ -56,7 +50,7 @@ export default ToggleButton = (props) => {
                 style={{ flex: 1, justifyContent: 'center', flexDirection: 'row', width: '100%' }}
                 underlayColor='transparent'
                 onPress={() => changeToggleValue(!toggleEnabled)}
-                onLongPress={() => changeDeviceTheme()}
+                onLongPress={() => globalHandler(!globalTheme)}
             >
                 <View style={currentTheme === 'light' ? ToggleButtonStylesLight.wrapper : ToggleButtonStylesDark.wrapper}>
                     <View style={currentTheme === 'light' ? ToggleButtonStylesLight.leftContainer : ToggleButtonStylesDark.leftContainer}>

@@ -9,6 +9,7 @@ import { SettingsContext } from './Data/settingsContext';
 import * as Permissions from 'expo-permissions';
 import * as Location from 'expo-location';
 import { COUNTRIES } from './Data/countrys';
+import {AppearanceProvider, Appearance} from 'react-native-appearance';
 
 export default function App() {
     const countries = COUNTRIES;
@@ -34,18 +35,33 @@ export default function App() {
     });
     const [favoriteData, setFavoriteData] = useState([]);
     const [searchData, setSearchData] = useState([]);
-    const [currentTheme, setCurrentTheme] = useState('light');
+    const [currentTheme, setCurrentTheme] = useState(Appearance.getColorScheme());
     const [sendPushNotification, setSendPushNotification] = useState(false);
     const [currentCountry, setCurrentCountry] = useState('US');
     const [currentCategory, setCurrentCategory] = useState('General');
     const [currentLocation, setCurrentLocation] = useState({ coords: { latitude: 0, longitude: 0 } });
+    const [globalTheme, setGlobalTheme] = useState();
 
     useEffect(() => {
-        AsyncStorage.getItem('DarkSkinSetting').then((storedValue) => {
+        AsyncStorage.getItem('GlobalThemeSetting').then((storedValue) => {
+            console.log('GlobalThemeSetting: ' + storedValue);
             if (storedValue != null) {
-                if (JSON.parse(storedValue) === true ? setCurrentTheme('dark') : setCurrentTheme('light'));
+                if (JSON.parse(storedValue) === true){
+                    setGlobalTheme(true);
+                }else{
+                    setGlobalTheme(false);
+                    AsyncStorage.getItem('DarkSkinSetting').then((storedValue) => {
+                        console.log('globalTheme is false')
+                        if (storedValue != null) {
+                            if (JSON.parse(storedValue) === true ? setCurrentTheme('dark') : setCurrentTheme('light'));
+                        }
+                    
+                    });
+                }
             }
         });
+
+        
 
         AsyncStorage.getItem('PushSetting').then((storedValue) => {
             if (storedValue != null) {
@@ -72,6 +88,23 @@ export default function App() {
         });
 
     }, []);
+
+        // sets up a Listener and refreshes currentTheme if globalTheme is true
+        useEffect(() =>{
+            function handleThemeChange(change){
+                console.log('trying to switch to: ' + change)
+                setCurrentTheme(change)
+            }
+            
+            const subscribtion = Appearance.addChangeListener(({ colorScheme }) => {
+                if(globalTheme === true){
+                handleThemeChange(colorScheme)
+                }
+            });
+                return () => {
+                    subscribtion.remove()
+                }
+        }, [globalTheme]);
 
     useEffect(() => {
         if (currentLocation.coords.latitude != 0 && currentLocation.coords.longitude != 0) {
@@ -140,12 +173,14 @@ export default function App() {
         return <AppLoading />;
     } else {
         return (
+            <AppearanceProvider>
             <SettingsContext.Provider
                 value={{
                     theme: [currentTheme, setCurrentTheme],
                     push: [sendPushNotification, setSendPushNotification],
                     country: [currentCountry, setCurrentCountry],
                     category: [currentCategory, setCurrentCategory],
+                    global: [globalTheme, setGlobalTheme],
                 }}
             >
                 <NewsContext.Provider
@@ -158,6 +193,7 @@ export default function App() {
                     <MainNavigator />
                 </NewsContext.Provider>
             </SettingsContext.Provider>
+            </AppearanceProvider>
         );
     }
 }
