@@ -89,7 +89,7 @@ export const SearchScreen = ({navigation}) => {
                     rightIcon={
                         <TouchableOpacity
                             onPress={() => 
-                                qWord === '' ? console.log('wrong') : navigation.navigate('SearchFilter', {
+                                qWord === '' || qWord === null ? console.log('wrong') : navigation.navigate('SearchFilter', {
                                     qWord: qWord,
                                     domain: domains,
                                     exDomain: exDomains,
@@ -110,13 +110,13 @@ export const SearchScreen = ({navigation}) => {
                     }}
                     onSubmitEditing={(value) => {
                         console.log(filter)
-                        navigation.navigate('SearchFilter', {
+                        qWord === '' || qWord === null ? console.log('wrong') : navigation.navigate('SearchFilter', {
                             qWord: qWord,
                             domain: domains,
                             exDomain: exDomains,
                             sortBy: sortBy,
                             lang: lang,
-                        });
+                        })
                     }}
                 />
             </View>
