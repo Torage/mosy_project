@@ -100,8 +100,7 @@ export const NewsModalStylesLight = StyleSheet.create({
         color: Colors.light.versionColor,
     },
     webView: { 
-        flex: 1, 
-        width: 380, 
+        flex: 1,
         backgroundColor: 'transparent'
     },
 });
@@ -199,7 +198,6 @@ export const NewsModalStylesDark = StyleSheet.create({
     },
     webView: { 
         flex: 1, 
-        width: 380, 
         backgroundColor: 'transparent'
     },
 });

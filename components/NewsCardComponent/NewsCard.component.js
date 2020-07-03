@@ -265,6 +265,7 @@ export const NewsCardComponent = (props) => {
                                             ? NewsModalStylesLight.webView
                                             : NewsModalStylesDark.webView
                                         } 
+                                        containerStyle={{width: '95%'}}
                                     />
                                 </View>
                                 <View
