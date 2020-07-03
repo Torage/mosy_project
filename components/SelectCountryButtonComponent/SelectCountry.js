@@ -2,7 +2,9 @@ import React, { useContext } from 'react';
 import { Text, View, TouchableNativeFeedback, TouchableHighlight, AsyncStorage, Platform } from 'react-native';
 import { SelectCountryStylesDark, SelectCountryStylesLight } from '../SelectCountryButtonComponent/SelectCountryStyles';
 import { SettingsContext } from '../../Data/settingsContext';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Flag from 'react-native-flags';
+import { Colors } from '../../constants/colors';
 
 export default SelectCountry = props => {
 
@@ -58,6 +60,7 @@ export default SelectCountry = props => {
                                 {props.id} - {props.name}
                             </Text>
                         </View>
+                        <View style={currentTheme === 'light' ? SelectCountryStylesLight.selectContainer : SelectCountryStylesDark.selectContainer}>{selectedCounrty()}</View>
                         <View style={currentTheme === 'light' ? SelectCountryStylesLight.rightContainer : SelectCountryStylesDark.rightContainer}>
                             <Flag code={props.id} size={32} type="flat" />
                         </View>

@@ -29,9 +29,7 @@ export const SearchScreen = ({navigation}) => {
     const [domains, setDomains] = useState('');
     const [exDomains, setExDomains] = useState('');
     const [sortBy, setSortBy] = useState('publishedAt');
-    const [lang, setLang] = useState('FR');
-
-
+    const [lang, setLang] = useState('DE');
 
     return (
         <View style={currentTheme === 'light' ? SearchScreenStylesLight.viewContainer : SearchScreenStylesDark.viewContainer}>
