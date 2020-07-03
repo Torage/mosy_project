@@ -14,6 +14,17 @@ export const SelectLocationButtonStylesLight = StyleSheet.create({
         borderColor: Colors.light.dividerColor,
         backgroundColor: Colors.light.background,
     },
+
+    iOSHighlight: {
+        width: '96%',
+        marginVertical: 5,
+        height: 40,
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: Colors.light.dividerColor,
+        backgroundColor: Colors.light.background,
+    },
+
     wrapper: {
         flex: 1,
         flexDirection: 'row',
@@ -48,6 +59,17 @@ export const SelectLocationButtonStylesDark = StyleSheet.create({
         borderColor: Colors.dark.dividerColor,
         backgroundColor: Colors.dark.background,
     },
+
+    iOSHighlight: {
+        width: '96%',
+        marginVertical: 5,
+        height: 40,
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: Colors.dark.dividerColor,
+        backgroundColor: Colors.dark.background,
+    },
+
     wrapper: {
         flex: 1,
         flexDirection: 'row',

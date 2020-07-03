@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { TouchableNativeFeedback, View, Text, Alert } from 'react-native';
+import { TouchableNativeFeedback, TouchableHighlight, View, Text, Alert, Platform } from 'react-native';
 import { SettingsContext } from '../../Data/settingsContext';
 import { FontAwesome } from '@expo/vector-icons';
 import { SelectLocationButtonStylesLight, SelectLocationButtonStylesDark} from './SelectLocationButtonStyles';
@@ -48,6 +48,8 @@ const verifyPermissions = async () =>{
     }
 
     return(
+        <>
+        {Platform.OS === 'android' ?
         <View style={currentTheme === 'light' ? SelectLocationButtonStylesLight.settingsRow : SelectLocationButtonStylesDark.settingsRow} >
         <TouchableNativeFeedback onPress={() => locationHandler()}>
             <View style={currentTheme === 'light' ? SelectLocationButtonStylesLight.wrapper : SelectLocationButtonStylesDark.wrapper}>
@@ -64,6 +66,26 @@ const verifyPermissions = async () =>{
             </View>
         </TouchableNativeFeedback>
         </View>
+        :
+        <TouchableHighlight 
+            onPress={() => locationHandler()}
+            style={currentTheme === 'light' ? SelectLocationButtonStylesLight.iOSHighlight : SelectLocationButtonStylesDark.iOSHighlight}
+            >
+            <View style={currentTheme === 'light' ? SelectLocationButtonStylesLight.wrapper : SelectLocationButtonStylesDark.wrapper}>
+                <View style={currentTheme === 'light' ? SelectLocationButtonStylesLight.left : SelectLocationButtonStylesDark.left}>
+                    <Text style={currentTheme === 'light' ? SelectLocationButtonStylesLight.text : SelectLocationButtonStylesDark.text}>Get your current position</Text>
+                </View>
+                <View style={currentTheme === 'light' ? SelectLocationButtonStylesLight.right : SelectLocationButtonStylesDark.right}>
+                    <FontAwesome 
+                        name="map-marker" 
+                        size={24} 
+                        color={currentTheme === 'light' ? Colors.light.accent : Colors.dark.accent}
+                        />
+                </View>
+            </View>
+        </TouchableHighlight>
+        }
+        </>
     );
 }
 

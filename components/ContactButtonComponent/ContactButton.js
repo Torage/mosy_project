@@ -16,20 +16,17 @@ export default ContactButton = (props) => {
             <TouchableHighlight
                 style={{ flex: 1, justifyContent: 'center', flexDirection: 'row', width: '100%' }}
                 underlayColor='transparent'
-                onPress={() => props.setContactModal(true)}
+                onPress={() => {
+                    props.setContactModal(true)
+                    props.setSettingsModalVisible(false)
+                }}
             >
                 <View style={currentTheme === 'light' ? ContactButtonStylesLight.wrapper : ContactButtonStylesDark.wrapper}>
                     <View style={currentTheme === 'light' ? ContactButtonStylesLight.leftContainer : ContactButtonStylesDark.leftContainer}>
                         <Text style={currentTheme === 'light' ? ContactButtonStylesLight.titleText : ContactButtonStylesDark.titleText}>
                             {props.title}
                         </Text>
-                        <Text
-                            style={
-                                currentTheme === 'light'
-                                    ? ContactButtonStylesLight.descriptionText
-                                    : ContactButtonStylesDark.descriptionText
-                            }
-                        >
+                        <Text style={currentTheme === 'light'? ContactButtonStylesLight.descriptionText: ContactButtonStylesDark.descriptionText}>
                             {props.description}
                         </Text>
                     </View>

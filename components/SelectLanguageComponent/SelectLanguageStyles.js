@@ -14,6 +14,17 @@ export const SelectLanguageStylesLight = StyleSheet.create({
         backgroundColor: Colors.light.settingsBG,
     },
 
+    iOSHighlight: {
+        width: '96%',
+        height: 40,
+        justifyContent: 'flex-end',
+        alignItems: 'flex-end',
+        borderBottomWidth: 1,
+        borderBottomStartRadius: 2,
+        borderColor: Colors.light.dividerColor,
+        backgroundColor: Colors.light.settingsBG,
+    },
+
     wrapper: {
         flex: 1,
         flexDirection: 'row',
@@ -50,6 +61,17 @@ export const SelectLanguageStylesLight = StyleSheet.create({
 
 export const SelectLanguageStylesDark = StyleSheet.create({
     settingRow: {
+        width: '96%',
+        height: 40,
+        justifyContent: 'flex-end',
+        alignItems: 'flex-end',
+        borderBottomWidth: 1,
+        borderBottomStartRadius: 2,
+        borderColor: Colors.dark.dividerColor,
+        backgroundColor: Colors.dark.settingsBG,
+    },
+
+    iOSHighlight: {
         width: '96%',
         height: 40,
         justifyContent: 'flex-end',
