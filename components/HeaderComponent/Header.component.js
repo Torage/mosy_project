@@ -23,10 +23,11 @@ export const HeaderComponent = (props) => {
   const categories = CATEGORIES;
 
   //global states
-  const { theme, push, country } = useContext(SettingsContext);
+  const { theme, push, country, global } = useContext(SettingsContext);
   const [currentTheme, setCurrentTheme] = theme;
   const [sendPushNotification, setSendPushNotification] = push;
   const [currentCountry, setCurrentCountry] = country;
+  const [globalTheme, setGlobalTheme] = global;
 
   //local States
   const [contactName, setContactName] = useState('');
@@ -87,6 +88,29 @@ export const HeaderComponent = (props) => {
     }
   };
 
+  function getButtonTitle(){
+    var message = '';
+    if(globalTheme === true){
+      message = 'System Theme'; 
+    }else{
+      if(currentTheme === 'light'){
+        message = 'Switch to Dark' ;
+      }else{
+        message = 'Switch to Light';
+      }
+    }
+    return message
+  };
+
+  function getDescription(){
+    var description = '';
+    if (globalTheme === true 
+      ? description = 'Hold For Manual Theming'
+      : description = 'Hold For Device Theming'
+    )
+    return description
+  };
+
   return (
     <SafeAreaView style={currentTheme === 'light' ? HeaderStylesLight.safeAreaView : HeaderStylesDark.safeAreaView}>
       <Modal //settings modal
@@ -110,7 +134,7 @@ export const HeaderComponent = (props) => {
                 </View>
               </View>
               <View style={currentTheme === 'light' ? HeaderStylesLight.modalViewContent : HeaderStylesDark.modalViewContent}>
-                <ToggleButtonTheme title='Dark Theme' description='Change to the dark theme'></ToggleButtonTheme>
+                <ToggleButtonTheme title={getButtonTitle()} description={getDescription()}></ToggleButtonTheme>
                 <ToggleButtonPush title='Push Notification' description='Enable Push Notification'></ToggleButtonPush>
                 <SelectCountryButton title='Select Country' description='Select your country for news' setCountryModal={setCountryModalVisible}></SelectCountryButton>
                 <SelectCategoryButton title='Select Category' description='Category for home news' setCategoryModal={setCategoryModalVisible}></SelectCategoryButton>
