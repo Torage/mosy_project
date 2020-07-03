@@ -51,7 +51,6 @@ export default function App() {
                 }else{
                     setGlobalTheme(false);
                     AsyncStorage.getItem('DarkSkinSetting').then((storedValue) => {
-                        console.log('globalTheme is false')
                         if (storedValue != null) {
                             if (JSON.parse(storedValue) === true ? setCurrentTheme('dark') : setCurrentTheme('light'));
                         }
@@ -92,7 +91,7 @@ export default function App() {
         // sets up a Listener and refreshes currentTheme if globalTheme is true
         useEffect(() =>{
             function handleThemeChange(change){
-                console.log('trying to switch to: ' + change)
+                //    console.log('trying to switch to: ' + change)
                 setCurrentTheme(change)
             }
             
