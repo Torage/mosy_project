@@ -17,17 +17,18 @@ export const SelectCategoryStylesLight = StyleSheet.create({
   wrapper: {
     flex: 1,
     flexDirection: 'row',
+    alignItems:'center',
   },
 
   leftContainer: {
-    flex: 1,
+    flex: 2,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'flex-start',
   },
 
   rightContainer: {
-    flex: 7,
+    flex: 6,
     justifyContent: 'center',
     alignItems: 'flex-start',
   },
@@ -63,17 +64,18 @@ export const SelectCategoryStylesDark = StyleSheet.create({
   wrapper: {
     flex: 1,
     flexDirection: 'row',
+    alignItems:'center',
   },
 
   leftContainer: {
-    flex: 1,
+    flex: 2,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'flex-start',
   },
 
   rightContainer: {
-    flex: 7,
+    flex: 6,
     justifyContent: 'center',
     alignItems: 'flex-start',
   },

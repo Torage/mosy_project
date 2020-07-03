@@ -24,6 +24,12 @@ export const SelectCountryStylesLight = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'flex-start',
     },
+    
+    selectContainer:{
+        flex:1, 
+        justifyContent:'center', 
+        alignItems:'center'
+    },
 
     rightContainer: {
         flex: 1,
@@ -39,13 +45,6 @@ export const SelectCountryStylesLight = StyleSheet.create({
         color: Colors.light.accent,
     },
 
-    abbreviationText: {
-        fontFamily: Styles.defaultFont,
-        fontSize: 12,
-        marginLeft: 10,
-        color: Colors.light.descriptionText,
-
-    },
 });
 
 export const SelectCountryStylesDark = StyleSheet.create({
@@ -66,9 +65,15 @@ export const SelectCountryStylesDark = StyleSheet.create({
     },
 
     leftContainer: {
-        flex: 4,
+        flex: 3,
         justifyContent: 'center',
         alignItems: 'flex-start',
+    },
+
+    selectContainer:{
+        flex:1, 
+        justifyContent:'center', 
+        alignItems:'center'
     },
 
     rightContainer: {
@@ -85,11 +90,4 @@ export const SelectCountryStylesDark = StyleSheet.create({
         color: Colors.dark.accent,
     },
 
-    abbreviationText: {
-        fontFamily: Styles.defaultFont,
-        fontSize: 12,
-        marginLeft: 10,
-        color: Colors.dark.descriptionText,
-
-    }
 });

@@ -9,7 +9,7 @@ import { SettingsContext } from './Data/settingsContext';
 import * as Permissions from 'expo-permissions';
 import * as Location from 'expo-location';
 import { COUNTRIES } from './Data/countrys';
-import { AppearanceProvider, Appearance, } from 'react-native-appearance';
+import {AppearanceProvider, Appearance} from 'react-native-appearance';
 
 export default function App() {
     
@@ -40,25 +40,34 @@ export default function App() {
     const [searchData, setSearchData] = useState([]);
 
     // Settings states (initial values for push, country, category, location)
-    const [currentTheme, setCurrentTheme] = useState();
+    const [currentTheme, setCurrentTheme] = useState(Appearance.getColorScheme());
     const [sendPushNotification, setSendPushNotification] = useState(false);
     const [currentCountry, setCurrentCountry] = useState('US');
     const [currentCategory, setCurrentCategory] = useState('General');
     const [currentLocation, setCurrentLocation] = useState({ coords: { latitude: 0, longitude: 0 } });
+    const [globalTheme, setGlobalTheme] = useState();
 
     // On app start get stored settings > one time; 
     useEffect(() => {
-
-        //Theme Settings; if none stored set device preferance
-        AsyncStorage.getItem('DarkSkinSetting').then((storedValue) => {
+        AsyncStorage.getItem('GlobalThemeSetting').then((storedValue) => {
+            console.log('GlobalThemeSetting: ' + storedValue);
             if (storedValue != null) {
-                if (JSON.parse(storedValue) === true ? setCurrentTheme('dark') : setCurrentTheme('light'));
-            }else{
-                setCurrentTheme(Appearance.getColorScheme());
+                if (JSON.parse(storedValue) === true){
+                    setGlobalTheme(true);
+                }else{
+                    setGlobalTheme(false);
+                    AsyncStorage.getItem('DarkSkinSetting').then((storedValue) => {
+                        if (storedValue != null) {
+                            if (JSON.parse(storedValue) === true ? setCurrentTheme('dark') : setCurrentTheme('light'));
+                        }
+                    
+                    });
+                }
             }
         });
 
-        // Push notification
+        
+
         AsyncStorage.getItem('PushSetting').then((storedValue) => {
             if (storedValue != null) {
                 setSendPushNotification(JSON.parse(storedValue));
@@ -68,6 +77,7 @@ export default function App() {
         // Country settings; if none, ask for Location
         AsyncStorage.getItem('CountrySetting').then((storedValue) => {
             if (storedValue != null) {
+                console.log(storedValue + ' restored')
                 setCurrentCountry(storedValue);
             } else {
                 getLocation();
@@ -86,6 +96,23 @@ export default function App() {
         });
 
     }, []);
+
+        // sets up a Listener and refreshes currentTheme if globalTheme is true
+        useEffect(() =>{
+            function handleThemeChange(change){
+                //    console.log('trying to switch to: ' + change)
+                setCurrentTheme(change)
+            }
+            
+            const subscribtion = Appearance.addChangeListener(({ colorScheme }) => {
+                if(globalTheme === true){
+                handleThemeChange(colorScheme)
+                }
+            });
+                return () => {
+                    subscribtion.remove()
+                }
+        }, [globalTheme]);
 
     // everytime location changes with proper values, getCountrynameByGps() 
     useEffect(() => {
@@ -152,7 +179,8 @@ export default function App() {
                 countries.filter((country) => country.id === location.countryCode).length > 0
                     ? setCurrentCountry(location.countryCode)
                     : setCurrentCountry('US');
-                fetchNews(location.countryCode);
+                console.log(location.countryCode + ' located');
+                AsyncStorage.setItem('CountrySetting', location.countryCode);
             });
         };
         xhr.send();
@@ -167,7 +195,17 @@ export default function App() {
         // Start the app with MainNavigator, provide NewsContext, SettingsContext and Appearance
         return (
             <AppearanceProvider>
-                <SettingsContext.Provider
+            <SettingsContext.Provider
+                value={{
+                    theme: [currentTheme, setCurrentTheme],
+                    push: [sendPushNotification, setSendPushNotification],
+                    country: [currentCountry, setCurrentCountry],
+                    category: [currentCategory, setCurrentCategory],
+                    location: [currentLocation, setCurrentLocation], 
+                    global: [globalTheme, setGlobalTheme],
+                }}
+            >
+                <NewsContext.Provider
                     value={{
                         theme: [currentTheme, setCurrentTheme],
                         push: [sendPushNotification, setSendPushNotification],
@@ -175,16 +213,9 @@ export default function App() {
                         category: [currentCategory, setCurrentCategory],
                     }}
                 >
-                    <NewsContext.Provider
-                        value={{
-                            topNews: [newsData, setNewsData],
-                            favoriteNews: [favoriteData, setFavoriteData],
-                            searchNews: [searchData, setSearchData],
-                        }}
-                    >
-                        <MainNavigator />
-                    </NewsContext.Provider>
-                </SettingsContext.Provider>
+                    <MainNavigator />
+                </NewsContext.Provider>
+            </SettingsContext.Provider>
             </AppearanceProvider>
         );
     }

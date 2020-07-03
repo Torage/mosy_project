@@ -24,26 +24,6 @@ export const MainNavigator = () => {
     const [newsData, setNewsData] = topNews;
     const [favoriteData, setFavoriteData] = favoriteNews;
 
-    const changeToggleValue = value => {
-
-        setToggleEnabled(value);
-        AsyncStorage.setItem('DarkSkinSetting', JSON.stringify(value));
-
-        if (value === true ? setCurrentTheme('dark') : setCurrentTheme('light'));
-
-    }
-
-    const [toggleEnabled, setToggleEnabled] = useState(false);
-
-    useEffect(() => {
-        AsyncStorage.getItem('DarkSkinSetting').then(storedValue => {
-            if (storedValue != null) {
-                changeToggleValue(JSON.parse(storedValue));
-            }
-        });
-
-    }, []);
-
     return (
         <NavigationContainer
             theme={

@@ -16,8 +16,6 @@ export default SelectCountryButton = props => {
 
     return (
         <View style={currentTheme === 'light' ? SelectCountryButtonStylesLight.settingRow : SelectCountryButtonStylesDark.settingRow} >
-            <View style={currentTheme === 'light' ? SelectCountryButtonStylesLight.modalContainer : SelectCountryButtonStylesDark.modalContainer} >
-            </View>
             <TouchableNativeFeedback onPress={() => props.setCountryModal(true)}>
                 <View style={currentTheme === 'light' ? SelectCountryButtonStylesLight.wrapper :SelectCountryButtonStylesDark.wrapper}>
                     <View style={currentTheme === 'light' ? SelectCountryButtonStylesLight.leftContainer : SelectCountryButtonStylesDark.leftContainer}>

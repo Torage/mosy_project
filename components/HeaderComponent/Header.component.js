@@ -9,10 +9,11 @@ import ToggleButtonPush from '../ToggleButtonComponent/ToggleButtonPush';
 import ContactButton from '../ContactButtonComponent/ContactButton';
 import SelectCountry from '../SelectCountryButtonComponent/SelectCountry';
 import SelectCountryButton from '../SelectCountryButtonComponent/SelectCountryButton';
+import SelectLocationButton from '../SelectCountryButtonComponent/SelectLocationButton';
 import SelectCategoryButton from '../SelectCategoryButtonComponent/SelectCategoryButton';
 import SelectCategory from '../SelectCategoryButtonComponent/SelectCategory';
 import { SettingsContext } from '../../Data/settingsContext';
-import Toast from 'react-native-simple-toast';
+import Toast from 'react-native-tiny-toast'
 import { FlatList } from 'react-native-gesture-handler';
 import { COUNTRIES } from '../../Data/countrys';
 import { CATEGORIES } from '../../Data/categories';
@@ -22,10 +23,11 @@ export const HeaderComponent = (props) => {
   const categories = CATEGORIES;
 
   //global states
-  const { theme, push, country } = useContext(SettingsContext);
+  const { theme, push, country, global } = useContext(SettingsContext);
   const [currentTheme, setCurrentTheme] = theme;
   const [sendPushNotification, setSendPushNotification] = push;
   const [currentCountry, setCurrentCountry] = country;
+  const [globalTheme, setGlobalTheme] = global;
 
   //local States
   const [contactName, setContactName] = useState('');
@@ -86,6 +88,29 @@ export const HeaderComponent = (props) => {
     }
   };
 
+  function getButtonTitle(){
+    var message = '';
+    if(globalTheme === true){
+      message = 'System Theme'; 
+    }else{
+      if(currentTheme === 'light'){
+        message = 'Switch to Dark' ;
+      }else{
+        message = 'Switch to Light';
+      }
+    }
+    return message
+  };
+
+  function getDescription(){
+    var description = '';
+    if (globalTheme === true 
+      ? description = 'Hold For Manual Theming'
+      : description = 'Hold For Device Theming'
+    )
+    return description
+  };
+
   return (
     <SafeAreaView style={currentTheme === 'light' ? HeaderStylesLight.safeAreaView : HeaderStylesDark.safeAreaView}>
       <Modal //settings modal
@@ -109,7 +134,7 @@ export const HeaderComponent = (props) => {
                 </View>
               </View>
               <View style={currentTheme === 'light' ? HeaderStylesLight.modalViewContent : HeaderStylesDark.modalViewContent}>
-                <ToggleButtonTheme title='Dark Theme' description='Change to the dark theme'></ToggleButtonTheme>
+                <ToggleButtonTheme title={getButtonTitle()} description={getDescription()}></ToggleButtonTheme>
                 <ToggleButtonPush title='Push Notification' description='Enable Push Notification'></ToggleButtonPush>
                 <SelectCountryButton title='Select Country' description='Select your country for news' setCountryModal={setCountryModalVisible}></SelectCountryButton>
                 <SelectCategoryButton title='Select Category' description='Category for home news' setCategoryModal={setCategoryModalVisible}></SelectCategoryButton>
@@ -130,9 +155,7 @@ export const HeaderComponent = (props) => {
         animationType='fade'
         transparent={true}
         visible={countryModalVisible}
-        onRequestClose={() => {
-          console.log('modal closed');
-        }}
+        onRequestClose={() => setCountryModalVisible(false)}
       >
         <View style={currentTheme === 'light' ? HeaderStylesLight.centeredView : HeaderStylesDark.centeredView}>
           <View>
@@ -149,6 +172,7 @@ export const HeaderComponent = (props) => {
                 </View>
               </View>
               <View style={currentTheme === 'light' ? HeaderStylesLight.modalViewContent : HeaderStylesDark.modalViewContent}>
+                <SelectLocationButton setCountryModalVisible={setCountryModalVisible}/>
                 <FlatList
                   data={countries}
                   style={{ width: '100%' }}
@@ -168,9 +192,7 @@ export const HeaderComponent = (props) => {
         animationType='fade'
         transparent={true}
         visible={categoryModalVisible}
-        onRequestClose={() => {
-          console.log('modal closed');
-        }}
+        onRequestClose={() => setCategoryModalVisible(false)}
       >
         <View style={currentTheme === 'light' ? HeaderStylesLight.centeredView : HeaderStylesDark.centeredView}>
           <View>
@@ -206,9 +228,7 @@ export const HeaderComponent = (props) => {
         animationType='fade'
         transparent={true}
         visible={contactModalVisible}
-        onRequestClose={() => {
-          console.log('modal closed');
-        }}
+        onRequestClose={() => setContactModalVisible(false)}
       >
         <View style={currentTheme === 'light' ? HeaderStylesLight.centeredView : HeaderStylesDark.centeredView}>
           <View>
@@ -288,7 +308,7 @@ export const HeaderComponent = (props) => {
 
       <View style={currentTheme === 'light' ? HeaderStylesLight.headerLeftContainer : HeaderStylesDark.headerLeftContainer}></View>
       <View style={currentTheme === 'light' ? HeaderStylesLight.headerMidContainer : HeaderStylesDark.headerMidContainer}>
-        <Image style={{ width: 250, height: 30 }} source={currentTheme === 'light' ? require('../../assets/newscope_logo_light.png') : require('../../assets/newscope_logo_dark.png')} />
+        <Image style={{ width: 250, height: 30, resizeMode:'contain' }} source={currentTheme === 'light' ? require('../../assets/newscope_logo_light.png') : require('../../assets/newscope_logo_dark.png')} />
       </View>
       <View style={currentTheme === 'light' ? HeaderStylesLight.headerRightContainer : HeaderStylesDark.headerRightContainer}>
         <TouchableOpacity onPress={() => setSettingsModalVisible(!settingsModalVisible)}>
