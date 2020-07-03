@@ -2,7 +2,9 @@ import React, { useState, useContext } from 'react';
 import { Text, View, TouchableNativeFeedback, TouchableHighlight, Platform } from 'react-native';
 import { SelectLanguageStylesDark, SelectLanguageStylesLight } from './SelectLanguageStyles';
 import { SettingsContext } from '../../Data/settingsContext';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Flag from 'react-native-flags';
+import { Colors } from '../../constants/colors';
 
 export default SelectLanguage = (props) => {
 
@@ -12,6 +14,14 @@ export default SelectLanguage = (props) => {
     const [currentCountry, setCurrentCountry] = country;
     const [lang, setLang] = useState(lang);
 
+    const selectedLanguage= () =>{
+        if (props.currentlang === props.id) {
+            return <MaterialCommunityIcons 
+                name="check"
+                size={24} 
+                color={currentTheme === 'light' ? Colors.light.accent : Colors.dark.accent} />;
+        }
+    };
 
     return (
         <>
@@ -29,6 +39,7 @@ export default SelectLanguage = (props) => {
                                 {props.id} - {props.name}
                             </Text>
                         </View>
+                        <View style={currentTheme === 'light' ? SelectLanguageStylesLight.selectContainer : SelectLanguageStylesLight.selectContainer}>{selectedLanguage()}</View>
                         <View style={currentTheme === 'light' ? SelectLanguageStylesLight.rightContainer : SelectLanguageStylesDark.rightContainer}>
                             <Flag code={props.flag} size={32} type="flat" />
                         </View>
@@ -49,6 +60,7 @@ export default SelectLanguage = (props) => {
                             {props.id} - {props.name}
                         </Text>
                     </View>
+                    <View style={currentTheme === 'light' ? SelectLanguageStylesLight.selectContainer : SelectLanguageStylesLight.selectContainer}>{selectedLanguage()}</View>
                     <View style={currentTheme === 'light' ? SelectLanguageStylesLight.rightContainer : SelectLanguageStylesDark.rightContainer}>
                         <Flag code={props.flag} size={32} type="flat" />
                     </View>

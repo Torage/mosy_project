@@ -42,6 +42,12 @@ export const SelectLanguageStylesLight = StyleSheet.create({
         alignItems: 'center',
     },
 
+    selectContainer:{
+        flex:1, 
+        justifyContent:'center', 
+        alignItems:'center'
+    },
+
     titleText: {
         fontFamily: Styles.defaultFont,
         fontWeight: 'bold',
@@ -97,6 +103,12 @@ export const SelectLanguageStylesDark = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+
+    selectContainer:{
+        flex:1, 
+        justifyContent:'center', 
+        alignItems:'center'
     },
 
     titleText: {

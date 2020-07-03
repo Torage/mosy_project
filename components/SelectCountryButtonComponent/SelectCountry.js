@@ -29,7 +29,6 @@ export default SelectCountry = props => {
         }
     };
 
-
     return (
         <>
         {Platform.OS === 'android' ?
