@@ -70,6 +70,7 @@ export default function App() {
 
         AsyncStorage.getItem('CountrySetting').then((storedValue) => {
             if (storedValue != null) {
+                console.log(storedValue + ' restored')
                 setCurrentCountry(storedValue);
             } else {
                 getLocation();
@@ -161,7 +162,8 @@ export default function App() {
                 countries.filter((country) => country.id === location.countryCode).length > 0
                     ? setCurrentCountry(location.countryCode)
                     : setCurrentCountry('US');
-                fetchNews(location.countryCode);
+                console.log(location.countryCode + ' located');
+                AsyncStorage.setItem('CountrySetting', location.countryCode);
             });
         };
         xhr.send();
@@ -179,6 +181,7 @@ export default function App() {
                     push: [sendPushNotification, setSendPushNotification],
                     country: [currentCountry, setCurrentCountry],
                     category: [currentCategory, setCurrentCategory],
+                    location: [currentLocation, setCurrentLocation], 
                     global: [globalTheme, setGlobalTheme],
                 }}
             >

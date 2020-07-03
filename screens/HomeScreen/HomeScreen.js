@@ -6,7 +6,6 @@ import { NewsContext } from '../../Data/newsContext';
 import { Topnews } from '../../Models/TopnewsModel';
 import { SettingsContext } from '../../Data/settingsContext';
 import { Colors } from '../../constants/colors';
-import Toast from 'react-native-simple-toast';
 
 export const HomeScreen = (props) => {
     // Global State object
