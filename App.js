@@ -39,7 +39,7 @@ export default function App() {
     const [favoriteData, setFavoriteData] = useState([]);
     const [searchData, setSearchData] = useState([]);
 
-    // Settings states (initial values for push, country, category, location)
+    // Settings states
     const [currentTheme, setCurrentTheme] = useState(Appearance.getColorScheme());
     const [sendPushNotification, setSendPushNotification] = useState(false);
     const [currentCountry, setCurrentCountry] = useState('US');
@@ -100,7 +100,6 @@ export default function App() {
         // sets up a Listener and refreshes currentTheme if globalTheme is true
         useEffect(() =>{
             function handleThemeChange(change){
-                //    console.log('trying to switch to: ' + change)
                 setCurrentTheme(change)
             }
             
@@ -164,7 +163,7 @@ export default function App() {
         };
         xhr.send();
     }
-    // Api call to get current country using latitude and longitude. 
+    // Api call to get current country using location latitude and longitude. 
     function getCountrynameByGps(lat, lng) {
         const xhr = new XMLHttpRequest();
         const url = 'http://api.geonames.org/findNearbyJSON?lat=' + lat + '&lng=' + lng + '&username=newscope';
@@ -195,27 +194,27 @@ export default function App() {
         // Start the app with MainNavigator, provide NewsContext, SettingsContext and Appearance
         return (
             <AppearanceProvider>
-            <SettingsContext.Provider
-                value={{
-                    theme: [currentTheme, setCurrentTheme],
-                    push: [sendPushNotification, setSendPushNotification],
-                    country: [currentCountry, setCurrentCountry],
-                    category: [currentCategory, setCurrentCategory],
-                    location: [currentLocation, setCurrentLocation], 
-                    global: [globalTheme, setGlobalTheme],
-                }}
-            >
-                <NewsContext.Provider
+                <SettingsContext.Provider
                     value={{
                         theme: [currentTheme, setCurrentTheme],
                         push: [sendPushNotification, setSendPushNotification],
                         country: [currentCountry, setCurrentCountry],
                         category: [currentCategory, setCurrentCategory],
+                        location: [currentLocation, setCurrentLocation], 
+                        global: [globalTheme, setGlobalTheme],
                     }}
                 >
-                    <MainNavigator />
-                </NewsContext.Provider>
-            </SettingsContext.Provider>
+                    <NewsContext.Provider
+                        value={{
+                            theme: [currentTheme, setCurrentTheme],
+                            push: [sendPushNotification, setSendPushNotification],
+                            country: [currentCountry, setCurrentCountry],
+                            category: [currentCategory, setCurrentCategory],
+                        }}
+                    >
+                        <MainNavigator />
+                    </NewsContext.Provider>
+                </SettingsContext.Provider>
             </AppearanceProvider>
         );
     }
