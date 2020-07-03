@@ -155,9 +155,7 @@ export const HeaderComponent = (props) => {
         animationType='fade'
         transparent={true}
         visible={countryModalVisible}
-        onRequestClose={() => {
-          console.log('modal closed');
-        }}
+        onRequestClose={() => setCountryModalVisible(false)}
       >
         <View style={currentTheme === 'light' ? HeaderStylesLight.centeredView : HeaderStylesDark.centeredView}>
           <View>
@@ -194,9 +192,7 @@ export const HeaderComponent = (props) => {
         animationType='fade'
         transparent={true}
         visible={categoryModalVisible}
-        onRequestClose={() => {
-          console.log('modal closed');
-        }}
+        onRequestClose={() => setCategoryModalVisible(false)}
       >
         <View style={currentTheme === 'light' ? HeaderStylesLight.centeredView : HeaderStylesDark.centeredView}>
           <View>
@@ -232,9 +228,7 @@ export const HeaderComponent = (props) => {
         animationType='fade'
         transparent={true}
         visible={contactModalVisible}
-        onRequestClose={() => {
-          console.log('modal closed');
-        }}
+        onRequestClose={() => setContactModalVisible(false)}
       >
         <View style={currentTheme === 'light' ? HeaderStylesLight.centeredView : HeaderStylesDark.centeredView}>
           <View>
@@ -314,7 +308,7 @@ export const HeaderComponent = (props) => {
 
       <View style={currentTheme === 'light' ? HeaderStylesLight.headerLeftContainer : HeaderStylesDark.headerLeftContainer}></View>
       <View style={currentTheme === 'light' ? HeaderStylesLight.headerMidContainer : HeaderStylesDark.headerMidContainer}>
-        <Image style={{ width: 250, height: 30 }} source={currentTheme === 'light' ? require('../../assets/newscope_logo_light.png') : require('../../assets/newscope_logo_dark.png')} />
+        <Image style={{ width: 250, height: 30, resizeMode:'contain' }} source={currentTheme === 'light' ? require('../../assets/newscope_logo_light.png') : require('../../assets/newscope_logo_dark.png')} />
       </View>
       <View style={currentTheme === 'light' ? HeaderStylesLight.headerRightContainer : HeaderStylesDark.headerRightContainer}>
         <TouchableOpacity onPress={() => setSettingsModalVisible(!settingsModalVisible)}>

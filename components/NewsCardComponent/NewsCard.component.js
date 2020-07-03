@@ -3,7 +3,8 @@ import { Text, View, TouchableOpacity, Image, Share, Modal, SafeAreaView, AsyncS
 import { WebView } from 'react-native-webview';
 import { Colors } from '../../constants/colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { NewsCardStylesDark, NewsCardStylesLight } from './NewsCard.styles';
+import { NewsCardStylesLight } from './NewsCardStylesLight';
+import { NewsCardStylesDark } from './NewsCardStylesDark';
 import { SettingsContext } from '../../Data/settingsContext';
 import { NewsContext } from '../../Data/newsContext';
 import { NewsModalStylesDark, NewsModalStylesLight } from './NewsModal.styles';
@@ -151,7 +152,7 @@ export const NewsCardComponent = (props) => {
                     <Text style={currentTheme === 'light' ? NewsCardStylesLight.authorText : NewsCardStylesDark.authorText}>
                         {props.author?props.author:'no mention of an author'}
                     </Text>
-                    <Text style={currentTheme === 'light' ? NewsCardStylesLight.authorText : NewsCardStylesDark.authorText}>
+                    <Text style={currentTheme === 'light' ? NewsCardStylesLight.dateText : NewsCardStylesDark.dateText}>
                         {parsedDate}
                     </Text>
                 </View>
@@ -222,7 +223,7 @@ export const NewsCardComponent = (props) => {
                                         }
                                     >
                                         <Image
-                                            style={{ width: 250, height: 30 }}
+                                            style={{ width: 250, height: 30, resizeMode: 'contain' }}
                                             source={
                                                 currentTheme === 'light'
                                                     ? require('../../assets/newscope_logo_light.png')
@@ -257,7 +258,15 @@ export const NewsCardComponent = (props) => {
                                             : NewsModalStylesDark.modalViewContent
                                     }
                                 >
-                                    <WebView source={{ uri: props.url }} style={{ flex: 1, width: 380, backgroundColor: 'transparent' }} />
+                                    <WebView 
+                                        source={{ uri: props.url }} 
+                                        style={
+                                            currentTheme === 'light'
+                                            ? NewsModalStylesLight.webView
+                                            : NewsModalStylesDark.webView
+                                        } 
+                                        containerStyle={{width: '95%'}}
+                                    />
                                 </View>
                                 <View
                                     style={

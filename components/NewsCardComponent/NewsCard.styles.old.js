@@ -92,6 +92,7 @@ export const NewsCardStylesDark = StyleSheet.create({
         alignItems: 'center',
     },
     mainView: {
+        flex:1,
         backgroundColor: Colors.dark.background,
         width: windowWidth - 50,
         borderRadius: 20,
@@ -122,12 +123,21 @@ export const NewsCardStylesDark = StyleSheet.create({
         paddingTop: 5,
     },
     authorText: {
+//        flex: 2,
         color: Colors.dark.categoryColor,
         textTransform: 'uppercase',
         fontSize: 12,
         fontFamily: Styles.secondFont,
         paddingTop: 5,
         maxWidth: 225
+    },
+    dateText: {
+//        flex:1,
+        color: Colors.dark.categoryColor,
+        textTransform: 'uppercase',
+        fontSize: 12,
+        fontFamily: Styles.secondFont,
+        paddingTop: 5,
     },
     icons: {
         flexDirection: 'row',
@@ -162,6 +172,7 @@ export const NewsCardStylesDark = StyleSheet.create({
     image: {
         alignItems: 'center',
         justifyContent: 'center',
+        resizeMode:'contain',
         height: 170,
         width: windowWidth - 53,
         borderBottomLeftRadius: 18,

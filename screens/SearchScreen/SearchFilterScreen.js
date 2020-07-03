@@ -9,9 +9,6 @@ import { useFocusEffect } from '@react-navigation/native';
 import { Input } from 'react-native-elements';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Colors } from '../../constants/colors';
-import { HomeScreen } from '../HomeScreen/HomeScreen';
-import { SearchNavigator } from '../../navigation/SearchNavigator';
-
 
 
 export const SearchFilterScreen = ({route, navigation}) => {

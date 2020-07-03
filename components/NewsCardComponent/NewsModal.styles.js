@@ -14,8 +14,8 @@ export const NewsModalStylesLight = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: Colors.light.background,
-        maxHeight: 50,
-        minHeight: 55,
+        maxHeight: 55,
+        minHeight: 50,
         marginTop: 0,
         elevation: 0.5,
     },
@@ -44,7 +44,7 @@ export const NewsModalStylesLight = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.3)',
+        backgroundColor: Colors.light.settingsBG,
     },
     modalView: {
         backgroundColor: Colors.light.settingsBG,
@@ -99,6 +99,10 @@ export const NewsModalStylesLight = StyleSheet.create({
         fontSize: 14,
         color: Colors.light.versionColor,
     },
+    webView: { 
+        flex: 1,
+        backgroundColor: 'transparent'
+    },
 });
 
 export const NewsModalStylesDark = StyleSheet.create({
@@ -108,8 +112,8 @@ export const NewsModalStylesDark = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: Colors.dark.background,
-        maxHeight: 50,
-        minHeight: 55,
+        maxHeight: 55,
+        minHeight: 50,
         marginTop: 0,
         elevation: 0.5,
     },
@@ -191,5 +195,9 @@ export const NewsModalStylesDark = StyleSheet.create({
         fontFamily: Styles.defaultFont,
         fontSize: 14,
         color: Colors.dark.versionColor,
+    },
+    webView: { 
+        flex: 1, 
+        backgroundColor: 'transparent'
     },
 });
