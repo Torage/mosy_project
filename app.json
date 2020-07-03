@@ -2,6 +2,7 @@
   "expo": {
     "name": "Newsscope",
     "slug": "CourseProject",
+    "userInterfaceStyle": "automatic",
     "platforms": [
       "ios",
       "android",
