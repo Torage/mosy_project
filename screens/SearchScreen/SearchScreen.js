@@ -2,14 +2,13 @@ import React, { useContext, useState, createContext } from 'react';
 import { View, Text, TouchableOpacity, Modal, FlatList } from 'react-native';
 import { SearchScreenStylesLight, SearchScreenStylesDark } from './SearchScreen.styles';
 import SelectLanguage from '../../components/SelectLanguageComponent/SelectLanguage';
-import { NewsCardComponent } from '../../components/NewsCardComponent/NewsCard.component';
 import { NewsContext } from '../../Data/newsContext';
-import { Topnews } from '../../Models/TopnewsModel';
 import { SettingsContext } from '../../Data/settingsContext';
 import { Input } from 'react-native-elements';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Colors } from '../../constants/colors';
 import { LANGUAGE } from '../../Data/language';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 export const SearchScreen = ({navigation}) => {
@@ -30,9 +29,7 @@ export const SearchScreen = ({navigation}) => {
     const [domains, setDomains] = useState('');
     const [exDomains, setExDomains] = useState('');
     const [sortBy, setSortBy] = useState('publishedAt');
-    const [lang, setLang] = useState('FR');
-
-
+    const [lang, setLang] = useState('DE');
 
     return (
         <View style={currentTheme === 'light' ? SearchScreenStylesLight.viewContainer : SearchScreenStylesDark.viewContainer}>
@@ -47,14 +44,19 @@ export const SearchScreen = ({navigation}) => {
                     <View>
                         <View style={currentTheme === 'light' ? SearchScreenStylesLight.modalView : SearchScreenStylesDark.modalView}>
                             <View style={currentTheme === 'light' ? SearchScreenStylesLight.modalViewHeader : SearchScreenStylesDark.modalViewHeader}>
-                                <View style={currentTheme === 'light' ? SearchScreenStylesLight.modalIconContainer : SearchScreenStylesDark.modalIconContainer}>
-                                </View>
+                                <View style={currentTheme === 'light' ? SearchScreenStylesLight.modalIconContainer : SearchScreenStylesDark.modalIconContainer} />
                                 <View style={currentTheme === 'light' ? SearchScreenStylesLight.modalTextContainer : SearchScreenStylesDark.modalTextContainer}>
-                                    <Text style={currentTheme === 'light' ? SearchScreenStylesLight.modalHeaderText : SearchScreenStylesDark.modalHeaderText} >Select Language</Text>
+                                    <Text style={currentTheme === 'light' ? SearchScreenStylesLight.modalHeaderText : SearchScreenStylesDark.modalHeaderText}>
+                                        Select Language
+                                    </Text>
                                 </View>
                                 <View style={currentTheme === 'light' ? SearchScreenStylesLight.modalIconContainer : SearchScreenStylesDark.modalIconContainer}>
                                     <TouchableOpacity onPress={() => setLanguageModalVisible(!languageModalVisible)}>
-                                        <MaterialCommunityIcons name='close' color={currentTheme === 'light' ? Colors.light.accent : Colors.dark.accent} size={24} />
+                                        <MaterialCommunityIcons 
+                                            name='close' 
+                                            color={currentTheme === 'light' ? Colors.light.accent : Colors.dark.accent} 
+                                            size={24} 
+                                        />
                                     </TouchableOpacity>
                                 </View>
                             </View>
@@ -63,12 +65,11 @@ export const SearchScreen = ({navigation}) => {
                                     data={language}
                                     style={{ width: '100%' }}
                                     contentContainerStyle={{ alignItems: 'center'}}
-                                    renderItem={(itemData) => (<SelectLanguage id={itemData.item.id} name={itemData.item.name} flag={itemData.item.flag} setLang={setLang}/>)}
+                                    renderItem={(itemData) => (<SelectLanguage id={itemData.item.id} name={itemData.item.name} flag={itemData.item.flag} currentlang={lang} setLang={setLang} setLanguageModalVisible={setLanguageModalVisible}/>)}
                                     keyExtractor={(item) => item.id}
                                 />
                             </View>
-                            <View style={currentTheme === 'light' ? SearchScreenStylesLight.modalViewContactFooter : SearchScreenStylesDark.modalViewContactFooter}>
-                            </View>
+                            <View style={currentTheme === 'light' ? SearchScreenStylesLight.modalViewContactFooter : SearchScreenStylesDark.modalViewContactFooter} />
                         </View>
                     </View>
                 </View>
@@ -86,36 +87,36 @@ export const SearchScreen = ({navigation}) => {
                         />
                     }
                     rightIcon={
-                            <TouchableOpacity
-                                onPress={() => qWord === '' ? console.log('wrong') : navigation.navigate('SearchFilter', {
+                        <TouchableOpacity
+                            onPress={() => 
+                                qWord === '' || qWord === null ? console.log('wrong') : navigation.navigate('SearchFilter', {
                                     qWord: qWord,
                                     domain: domains,
                                     exDomain: exDomains,
                                     sortBy: sortBy,
                                     lang: lang,
-                                    })
-                                }
-                            >    
+                                })
+                            }
+                        >    
                             <MaterialCommunityIcons
                                 name='arrow-right-bold'
                                 color={currentTheme === 'light' ? Colors.light.accent : Colors.dark.accent}
                                 size={38}
                             />
-                            </TouchableOpacity>
+                        </TouchableOpacity>
                     }
                     onChange={(value) => {
                         setQWord(value.nativeEvent.text)
-                        }
-                    }
+                    }}
                     onSubmitEditing={(value) => {
                         console.log(filter)
-                        navigation.navigate('SearchFilter', {
+                        qWord === '' || qWord === null ? console.log('wrong') : navigation.navigate('SearchFilter', {
                             qWord: qWord,
                             domain: domains,
                             exDomain: exDomains,
                             sortBy: sortBy,
                             lang: lang,
-                        });
+                        })
                     }}
                 />
             </View>
@@ -136,117 +137,116 @@ export const SearchScreen = ({navigation}) => {
                 </TouchableOpacity>
             </View>
             {filter ? (
-                <>
-                                    <View style={currentTheme === 'light' ? SearchScreenStylesLight.inputView : SearchScreenStylesDark.inputView}>
-
-                <Text style={currentTheme === 'light' ? SearchScreenStylesLight.description : SearchScreenStylesDark.description}>
-                    Sort By:
-                </Text>
-                <View style={currentTheme === 'light' ? SearchScreenStylesLight.sortView : SearchScreenStylesDark.sortView}>
-                    <TouchableOpacity  
-                        style={(sortBy === 'relevancy') ? (
-                            currentTheme === 'light' ? SearchScreenStylesLight.sortFilter : SearchScreenStylesDark.sortFilter
-                          ) : (
-                             currentTheme === 'light' ? SearchScreenStylesLight.sortFilter2 : SearchScreenStylesDark.sortFilter2
-                          )}
-                        onPress={
-                            () => {
-                                setSortBy('relevancy')
-                                console.log(sortBy)
-                            }
-                        }
-                        >
-                            <Text style={currentTheme === 'light' ? SearchScreenStylesLight.sortButtonText : SearchScreenStylesDark.sortButtonText}>
-                                Relevance
-                            </Text>                    
-                    </TouchableOpacity>
-                    <TouchableOpacity  
-                        style={(sortBy === 'publishedAt') ? (
-                            currentTheme === 'light' ? SearchScreenStylesLight.sortFilter : SearchScreenStylesDark.sortFilter
-                          ) : (
-                             currentTheme === 'light' ? SearchScreenStylesLight.sortFilter2 : SearchScreenStylesDark.sortFilter2
-                          )}
-                        onPress={
-                            () => {
-                                setSortBy('publishedAt')
-                                console.log(sortBy)
-                            }
-                        }
-                    >
-                        <Text style={currentTheme === 'light' ? SearchScreenStylesLight.sortButtonText : SearchScreenStylesDark.sortButtonText}>
-                            Date
+                <ScrollView>
+                    <View style={currentTheme === 'light' ? SearchScreenStylesLight.inputView : SearchScreenStylesDark.inputView}>
+                        <Text style={currentTheme === 'light' ? SearchScreenStylesLight.description : SearchScreenStylesDark.description}>
+                            Sort By:
                         </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity  
-                        style={(sortBy === 'popularity') ? (
-                            currentTheme === 'light' ? SearchScreenStylesLight.sortFilter : SearchScreenStylesDark.sortFilter
-                          ) : (
-                             currentTheme === 'light' ? SearchScreenStylesLight.sortFilter2 : SearchScreenStylesDark.sortFilter2
-                          )}
-                        onPress={
-                            () => {
-                                setSortBy('popularity')
-                                console.log(sortBy)
-                            }
-                        }
-                    >
-                        <Text style={currentTheme === 'light' ? SearchScreenStylesLight.sortButtonText : SearchScreenStylesDark.sortButtonText}>
-                            Popularity
+                        <View style={currentTheme === 'light' ? SearchScreenStylesLight.sortView : SearchScreenStylesDark.sortView}>
+                            <TouchableOpacity  
+                                style={(sortBy === 'relevancy') ? (
+                                    currentTheme === 'light' ? SearchScreenStylesLight.sortFilter : SearchScreenStylesDark.sortFilter
+                                ) : (
+                                    currentTheme === 'light' ? SearchScreenStylesLight.sortFilter2 : SearchScreenStylesDark.sortFilter2
+                                )}
+                                onPress={
+                                    () => {
+                                        setSortBy('relevancy')
+                                        console.log(sortBy)
+                                    }
+                                }
+                                >
+                                    <Text style={currentTheme === 'light' ? SearchScreenStylesLight.sortButtonText : SearchScreenStylesDark.sortButtonText}>
+                                        Relevance
+                                    </Text>                    
+                            </TouchableOpacity>
+                            <TouchableOpacity  
+                                style={(sortBy === 'publishedAt') ? (
+                                    currentTheme === 'light' ? SearchScreenStylesLight.sortFilter : SearchScreenStylesDark.sortFilter
+                                ) : (
+                                    currentTheme === 'light' ? SearchScreenStylesLight.sortFilter2 : SearchScreenStylesDark.sortFilter2
+                                )}
+                                onPress={
+                                    () => {
+                                        setSortBy('publishedAt')
+                                        console.log(sortBy)
+                                    }
+                                }
+                            >
+                                <Text style={currentTheme === 'light' ? SearchScreenStylesLight.sortButtonText : SearchScreenStylesDark.sortButtonText}>
+                                    Date
+                                </Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity  
+                                style={(sortBy === 'popularity') ? (
+                                    currentTheme === 'light' ? SearchScreenStylesLight.sortFilter : SearchScreenStylesDark.sortFilter
+                                ) : (
+                                    currentTheme === 'light' ? SearchScreenStylesLight.sortFilter2 : SearchScreenStylesDark.sortFilter2
+                                )}
+                                onPress={
+                                    () => {
+                                        setSortBy('popularity')
+                                        console.log(sortBy)
+                                    }
+                                }
+                            >
+                                <Text style={currentTheme === 'light' ? SearchScreenStylesLight.sortButtonText : SearchScreenStylesDark.sortButtonText}>
+                                    Popularity
+                                </Text>
+                            </TouchableOpacity>   
+                        </View>
+                    </View>
+                    <View style={currentTheme === 'light' ? SearchScreenStylesLight.inputView : SearchScreenStylesDark.inputView}>
+                        <Text style={currentTheme === 'light' ? SearchScreenStylesLight.description : SearchScreenStylesDark.description}>
+                            Search in Domains:
                         </Text>
-                    </TouchableOpacity>   
-                </View>
-                </View>
-                <View style={currentTheme === 'light' ? SearchScreenStylesLight.inputView : SearchScreenStylesDark.inputView}>
-                    <Text style={currentTheme === 'light' ? SearchScreenStylesLight.description : SearchScreenStylesDark.description}>
-                        Search in Domains:
-                    </Text>
-                    <Input
-                        inputStyle={currentTheme === 'light' ? SearchScreenStylesLight.inputText : SearchScreenStylesDark.inputText}
-                        inputContainerStyle={currentTheme === 'light' ? SearchScreenStylesLight.input : SearchScreenStylesDark.input}
-                        placeholder='Examples...'
-                        leftIcon={
-                            <MaterialCommunityIcons
-                                name='magnify'
-                                color={currentTheme === 'light' ? Colors.light.accent : Colors.dark.accent}
-                                size={24}
-                            />
-                        }
-                        onChange={(value) => {
-                            setDomains(value.nativeEvent.text)
-                        }}
-                    />
-                </View>
-                <View style={currentTheme === 'light' ? SearchScreenStylesLight.inputView : SearchScreenStylesDark.inputView}>
-                    <Text style={currentTheme === 'light' ? SearchScreenStylesLight.description : SearchScreenStylesDark.description}>
-                        Exclude Domains:
-                    </Text>
-                    <Input
-                        inputStyle={currentTheme === 'light' ? SearchScreenStylesLight.inputText : SearchScreenStylesDark.inputText}
-                        inputContainerStyle={currentTheme === 'light' ? SearchScreenStylesLight.input : SearchScreenStylesDark.input}
-                        placeholder='Examples...'
-                        leftIcon={
-                            <MaterialCommunityIcons
-                                name='magnify'
-                                color={currentTheme === 'light' ? Colors.light.accent : Colors.dark.accent}
-                                size={24}
-                            />
-                        }
-                        onChange={(value) => {
-                            setExDomains(value.nativeEvent.text)
-                        }}
-                    />
-                </View>
-                <View style={currentTheme === 'light' ? SearchScreenStylesLight.buttonView : SearchScreenStylesDark.buttonView}>
-                    <TouchableOpacity  
-                        style={currentTheme === 'light' ? SearchScreenStylesLight.button : SearchScreenStylesDark.button}
-                        onPress={() => setLanguageModalVisible(!languageModalVisible)}
+                        <Input
+                            inputStyle={currentTheme === 'light' ? SearchScreenStylesLight.inputText : SearchScreenStylesDark.inputText}
+                            inputContainerStyle={currentTheme === 'light' ? SearchScreenStylesLight.input : SearchScreenStylesDark.input}
+                            placeholder='Examples...'
+                            leftIcon={
+                                <MaterialCommunityIcons
+                                    name='magnify'
+                                    color={currentTheme === 'light' ? Colors.light.accent : Colors.dark.accent}
+                                    size={24}
+                                />
+                            }
+                            onChange={(value) => {
+                                setDomains(value.nativeEvent.text)
+                            }}
+                        />
+                    </View>
+                    <View style={currentTheme === 'light' ? SearchScreenStylesLight.inputView : SearchScreenStylesDark.inputView}>
+                        <Text style={currentTheme === 'light' ? SearchScreenStylesLight.description : SearchScreenStylesDark.description}>
+                            Exclude Domains:
+                        </Text>
+                        <Input
+                            inputStyle={currentTheme === 'light' ? SearchScreenStylesLight.inputText : SearchScreenStylesDark.inputText}
+                            inputContainerStyle={currentTheme === 'light' ? SearchScreenStylesLight.input : SearchScreenStylesDark.input}
+                            placeholder='Examples...'
+                            leftIcon={
+                                <MaterialCommunityIcons
+                                    name='magnify'
+                                    color={currentTheme === 'light' ? Colors.light.accent : Colors.dark.accent}
+                                    size={24}
+                                />
+                            }
+                            onChange={(value) => {
+                                setExDomains(value.nativeEvent.text)
+                            }}
+                        />
+                    </View>
+                    <View style={currentTheme === 'light' ? SearchScreenStylesLight.buttonView : SearchScreenStylesDark.buttonView}>
+                        <TouchableOpacity  
+                            style={currentTheme === 'light' ? SearchScreenStylesLight.button : SearchScreenStylesDark.button}
+                            onPress={() => setLanguageModalVisible(!languageModalVisible)}
                         >
                             <Text style={currentTheme === 'light' ? SearchScreenStylesLight.buttonText : SearchScreenStylesDark.buttonText}>
                                 Select Language : {lang}
                             </Text>                    
-                    </TouchableOpacity>
-                </View>
-                </>
+                        </TouchableOpacity>
+                    </View>
+                </ ScrollView>
             ) : (
                 <View />
             )}

@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Text, View, TouchableNativeFeedback } from 'react-native';
+import { Text, View, TouchableNativeFeedback, TouchableHighlight, Platform } from 'react-native';
 import { Colors } from '../../constants/colors';
 import { SelectCategoryButtonStylesDark, SelectCategoryButtonStylesLight } from '../SelectCategoryButtonComponent/SelectCategoryButtonStyles';
 import { SettingsContext } from '../../Data/settingsContext';
@@ -15,20 +15,51 @@ export default SelectCategoryButton = props => {
     const [currentCategory, setCurrentCategory] = category
 
     return (
-        <View style={currentTheme === 'light' ? SelectCategoryButtonStylesLight.settingRow : SelectCategoryButtonStylesDark.settingRow} >
-            <View style={currentTheme === 'light' ? SelectCategoryButtonStylesLight.modalContainer : SelectCategoryButtonStylesDark.modalContainer} >
-            </View>
-            <TouchableNativeFeedback onPress={() => props.setCategoryModal(true)}>
+            <>
+            {Platform.OS === 'android' ?
+            <View style={currentTheme === 'light' ? SelectCategoryButtonStylesLight.settingRow : SelectCategoryButtonStylesDark.settingRow} >
+                <TouchableNativeFeedback onPress={() => props.setCategoryModal(true)}>
+                    <View style={currentTheme === 'light' ? SelectCategoryButtonStylesLight.wrapper : SelectCategoryButtonStylesDark.wrapper}>
+                        <View style={currentTheme === 'light' ? SelectCategoryButtonStylesLight.leftContainer : SelectCategoryButtonStylesDark.leftContainer}>
+                            <Text style={currentTheme === 'light' ? SelectCategoryButtonStylesLight.titleText : SelectCategoryButtonStylesDark.titleText}>
+                                {props.title}
+                            </Text>
+                            <Text style={currentTheme === 'light' ? SelectCategoryButtonStylesLight.descriptionText : SelectCategoryButtonStylesDark.descriptionText}>
+                                {props.description}
+                            </Text>
+                        </View>
+                        <View style={currentTheme === 'light' ? SelectCategoryButtonStylesLight.rightContainer : SelectCategoryButtonStylesDark.rightContainer}>
+                            <Text style={currentTheme === 'light' ? SelectCategoryButtonStylesLight.rightContainerText : SelectCategoryButtonStylesDark.rightContainerText}>
+                                {currentCategory}
+                            </Text>
+                        </View>
+                    </View>
+                </TouchableNativeFeedback>
+            </ View>
+            :
+            <TouchableHighlight onPress={() => {
+                props.setCategoryModal(true)                
+                props.setSettingsModalVisible(false)
+                }}
+                style={currentTheme === 'light' ? SelectCategoryButtonStylesLight.iOSHighlight : SelectCategoryButtonStylesDark.iOSHighlight}
+            >
                 <View style={currentTheme === 'light' ? SelectCategoryButtonStylesLight.wrapper : SelectCategoryButtonStylesDark.wrapper}>
                     <View style={currentTheme === 'light' ? SelectCategoryButtonStylesLight.leftContainer : SelectCategoryButtonStylesDark.leftContainer}>
-                        <Text style={currentTheme === 'light' ? SelectCategoryButtonStylesLight.titleText : SelectCategoryButtonStylesDark.titleText}>{props.title}</Text>
-                        <Text style={currentTheme === 'light' ? SelectCategoryButtonStylesLight.descriptionText : SelectCategoryButtonStylesDark.descriptionText}>{props.description}</Text>
+                        <Text style={currentTheme === 'light' ? SelectCategoryButtonStylesLight.titleText : SelectCategoryButtonStylesDark.titleText}>
+                            {props.title}
+                        </Text>
+                        <Text style={currentTheme === 'light' ? SelectCategoryButtonStylesLight.descriptionText : SelectCategoryButtonStylesDark.descriptionText}>
+                            {props.description}
+                        </Text>
                     </View>
                     <View style={currentTheme === 'light' ? SelectCategoryButtonStylesLight.rightContainer : SelectCategoryButtonStylesDark.rightContainer}>
-                        <Text style={currentTheme === 'light' ? SelectCategoryButtonStylesLight.rightContainerText : SelectCategoryButtonStylesDark.rightContainerText}>{currentCategory}</Text>
+                        <Text style={currentTheme === 'light' ? SelectCategoryButtonStylesLight.rightContainerText : SelectCategoryButtonStylesDark.rightContainerText}>
+                            {currentCategory}
+                        </Text>
                     </View>
                 </View>
-            </TouchableNativeFeedback>
-        </View>
+            </TouchableHighlight>
+            }
+        </>
     );
 };

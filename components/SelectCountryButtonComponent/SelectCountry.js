@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Text, View, TouchableNativeFeedback, Switch, AsyncStorage } from 'react-native';
-import { Colors } from '../../constants/colors';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import React, { useContext } from 'react';
+import { Text, View, TouchableNativeFeedback, TouchableHighlight, AsyncStorage, Platform } from 'react-native';
 import { SelectCountryStylesDark, SelectCountryStylesLight } from '../SelectCountryButtonComponent/SelectCountryStyles';
 import { SettingsContext } from '../../Data/settingsContext';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Flag from 'react-native-flags';
+import { Colors } from '../../constants/colors';
 
 export default SelectCountry = props => {
 
@@ -29,21 +29,45 @@ export default SelectCountry = props => {
         }
     };
 
-
     return (
-        <View style={currentTheme === 'light' ? SelectCountryStylesLight.settingRow : SelectCountryStylesDark.settingRow} >
-            <TouchableNativeFeedback onPress={() => changeCountry()}>
-                <View style={currentTheme === 'light' ? SelectCountryStylesLight.wrapper : SelectCountryStylesDark.wrapper}>
-                    <View style={currentTheme === 'light' ? SelectCountryStylesLight.leftContainer : SelectCountryStylesDark.leftContainer}>
-                        <Text style={currentTheme === 'light' ? SelectCountryStylesLight.titleText : SelectCountryStylesDark.titleText}>{props.id} - {props.name}</Text>
-                    </View>
-                    <View style={currentTheme === 'light' ? SelectCountryStylesLight.selectContainer : SelectCountryStylesDark.selectContainer}>{selectedCounrty()}</View>
+        <>
+        {Platform.OS === 'android' ?
+            <View style={currentTheme === 'light' ? SelectCountryStylesLight.settingRow : SelectCountryStylesDark.settingRow} >
+                <TouchableNativeFeedback onPress={() => changeCountry()}>
+                    <View style={currentTheme === 'light' ? SelectCountryStylesLight.wrapper : SelectCountryStylesDark.wrapper}>
+                        <View style={currentTheme === 'light' ? SelectCountryStylesLight.leftContainer : SelectCountryStylesDark.leftContainer}>
+                            <Text style={currentTheme === 'light' ? SelectCountryStylesLight.titleText : SelectCountryStylesDark.titleText}>
+                                {props.id} - {props.name}
+                            </Text>
+                        </View>
+                        <View style={currentTheme === 'light' ? SelectCountryStylesLight.selectContainer : SelectCountryStylesDark.selectContainer}>{selectedCounrty()}</View>
                     <View style={currentTheme === 'light' ? SelectCountryStylesLight.rightContainer : SelectCountryStylesDark.rightContainer}>
                         <Flag code={props.id} size={32} type="flat" />
+                        </View>
                     </View>
-                </View>
-            </TouchableNativeFeedback>
-        </View>
+                </TouchableNativeFeedback>
+            </View>
+        :
+            <View style={currentTheme === 'light' ? SelectCountryStylesLight.settingRow : SelectCountryStylesDark.settingRow} >
+                <TouchableHighlight 
+                    onPress={() => changeCountry()}
+                    style={currentTheme === 'light' ? SelectCountryStylesLight.iOSHighlight : SelectCountryStylesDark.iOSHighlight}
+                >
+                    <View style={currentTheme === 'light' ? SelectCountryStylesLight.wrapper : SelectCountryStylesDark.wrapper}>
+                        <View style={currentTheme === 'light' ? SelectCountryStylesLight.leftContainer : SelectCountryStylesDark.leftContainer}>
+                            <Text style={currentTheme === 'light' ? SelectCountryStylesLight.titleText : SelectCountryStylesDark.titleText}>
+                                {props.id} - {props.name}
+                            </Text>
+                        </View>
+                        <View style={currentTheme === 'light' ? SelectCountryStylesLight.selectContainer : SelectCountryStylesDark.selectContainer}>{selectedCounrty()}</View>
+                        <View style={currentTheme === 'light' ? SelectCountryStylesLight.rightContainer : SelectCountryStylesDark.rightContainer}>
+                            <Flag code={props.id} size={32} type="flat" />
+                        </View>
+                    </View>
+                </TouchableHighlight>
+            </View>
+        }
+        </>
 
     );
 

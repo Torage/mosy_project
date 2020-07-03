@@ -14,6 +14,17 @@ export const SelectCategoryButtonStylesLight = StyleSheet.create({
     backgroundColor: Colors.light.settingsBG,
   },
 
+  iOSHighlight: {
+    width: '96%',
+    height: 60,
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+    borderBottomWidth: 1,
+    borderBottomStartRadius: 2,
+    borderColor: Colors.light.dividerColor,
+    backgroundColor: Colors.light.settingsBG,
+  },
+
   wrapper: {
     flex: 1,
     flexDirection: 'row',
@@ -56,6 +67,17 @@ export const SelectCategoryButtonStylesLight = StyleSheet.create({
 
 export const SelectCategoryButtonStylesDark = StyleSheet.create({
   settingRow: {
+    width: '96%',
+    height: 60,
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+    borderBottomWidth: 1,
+    borderBottomStartRadius: 2,
+    borderColor: Colors.dark.dividerColor,
+    backgroundColor: Colors.dark.settingsBG,
+  },
+
+  iOSHighlight: {
     width: '96%',
     height: 60,
     justifyContent: 'flex-end',

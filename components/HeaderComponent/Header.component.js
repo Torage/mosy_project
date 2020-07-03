@@ -136,9 +136,9 @@ export const HeaderComponent = (props) => {
               <View style={currentTheme === 'light' ? HeaderStylesLight.modalViewContent : HeaderStylesDark.modalViewContent}>
                 <ToggleButtonTheme title={getButtonTitle()} description={getDescription()}></ToggleButtonTheme>
                 <ToggleButtonPush title='Push Notification' description='Enable Push Notification'></ToggleButtonPush>
-                <SelectCountryButton title='Select Country' description='Select your country for news' setCountryModal={setCountryModalVisible}></SelectCountryButton>
-                <SelectCategoryButton title='Select Category' description='Category for home news' setCategoryModal={setCategoryModalVisible}></SelectCategoryButton>
-                <ContactButton title='Send Feedback' description='Feedback, Questions? Good send us a mail.' setContactModal={setContactModalVisible}></ContactButton>
+                <SelectCountryButton title='Select Country' description='Select your country for news' setCountryModal={setCountryModalVisible} setSettingsModalVisible={setSettingsModalVisible} ></SelectCountryButton>
+                <SelectCategoryButton title='Select Category' description='Category for home news' setCategoryModal={setCategoryModalVisible} setSettingsModalVisible={setSettingsModalVisible}></SelectCategoryButton>
+                <ContactButton title='Send Feedback' description='Feedback, Questions? Good send us a mail.' setContactModal={setContactModalVisible} setSettingsModalVisible={setSettingsModalVisible}></ContactButton>
               </View>
               <View style={currentTheme === 'light' ? HeaderStylesLight.modalViewFooter : HeaderStylesDark.modalViewFooter}>
                 <Text style={currentTheme === 'light' ? HeaderStylesLight.modalFooterText : HeaderStylesDark.modalFooterText}>

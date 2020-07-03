@@ -14,6 +14,17 @@ export const SelectLanguageStylesLight = StyleSheet.create({
         backgroundColor: Colors.light.settingsBG,
     },
 
+    iOSHighlight: {
+        width: '96%',
+        height: 40,
+        justifyContent: 'flex-end',
+        alignItems: 'flex-end',
+        borderBottomWidth: 1,
+        borderBottomStartRadius: 2,
+        borderColor: Colors.light.dividerColor,
+        backgroundColor: Colors.light.settingsBG,
+    },
+
     wrapper: {
         flex: 1,
         flexDirection: 'row',
@@ -29,6 +40,12 @@ export const SelectLanguageStylesLight = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+
+    selectContainer:{
+        flex:1, 
+        justifyContent:'center', 
+        alignItems:'center'
     },
 
     titleText: {
@@ -60,6 +77,17 @@ export const SelectLanguageStylesDark = StyleSheet.create({
         backgroundColor: Colors.dark.settingsBG,
     },
 
+    iOSHighlight: {
+        width: '96%',
+        height: 40,
+        justifyContent: 'flex-end',
+        alignItems: 'flex-end',
+        borderBottomWidth: 1,
+        borderBottomStartRadius: 2,
+        borderColor: Colors.dark.dividerColor,
+        backgroundColor: Colors.dark.settingsBG,
+    },
+
     wrapper: {
         flex: 1,
         flexDirection: 'row',
@@ -75,6 +103,12 @@ export const SelectLanguageStylesDark = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+
+    selectContainer:{
+        flex:1, 
+        justifyContent:'center', 
+        alignItems:'center'
     },
 
     titleText: {

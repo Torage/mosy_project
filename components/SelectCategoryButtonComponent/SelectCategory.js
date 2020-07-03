@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Text, View, TouchableNativeFeedback, Switch, AsyncStorage } from 'react-native';
+import React, { useContext } from 'react';
+import { Text, View, TouchableNativeFeedback, TouchableHighlight, AsyncStorage, Platform } from 'react-native';
 import { Colors } from '../../constants/colors';
 import { SelectCategoryStylesDark, SelectCategoryStylesLight } from '../SelectCategoryButtonComponent/SelectCategoryStyles';
 import { SettingsContext } from '../../Data/settingsContext';
@@ -19,21 +19,51 @@ export default SelectCategory = (props) => {
   };
 
   return (
-    <View style={currentTheme === 'light' ? SelectCategoryStylesLight.settingRow : SelectCategoryStylesDark.settingRow}>
-      <TouchableNativeFeedback onPress={() => changeCategory()}>
-        <View style={currentTheme === 'light' ? SelectCategoryStylesLight.wrapper : SelectCategoryStylesDark.wrapper}>
-          <View style={currentTheme === 'light' ? SelectCategoryStylesLight.leftContainer : SelectCategoryStylesDark.leftContainer}>
-            <MaterialCommunityIcons
-              name={props.iconName}
-              color={currentTheme === 'light' ? Colors.light.accent : Colors.dark.accent}
-              size={26}
-            />
+    <>
+      {Platform.OS === 'android' ? 
+      <View style={currentTheme === 'light' ? SelectCategoryStylesLight.settingRow : SelectCategoryStylesDark.settingRow}>
+        <TouchableNativeFeedback onPress={() => changeCategory()}>
+          <View style={currentTheme === 'light' ? SelectCategoryStylesLight.wrapper : SelectCategoryStylesDark.wrapper}>
+            <View style={currentTheme === 'light' ? SelectCategoryStylesLight.leftContainer : SelectCategoryStylesDark.leftContainer}>
+              <MaterialCommunityIcons
+                style={currentTheme === 'light' ? SelectCategoryStylesLight.icon : SelectCategoryStylesDark.icon}
+                name={props.iconName}
+                color={currentTheme === 'light' ? Colors.light.accent : Colors.dark.accent}
+                size={26}
+              />
+            </View>
+            <View style={currentTheme === 'light' ? SelectCategoryStylesLight.rightContainer : SelectCategoryStylesDark.rightContainer}>
+              <Text style={currentTheme === 'light' ? SelectCategoryStylesLight.titleText : SelectCategoryStylesDark.titleText}>
+                {props.name}
+              </Text>
+            </View>
           </View>
-          <View style={currentTheme === 'light' ? SelectCategoryStylesLight.rightContainer : SelectCategoryStylesDark.rightContainer}>
-            <Text style={currentTheme === 'light' ? SelectCategoryStylesLight.titleText : SelectCategoryStylesDark.titleText}>{props.name}</Text>
+        </TouchableNativeFeedback>
+      </View>
+      :
+      <View style={currentTheme === 'light' ? SelectCategoryStylesLight.settingRow : SelectCategoryStylesDark.settingRow}>
+        <TouchableHighlight 
+          onPress={() => changeCategory()}
+          style={currentTheme === 'light' ? SelectCategoryStylesLight.iOSHighlight : SelectCategoryStylesDark.iOSHighlight}
+        >
+          <View style={currentTheme === 'light' ? SelectCategoryStylesLight.wrapper : SelectCategoryStylesDark.wrapper}>
+            <View style={currentTheme === 'light' ? SelectCategoryStylesLight.leftContainer : SelectCategoryStylesDark.leftContainer}>
+              <MaterialCommunityIcons
+                style={currentTheme === 'light' ? SelectCategoryStylesLight.icon : SelectCategoryStylesDark.icon}
+                name={props.iconName}
+                color={currentTheme === 'light' ? Colors.light.accent : Colors.dark.accent}
+                size={26}
+              />
+            </View>
+            <View style={currentTheme === 'light' ? SelectCategoryStylesLight.rightContainer : SelectCategoryStylesDark.rightContainer}>
+              <Text style={currentTheme === 'light' ? SelectCategoryStylesLight.titleText : SelectCategoryStylesDark.titleText}>
+                {props.name}
+              </Text>
+            </View>
           </View>
-        </View>
-      </TouchableNativeFeedback>
-    </View>
+        </TouchableHighlight>
+      </View>
+    }
+  </>
   );
 };
