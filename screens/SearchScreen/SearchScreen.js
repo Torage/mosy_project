@@ -5,6 +5,7 @@ import SelectLanguage from '../../components/SelectLanguageComponent/SelectLangu
 import { NewsContext } from '../../Data/newsContext';
 import { SettingsContext } from '../../Data/settingsContext';
 import { Input } from 'react-native-elements';
+import Toast from 'react-native-tiny-toast'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Colors } from '../../constants/colors';
 import { LANGUAGE } from '../../Data/language';
@@ -89,7 +90,10 @@ export const SearchScreen = ({navigation}) => {
                     rightIcon={
                         <TouchableOpacity
                             onPress={() => 
-                                qWord === '' || qWord === null ? console.log('wrong') : navigation.navigate('SearchFilter', {
+                                qWord === '' || qWord === null ? 
+                                    Toast.show('Searchfield can' + "'"  +'t be empty.', Toast.LONG) 
+                                    : 
+                                    navigation.navigate('SearchFilter', {
                                     qWord: qWord,
                                     domain: domains,
                                     exDomain: exDomains,
@@ -110,7 +114,10 @@ export const SearchScreen = ({navigation}) => {
                     }}
                     onSubmitEditing={(value) => {
                         console.log(filter)
-                        qWord === '' || qWord === null ? console.log('wrong') : navigation.navigate('SearchFilter', {
+                        qWord === '' || qWord === null ?                                     
+                            Toast.show('Searchfield can' + "'"  +'t be empty.', Toast.LONG) 
+                            : 
+                            navigation.navigate('SearchFilter', {
                             qWord: qWord,
                             domain: domains,
                             exDomain: exDomains,

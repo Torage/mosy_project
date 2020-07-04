@@ -56,7 +56,7 @@ export const HeaderComponent = (props) => {
 
   const sendInputData = async () => {
     if (contactName === '' || contactSubject === '' || contactMessage === '') {
-      Toast.show('Fields cant be empty.', Toast.LONG);
+      Toast.show('Fields can' + "'"  +'t be empty.', Toast.LONG);
     } else {
       if (validateEmail(contactEmail)) {
         try {
@@ -105,8 +105,8 @@ export const HeaderComponent = (props) => {
   function getDescription(){
     var description = '';
     if (globalTheme === true 
-      ? description = 'Hold For Manual Theming'
-      : description = 'Hold For Device Theming'
+      ? description = 'Hold for Manual Theming'
+      : description = 'Hold for Device Theming'
     )
     return description
   };

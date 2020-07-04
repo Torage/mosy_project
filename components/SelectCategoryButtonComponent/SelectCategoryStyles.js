@@ -45,6 +45,12 @@ export const SelectCategoryStylesLight = StyleSheet.create({
     alignItems: 'flex-start',
   },
 
+  selectContainer:{
+    flex:1, 
+    justifyContent:'center', 
+    alignItems:'center'
+  },
+
   titleText: {
     fontFamily: Styles.defaultFont,
     fontWeight: 'bold',
@@ -102,6 +108,12 @@ export const SelectCategoryStylesDark = StyleSheet.create({
     flex: 6,
     justifyContent: 'center',
     alignItems: 'flex-start',
+  },
+
+  selectContainer:{
+    flex:1, 
+    justifyContent:'center', 
+    alignItems:'center'
   },
 
   titleText: {
