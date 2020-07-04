@@ -39,7 +39,7 @@ export default SelectLanguage = (props) => {
                                 {props.id} - {props.name}
                             </Text>
                         </View>
-                        <View style={currentTheme === 'light' ? SelectLanguageStylesLight.selectContainer : SelectLanguageStylesLight.selectContainer}>{selectedLanguage()}</View>
+                        <View style={currentTheme === 'light' ? SelectLanguageStylesLight.selectContainer : SelectLanguageStylesDark.selectContainer}>{selectedLanguage()}</View>
                         <View style={currentTheme === 'light' ? SelectLanguageStylesLight.rightContainer : SelectLanguageStylesDark.rightContainer}>
                             <Flag code={props.flag} size={32} type="flat" />
                         </View>
@@ -60,7 +60,7 @@ export default SelectLanguage = (props) => {
                             {props.id} - {props.name}
                         </Text>
                     </View>
-                    <View style={currentTheme === 'light' ? SelectLanguageStylesLight.selectContainer : SelectLanguageStylesLight.selectContainer}>{selectedLanguage()}</View>
+                    <View style={currentTheme === 'light' ? SelectLanguageStylesLight.selectContainer : SelectLanguageStylesDark.selectContainer}>{selectedLanguage()}</View>
                     <View style={currentTheme === 'light' ? SelectLanguageStylesLight.rightContainer : SelectLanguageStylesDark.rightContainer}>
                         <Flag code={props.flag} size={32} type="flat" />
                     </View>

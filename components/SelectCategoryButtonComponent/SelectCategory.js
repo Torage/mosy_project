@@ -18,6 +18,15 @@ export default SelectCategory = (props) => {
     props.setCategoryModalVisible(false);
   };
 
+  const selectedCategory= () =>{
+    if (currentCategory === props.name) {
+        return <MaterialCommunityIcons 
+            name="check"
+            size={24} 
+            color={currentTheme === 'light' ? Colors.light.accent : Colors.dark.accent} />;
+    }
+  };
+
   return (
     <>
       {Platform.OS === 'android' ? 
@@ -37,6 +46,7 @@ export default SelectCategory = (props) => {
                 {props.name}
               </Text>
             </View>
+            <View style={currentTheme === 'light' ? SelectCategoryStylesLight.selectContainer : SelectCategoryStylesDark.selectContainer}>{selectedCategory()}</View>
           </View>
         </TouchableNativeFeedback>
       </View>
@@ -60,6 +70,7 @@ export default SelectCategory = (props) => {
                 {props.name}
               </Text>
             </View>
+            <View style={currentTheme === 'light' ? SelectCategoryStylesLight.selectContainer : SelectCategoryStylesDark.selectContainer}>{selectedCategory()}</View>
           </View>
         </TouchableHighlight>
       </View>
