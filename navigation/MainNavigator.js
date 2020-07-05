@@ -1,79 +1,49 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { AsyncStorage, StatusBar } from 'react-native';
-import { NavigationContainer,useFocusEffect } from '@react-navigation/native';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import React, { useContext } from 'react';
+import {StatusBar} from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer} from '@react-navigation/native';
+import { TabNavigator } from './TabNavigator';
+import { ModalScreen } from '../screens/ModalScreen/ModalScreen';
 import { HeaderComponent } from '../components/HeaderComponent/Header.component';
-import { HomeNavigator } from './HomeNavigator';
-import { FavoritesNavigator } from './FavoritesNavigator';
-import { SearchNavigator } from './SearchNavigator';
 import { Colors } from '../constants/colors';
 import { Styles } from '../constants/styles';
 import { SettingsContext } from '../Data/settingsContext';
-import { NewsContext } from '../Data/newsContext';
-import { IconWithBadge } from '../components/IconWithBadgeComponent/IconWithBadge';
 
-const Tab = createMaterialTopTabNavigator();
+
+const RootStack = createStackNavigator();
+
 export const MainNavigator = () => {
 
-    const { theme, push } = useContext(SettingsContext);
+    const { theme} = useContext(SettingsContext);
     const [currentTheme, setCurrentTheme] = theme;
-    const [sendPushNotification, setSendPushNotification] = push;
 
-    const { topNews, favoriteNews } = useContext(NewsContext);
-    const [newsData, setNewsData] = topNews;
-    const [favoriteData, setFavoriteData] = favoriteNews;
+    function RootStackScreen() {
 
-    return (
+        return(
+          <RootStack.Navigator mode="modal" headerMode="none" initialRouteName='Tab'>
+            <RootStack.Screen name="Tab" component={TabNavigator}/>
+            <RootStack.Screen name="MyModal" component={ModalScreen} />
+          </RootStack.Navigator>
+        )
+    }
+
+    return(
         <NavigationContainer
             theme={
-                currentTheme === 'light' ? { colors: { background: Colors.light.background } } : { colors: { background: Colors.dark.background } }
-            }
-        >
-            <StatusBar barStyle='light-content' backgroundColor={currentTheme === 'light' ? Colors.light.statusBarBG : Colors.dark.statusBarBG}/>
+                currentTheme === 'light' 
+                ? { colors: { background: Colors.light.background } } 
+                : { colors: { background: Colors.dark.background } } }>
+            <StatusBar 
+            barStyle='light-content' 
+            backgroundColor={currentTheme === 'light' 
+                ? Colors.light.statusBarBG 
+                : Colors.dark.statusBarBG} />
             <HeaderComponent />
-            <Tab.Navigator
-                initialRouteName='Home'
-                tabBarPosition='bottom'
-                tabBarOptions={{
-                    labelStyle: {
-                        fontSize: 10,
-                        fontFamily: Styles.defaultFont,
-                        alignSelf: 'center',
-                    },
-                    style: currentTheme === 'light' ? { backgroundColor: Colors.light.background } : { backgroundColor: Colors.dark.background },
-                    showIcon: true,
-                    showLabel: true,
-                    activeTintColor: currentTheme === 'light' ? Colors.light.accent : Colors.dark.accent,
-                    inactiveTintColor: currentTheme === 'light' ? Colors.light.secondary : Colors.dark.secondary,
-                }}
-            >
-                <Tab.Screen
-                    name='Favorites'
-                    component={FavoritesNavigator}
-                    options={{
-                        tabBarLabel: 'Favorites',
-                        tabBarIcon: ({ color }) => <IconWithBadge iconName={'bookmark-check'} iconColor={color} iconSize={26} data={favoriteData} />,
-                    }}
-                />
-                <Tab.Screen
-                    name='Home'
-                    component={HomeNavigator}
-                    options={{
-                        tabBarLabel: 'home',
-                        tabBarIcon: ({ color }) => <MaterialCommunityIcons name='home' color={color} size={26} />,
-                    }}
-                    initialParams
-                />
-                <Tab.Screen
-                    name='Search'
-                    component={SearchNavigator}
-                    options={{
-                        tabBarLabel: 'Search',
-                        tabBarIcon: ({ color }) => <MaterialCommunityIcons name='magnify' color={color} size={26} />,
-                    }}
-                />
-            </Tab.Navigator>
+            <RootStackScreen/>
         </NavigationContainer>
-    );
-};
+    )
+
+}
+  
+
+  

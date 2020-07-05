@@ -10,6 +10,8 @@ import * as Permissions from 'expo-permissions';
 import * as Location from 'expo-location';
 import { COUNTRIES } from './Data/countrys';
 import {AppearanceProvider, Appearance} from 'react-native-appearance';
+import { MenuProvider } from 'react-native-popup-menu';
+import { Menu } from 'react-native-paper';
 
 export default function App() {
     const countries = COUNTRIES;
@@ -175,26 +177,26 @@ export default function App() {
     } else {
         return (
             <AppearanceProvider>
-            <SettingsContext.Provider
-                value={{
-                    theme: [currentTheme, setCurrentTheme],
-                    push: [sendPushNotification, setSendPushNotification],
-                    country: [currentCountry, setCurrentCountry],
-                    category: [currentCategory, setCurrentCategory],
-                    location: [currentLocation, setCurrentLocation], 
-                    global: [globalTheme, setGlobalTheme],
-                }}
-            >
-                <NewsContext.Provider
+                <SettingsContext.Provider
                     value={{
-                        topNews: [newsData, setNewsData],
-                        favoriteNews: [favoriteData, setFavoriteData],
-                        searchNews: [searchData, setSearchData],
+                        theme: [currentTheme, setCurrentTheme],
+                        push: [sendPushNotification, setSendPushNotification],
+                        country: [currentCountry, setCurrentCountry],
+                        category: [currentCategory, setCurrentCategory],
+                        location: [currentLocation, setCurrentLocation], 
+                        global: [globalTheme, setGlobalTheme],
                     }}
                 >
-                    <MainNavigator />
-                </NewsContext.Provider>
-            </SettingsContext.Provider>
+                    <NewsContext.Provider
+                        value={{
+                            topNews: [newsData, setNewsData],
+                            favoriteNews: [favoriteData, setFavoriteData],
+                            searchNews: [searchData, setSearchData],
+                        }}
+                    >
+                        <MainNavigator />
+                    </NewsContext.Provider>
+                </SettingsContext.Provider>
             </AppearanceProvider>
         );
     }
