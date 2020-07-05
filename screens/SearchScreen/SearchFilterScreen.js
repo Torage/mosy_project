@@ -34,7 +34,7 @@ export const SearchFilterScreen = ({route, navigation}) => {
     const searchQuery = "&domains=" + domain.toLowerCase() + "&excludeDomains=" + exDomain.toLowerCase() + "&sortBy=" + sortBy + "&language=" + lang.toLowerCase();
     console.log(qWord + searchQuery)
 
-    // Api call with search term and query. default call with country if query not provided
+    // Api call with search term and query. default call with qWord and default values if query not provided
     function fetchNews(query) {
         const xhr = new XMLHttpRequest();
         if (query == '' || query == null) {
