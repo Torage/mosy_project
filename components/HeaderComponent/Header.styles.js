@@ -12,7 +12,6 @@ export const HeaderStylesLight = StyleSheet.create({
         maxHeight: 50,
         minHeight: 55,
         marginTop: 0,
-        elevation: 0.5,
     },
 
     headerLeftContainer: {
@@ -188,7 +187,6 @@ export const HeaderStylesDark = StyleSheet.create({
         maxHeight: 55,
         minHeight: 50,
         marginTop: 0,
-        elevation: 0.5,
     },
 
     headerLeftContainer: {
