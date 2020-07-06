@@ -32,20 +32,20 @@ export const SearchFilterScreen = ({route, navigation}) => {
 
     // Construct query for api call 
     const searchQuery = "&domains=" + domain.toLowerCase() + "&excludeDomains=" + exDomain.toLowerCase() + "&sortBy=" + sortBy + "&language=" + lang.toLowerCase();
-    console.log(qWord + searchQuery)
 
-    // Api call with search term and query. default call with country if query not provided
+    // Api call with search term and query. default call with qWord and default values if query not provided
     function fetchNews(query) {
         const xhr = new XMLHttpRequest();
         if (query == '' || query == null) {
             xhr.open(
                 'GET',
-                'http://newsapi.org/v2/top-headlines?country=' + currentCountry + '&pageSize=100&apiKey=f4635151d8bf47af94cec511748e296e',
+                'http://newsapi.org/v2/everything?q=' + qWord + "&sortBy=" + sortBy + "&language=" + lang.toLowerCase() + '&pageSize=100&apiKey=f4635151d8bf47af94cec511748e296e',
                 true
             );
         } else {
             xhr.open('GET', 'https://newsapi.org/v2/everything?q=' + qWord + query +'&pageSize=100&apiKey=f4635151d8bf47af94cec511748e296e', true);
-        }        xhr.onload = () => {
+        }        
+        xhr.onload = () => {
             setSearchData(new Topnews(JSON.parse(xhr.response)));
         };
         xhr.send();
@@ -82,7 +82,7 @@ export const SearchFilterScreen = ({route, navigation}) => {
             <FlatList
                 refreshing={false}
                 onRefresh={() => {
-                    !searchQuery === '' ?  fetchNews(searchQuery) : fetchNews();
+                    !searchQuery === '' ?  fetchNews(searchQuery) : fetchNews(qWord);
                 }}
                 keyExtractor={(article) => article.source.id}
                 data={searchData.articles}

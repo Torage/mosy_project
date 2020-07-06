@@ -11,7 +11,6 @@ import { Colors } from '../../constants/colors';
 import { LANGUAGE } from '../../Data/language';
 import { ScrollView } from 'react-native-gesture-handler';
 
-
 export const SearchScreen = ({navigation}) => {
     
     // Our supported languages

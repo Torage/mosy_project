@@ -1,8 +1,9 @@
-import React, { useContext} from 'react';
-import { Text, View} from 'react-native';
+import React, { useContext } from 'react';
+import { Text, View } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { SettingsContext } from '../../Data/settingsContext';
 import { IconWithBadgeStylesDark, IconWithBadgeStylesLight } from './IconWithBadgeStyles';
+
 
 export const IconWithBadge = (props) => {
 

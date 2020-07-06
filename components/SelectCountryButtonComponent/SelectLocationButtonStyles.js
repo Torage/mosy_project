@@ -2,8 +2,6 @@ import { StyleSheet } from 'react-native';
 import { Styles } from '../../constants/styles';
 import { Colors } from '../../constants/colors';
 
-
-
 export const SelectLocationButtonStylesLight = StyleSheet.create({
     settingsRow: {
         width: '96%',

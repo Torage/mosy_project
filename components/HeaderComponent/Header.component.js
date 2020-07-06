@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { SafeAreaView, View, Image, TouchableOpacity, Modal, Text, StatusBar, TextInput } from 'react-native';
+import { SafeAreaView, View, Image, TouchableOpacity, Modal, Text, TextInput } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Colors } from '../../constants/colors';
 import { HeaderStylesDark, HeaderStylesLight } from './Header.styles';

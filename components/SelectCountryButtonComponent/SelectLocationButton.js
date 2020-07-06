@@ -7,7 +7,6 @@ import { Colors } from '../../constants/colors';
 import * as Permissions from 'expo-permissions';
 import * as Location from 'expo-location';
 
-
 export default SelectCountryButton = props => {
 
     const { location, theme }  = useContext(SettingsContext);
@@ -31,7 +30,6 @@ export default SelectCountryButton = props => {
         }
     };
 
-    
 const verifyPermissions = async () =>{
     const result = await Permissions.askAsync(Permissions.LOCATION);
     if(result.status !== 'granted'){
@@ -88,5 +86,3 @@ const verifyPermissions = async () =>{
         </>
     );
 }
-
-

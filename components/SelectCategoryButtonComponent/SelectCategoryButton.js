@@ -3,7 +3,6 @@ import { Text, View, TouchableNativeFeedback, TouchableHighlight, Platform } fro
 import { SelectCategoryButtonStylesDark, SelectCategoryButtonStylesLight } from '../SelectCategoryButtonComponent/SelectCategoryButtonStyles';
 import { SettingsContext } from '../../Data/settingsContext';
 
-
 export default SelectCategoryButton = props => {
 
     const { theme, push, country, category } = useContext(SettingsContext);
