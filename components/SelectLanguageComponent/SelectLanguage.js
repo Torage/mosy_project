@@ -69,5 +69,4 @@ export default SelectLanguage = (props) => {
         }
     </>
     );
-
 };

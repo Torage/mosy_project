@@ -1,5 +1,5 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { Text, View, TouchableOpacity, Image, Share, Modal, SafeAreaView, AsyncStorage, Alert } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { Text, View, TouchableOpacity, Image, Share, Modal, SafeAreaView, AsyncStorage } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { Colors } from '../../constants/colors';
 import { MaterialCommunityIcons } from '@expo/vector-icons';

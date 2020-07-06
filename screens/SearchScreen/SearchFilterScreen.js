@@ -32,7 +32,6 @@ export const SearchFilterScreen = ({route, navigation}) => {
 
     // Construct query for api call 
     const searchQuery = "&domains=" + domain.toLowerCase() + "&excludeDomains=" + exDomain.toLowerCase() + "&sortBy=" + sortBy + "&language=" + lang.toLowerCase();
-    console.log(qWord + searchQuery)
 
     // Api call with search term and query. default call with qWord and default values if query not provided
     function fetchNews(query) {
@@ -83,7 +82,7 @@ export const SearchFilterScreen = ({route, navigation}) => {
             <FlatList
                 refreshing={false}
                 onRefresh={() => {
-                    !searchQuery === '' ?  fetchNews(searchQuery) : fetchNews();
+                    !searchQuery === '' ?  fetchNews(searchQuery) : fetchNews(qWord);
                 }}
                 keyExtractor={(article) => article.source.id}
                 data={searchData.articles}
