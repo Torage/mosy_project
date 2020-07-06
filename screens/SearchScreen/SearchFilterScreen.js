@@ -37,10 +37,18 @@ export const SearchFilterScreen = ({route, navigation}) => {
     // Api call with search term and query. default call with country if query not provided
     function fetchNews(query) {
         const xhr = new XMLHttpRequest();
+        if (query == '' || query == null) {
+            xhr.open(
+                'GET',
+                'http://newsapi.org/v2/everything?q=' + qWord + "&sortBy=" + sortBy + "&language=" + lang.toLowerCase() + '&pageSize=100&apiKey=f4635151d8bf47af94cec511748e296e',
+                true
+            );
+        } else {
             xhr.open('GET', 'https://newsapi.org/v2/everything?q=' + qWord + query +'&pageSize=100&apiKey=f4635151d8bf47af94cec511748e296e', true);
-            xhr.onload = () => {
-                setSearchData(new Topnews(JSON.parse(xhr.response)));
-            };
+        }        
+        xhr.onload = () => {
+            setSearchData(new Topnews(JSON.parse(xhr.response)));
+        };
         xhr.send();
     }
  
