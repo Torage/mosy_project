@@ -36,10 +36,10 @@ export default ToggleButton = (props) => {
 
 //  sets the toggle switch to the current theme
     useEffect(() => {
-        if(currentTheme === 'dark'){
-            setToggleEnabled(true);
-         }else{
+        if(currentTheme === 'light'){
             setToggleEnabled(false);
+         }else{
+            setToggleEnabled(true);
         } 
     }, [currentTheme]);
 
