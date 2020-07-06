@@ -40,7 +40,7 @@ export default function App() {
     const [currentCountry, setCurrentCountry] = useState('US');
     const [currentCategory, setCurrentCategory] = useState('General');
     const [currentLocation, setCurrentLocation] = useState({ coords: { latitude: 0, longitude: 0 } });
-    const [globalTheme, setGlobalTheme] = useState();
+    const [globalTheme, setGlobalTheme] = useState(false);
 
     useEffect(() => {
         AsyncStorage.getItem('GlobalThemeSetting').then((storedValue) => {

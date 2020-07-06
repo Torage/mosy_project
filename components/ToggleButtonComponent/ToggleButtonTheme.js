@@ -18,8 +18,7 @@ export default ToggleButton = (props) => {
     // if globalTheme is false, handles the theming 
     const changeToggleValue = (value) => {
         if(globalTheme === false){
-            setToggleEnabled(value);
-            if (value === true ? setCurrentTheme('dark') : setCurrentTheme('light'));
+            value === false ? setCurrentTheme('light') : setCurrentTheme('dark');
             AsyncStorage.setItem('DarkSkinSetting', JSON.stringify(value));
         }
     };
@@ -29,15 +28,9 @@ export default ToggleButton = (props) => {
         if (value === true){
             var toSwitch = Appearance.getColorScheme();
             setCurrentTheme(toSwitch);
-            if(toSwitch === 'dark' ? setToggleEnabled(true):setToggleEnabled(false))
             AsyncStorage.setItem('GlobalThemeSetting', JSON.stringify(value));
         }else{
             AsyncStorage.setItem('GlobalThemeSetting', JSON.stringify(value));
-            if(currentTheme === 'dark'){
-                setToggleEnabled(true);
-            }else{
-                setToggleEnabled(false);
-            }
         }
     };
 
@@ -48,7 +41,7 @@ export default ToggleButton = (props) => {
          }else{
             setToggleEnabled(false);
         } 
-    }, []);
+    }, [currentTheme]);
 
 
     return (
