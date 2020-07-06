@@ -12,8 +12,11 @@ import { COUNTRIES } from './Data/countrys';
 import {AppearanceProvider, Appearance} from 'react-native-appearance';
 
 export default function App() {
+    
+    // Our list of supported countrys
     const countries = COUNTRIES;
 
+    // Data states for news, favorites and search (initial newsCard while loading)
     const [newsData, setNewsData] = useState({
         liveTopnews: new Topnews({
             status: 'init',
@@ -35,6 +38,8 @@ export default function App() {
     });
     const [favoriteData, setFavoriteData] = useState([]);
     const [searchData, setSearchData] = useState([]);
+
+    // Settings states
     const [currentTheme, setCurrentTheme] = useState(Appearance.getColorScheme());
     const [sendPushNotification, setSendPushNotification] = useState(false);
     const [currentCountry, setCurrentCountry] = useState('US');
@@ -42,7 +47,10 @@ export default function App() {
     const [currentLocation, setCurrentLocation] = useState({ coords: { latitude: 0, longitude: 0 } });
     const [globalTheme, setGlobalTheme] = useState(false);
 
+    // On app start get stored settings
     useEffect(() => {
+
+        // If global lsiten to device, else get stored theme
         AsyncStorage.getItem('GlobalThemeSetting').then((storedValue) => {
             console.log('GlobalThemeSetting: ' + storedValue);
             if (storedValue != null) {
@@ -61,13 +69,14 @@ export default function App() {
         });
 
         
-
+        // Without function imo
         AsyncStorage.getItem('PushSetting').then((storedValue) => {
             if (storedValue != null) {
                 setSendPushNotification(JSON.parse(storedValue));
             }
         });
 
+        // Get country setting, if none ask for location
         AsyncStorage.getItem('CountrySetting').then((storedValue) => {
             if (storedValue != null) {
                 console.log(storedValue + ' restored')
@@ -89,10 +98,9 @@ export default function App() {
 
     }, []);
 
-        // sets up a Listener and refreshes currentTheme if globalTheme is true
+        // Sets up a Listener and refreshes currentTheme if globalTheme is true
         useEffect(() =>{
             function handleThemeChange(change){
-                //    console.log('trying to switch to: ' + change)
                 setCurrentTheme(change)
             }
             
@@ -106,6 +114,7 @@ export default function App() {
                 }
         }, [globalTheme]);
 
+    // Everytime location changes with proper values, getCountrynameByGps() 
     useEffect(() => {
         if (currentLocation.coords.latitude != 0 && currentLocation.coords.longitude != 0) {
             // console.log('CurrentLocation:', 'lat', currentLocation.coords.latitude, 'lng', currentLocation.coords.longitude);
@@ -113,6 +122,7 @@ export default function App() {
         }
     }, [currentLocation]);
 
+    // Ask for location permission if granted get latitude and longitude and set them to location state
     const getLocation = async () => {
         let permissionRequest = 'denied';
         await Permissions.askAsync(Permissions.LOCATION).then((permissionResponse) => {
@@ -126,16 +136,19 @@ export default function App() {
                 setCurrentLocation(currentPosition);
             });
         } else {
+            // Error handling here (current just fetch news)
             fetchNews();
             //console.log('no permission granted');
         }
     };
 
+    // Load custom fonts
     let [fontsLoaded] = useFonts({
         NoyhRBlack: require('./assets/fonts/NoyhRBlack.otf'),
         'Roboto-Regular': require('./assets/fonts/Roboto-Regular.ttf'),
     });
 
+    // Api call using country and category state
     function fetchNews() {
         const xhr = new XMLHttpRequest();
         xhr.open(
@@ -151,12 +164,13 @@ export default function App() {
         xhr.send();
     }
 
+    // Api call to get current country using latitude and longitude. 
     function getCountrynameByGps(lat, lng) {
         const xhr = new XMLHttpRequest();
         const url = 'http://api.geonames.org/findNearbyJSON?lat=' + lat + '&lng=' + lng + '&username=newscope';
         xhr.open('GET', url, true);
         xhr.onload = () => {
-            //console.log(JSON.parse(xhr.response));
+            // console.log(JSON.parse(xhr.response));
             // console.log('You are located in:', JSON.parse(xhr.response).geonames);
             JSON.parse(xhr.response).geonames.map((location) => {
                 countries.filter((country) => country.id === location.countryCode).length > 0
@@ -170,31 +184,33 @@ export default function App() {
         // console.log(url);
     }
 
+    // Show AppLoading while fonts are loading
     if (!fontsLoaded) {
         return <AppLoading />;
     } else {
+        // Start the app with MainNavigator, provide NewsContext, SettingsContext and Appearance
         return (
             <AppearanceProvider>
-            <SettingsContext.Provider
-                value={{
-                    theme: [currentTheme, setCurrentTheme],
-                    push: [sendPushNotification, setSendPushNotification],
-                    country: [currentCountry, setCurrentCountry],
-                    category: [currentCategory, setCurrentCategory],
-                    location: [currentLocation, setCurrentLocation], 
-                    global: [globalTheme, setGlobalTheme],
-                }}
-            >
-                <NewsContext.Provider
+                <SettingsContext.Provider
                     value={{
-                        topNews: [newsData, setNewsData],
-                        favoriteNews: [favoriteData, setFavoriteData],
-                        searchNews: [searchData, setSearchData],
+                        theme: [currentTheme, setCurrentTheme],
+                        push: [sendPushNotification, setSendPushNotification],
+                        country: [currentCountry, setCurrentCountry],
+                        category: [currentCategory, setCurrentCategory],
+                        location: [currentLocation, setCurrentLocation], 
+                        global: [globalTheme, setGlobalTheme],
                     }}
                 >
-                    <MainNavigator />
-                </NewsContext.Provider>
-            </SettingsContext.Provider>
+                    <NewsContext.Provider
+                        value={{
+                            topNews: [newsData, setNewsData],
+                            favoriteNews: [favoriteData, setFavoriteData],
+                            searchNews: [searchData, setSearchData],
+                        }}
+                    >
+                        <MainNavigator />
+                    </NewsContext.Provider>
+                </SettingsContext.Provider>
             </AppearanceProvider>
         );
     }

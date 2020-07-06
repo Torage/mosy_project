@@ -1,6 +1,6 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { AsyncStorage, StatusBar } from 'react-native';
-import { NavigationContainer,useFocusEffect } from '@react-navigation/native';
+import React, { useContext } from 'react';
+import { StatusBar } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { HeaderComponent } from '../components/HeaderComponent/Header.component';
@@ -16,6 +16,7 @@ import { IconWithBadge } from '../components/IconWithBadgeComponent/IconWithBadg
 const Tab = createMaterialTopTabNavigator();
 export const MainNavigator = () => {
 
+    // Global states
     const { theme, push } = useContext(SettingsContext);
     const [currentTheme, setCurrentTheme] = theme;
     const [sendPushNotification, setSendPushNotification] = push;
@@ -24,6 +25,7 @@ export const MainNavigator = () => {
     const [newsData, setNewsData] = topNews;
     const [favoriteData, setFavoriteData] = favoriteNews;
 
+    // Return tabNavigator with icons and header. favoriteTab with badgeIcon  init = HomeNavigator
     return (
         <NavigationContainer
             theme={

@@ -7,8 +7,12 @@ import { Colors } from '../constants/colors';
 const FavoritesStack = createStackNavigator();
 
 export const FavoritesNavigator = () => {
+
+    // Global states
     const { theme, push } = useContext(SettingsContext);
     const [currentTheme, setCurrentTheme] = theme;
+    
+    // Return stackNavigator init = FavoriteScreen
     return (
         <FavoritesStack.Navigator
             headerMode='none'

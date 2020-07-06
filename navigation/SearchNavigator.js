@@ -8,8 +8,12 @@ import { Colors } from '../constants/colors';
 const SearchStack = createStackNavigator();
 
 export const SearchNavigator = () => {
+
+    // Global states
     const { theme, push } = useContext(SettingsContext);
     const [currentTheme, setCurrentTheme] = theme;
+    
+    // Return stackNavigator init = SearchScreen
     return (
         <SearchStack.Navigator
             headerMode='none'

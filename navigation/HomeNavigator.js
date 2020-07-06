@@ -7,8 +7,12 @@ import { Colors } from '../constants/colors';
 const HomeStack = createStackNavigator();
 
 export const HomeNavigator = () => {
+    
+    // Global states
     const { theme, push } = useContext(SettingsContext);
     const [currentTheme, setCurrentTheme] = theme;
+    
+    // Return stackNavigator init = HomeScreen
     return (
         <HomeStack.Navigator
             headerMode='none'

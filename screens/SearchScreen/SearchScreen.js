@@ -1,4 +1,4 @@
-import React, { useContext, useState, createContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, Text, TouchableOpacity, Modal, FlatList } from 'react-native';
 import { SearchScreenStylesLight, SearchScreenStylesDark } from './SearchScreen.styles';
 import SelectLanguage from '../../components/SelectLanguageComponent/SelectLanguage';
@@ -13,17 +13,21 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 
 export const SearchScreen = ({navigation}) => {
-
+    
+    // Our supported languages
     const language = LANGUAGE;
 
-    // Global State object
+    // Global data states
+    const { searchNews } = useContext(NewsContext);
+    const [searchData, setSearchData] = searchNews;
+    
+    // Global setting states
     const { theme, push, country } = useContext(SettingsContext);
     const [currentTheme, setCurrentTheme] = theme;
     const [sendPushNotification, setSendPushNotification] = push;
     const [currentCountry, setCurrentCountry] = country;
-    const { topNews, favoriteNews, searchNews } = useContext(NewsContext);
-    const [searchData, setSearchData] = searchNews;
-    const [activeButton, setActiveButton] = useState(2);
+    
+    // Local states
     const [languageModalVisible, setLanguageModalVisible] = useState(false);
     const [filter, setFilter] = useState(false);
     const [qWord, setQWord] = useState('')
@@ -32,6 +36,8 @@ export const SearchScreen = ({navigation}) => {
     const [sortBy, setSortBy] = useState('publishedAt');
     const [lang, setLang] = useState('DE');
 
+
+    // Returns inputField with custom icons and advanced search modal. onSubmit navigate to SearchFilterScreen
     return (
         <View style={currentTheme === 'light' ? SearchScreenStylesLight.viewContainer : SearchScreenStylesDark.viewContainer}>
             <Modal //language modal
