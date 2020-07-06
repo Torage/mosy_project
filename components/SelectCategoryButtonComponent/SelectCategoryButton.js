@@ -1,10 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { Text, View, TouchableNativeFeedback, TouchableHighlight, Platform } from 'react-native';
-import { Colors } from '../../constants/colors';
 import { SelectCategoryButtonStylesDark, SelectCategoryButtonStylesLight } from '../SelectCategoryButtonComponent/SelectCategoryButtonStyles';
 import { SettingsContext } from '../../Data/settingsContext';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import Constants from 'expo-constants';
+
 
 export default SelectCategoryButton = props => {
 

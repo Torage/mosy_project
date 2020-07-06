@@ -19,34 +19,36 @@ import { COUNTRIES } from '../../Data/countrys';
 import { CATEGORIES } from '../../Data/categories';
 
 export const HeaderComponent = (props) => {
+  
+  // Our supported countries and categories
   const countries = COUNTRIES;
   const categories = CATEGORIES;
 
-  //global states
+  // Global setting states
   const { theme, push, country, global } = useContext(SettingsContext);
   const [currentTheme, setCurrentTheme] = theme;
   const [sendPushNotification, setSendPushNotification] = push;
   const [currentCountry, setCurrentCountry] = country;
   const [globalTheme, setGlobalTheme] = global;
 
-  //local States
+  // Local States
   const [contactName, setContactName] = useState('');
   const [contactEmail, setContactEmail] = useState('');
   const [contactSubject, setContactSubject] = useState('');
   const [contactMessage, setContactMessage] = useState('');
 
-  //Modals
+  // Modal states
   const [settingsModalVisible, setSettingsModalVisible] = useState(false);
   const [contactModalVisible, setContactModalVisible] = useState(false);
   const [countryModalVisible, setCountryModalVisible] = useState(false);
   const [categoryModalVisible, setCategoryModalVisible] = useState(false);
 
-  //simple validate function
+  // Simple validate function
   function validateEmail(email) {
     var re = /\S+@\S+\.\S+/;
     return re.test(email);
   }
-
+  
   const clearInputData = () => {
     setContactName('');
     setContactEmail('');
@@ -54,6 +56,7 @@ export const HeaderComponent = (props) => {
     setContactMessage('');
   };
 
+  // Send contact modal input to our email
   const sendInputData = async () => {
     if (contactName === '' || contactSubject === '' || contactMessage === '') {
       Toast.show('Fields can' + "'"  +'t be empty.', Toast.LONG);
@@ -88,6 +91,7 @@ export const HeaderComponent = (props) => {
     }
   };
 
+  // Change theme toggle title
   function getButtonTitle(){
     var message = '';
     if(globalTheme === true){
@@ -102,6 +106,7 @@ export const HeaderComponent = (props) => {
     return message
   };
 
+  // change theme toggle description 
   function getDescription(){
     var description = '';
     if (globalTheme === true 
@@ -111,6 +116,7 @@ export const HeaderComponent = (props) => {
     return description
   };
 
+  // Returns setting modal with nested modals for country, category and contact. Provides ToggleButtonTheme
   return (
     <SafeAreaView style={currentTheme === 'light' ? HeaderStylesLight.safeAreaView : HeaderStylesDark.safeAreaView}>
       <Modal //settings modal
@@ -135,7 +141,7 @@ export const HeaderComponent = (props) => {
               </View>
               <View style={currentTheme === 'light' ? HeaderStylesLight.modalViewContent : HeaderStylesDark.modalViewContent}>
                 <ToggleButtonTheme title={getButtonTitle()} description={getDescription()}></ToggleButtonTheme>
-                <ToggleButtonPush title='Push Notification' description='Enable Push Notification'></ToggleButtonPush>
+                {/*<ToggleButtonPush title='Push Notification' description='Enable Push Notification'></ToggleButtonPush>*/}
                 <SelectCountryButton title='Select Country' description='Select your country for news' setCountryModal={setCountryModalVisible} setSettingsModalVisible={setSettingsModalVisible} ></SelectCountryButton>
                 <SelectCategoryButton title='Select Category' description='Category for home news' setCategoryModal={setCategoryModalVisible} setSettingsModalVisible={setSettingsModalVisible}></SelectCategoryButton>
                 <ContactButton title='Send Feedback' description='Feedback, Questions? Good send us a mail.' setContactModal={setContactModalVisible} setSettingsModalVisible={setSettingsModalVisible}></ContactButton>

@@ -8,7 +8,8 @@ import { SettingsContext } from '../../Data/settingsContext';
 import { Colors } from '../../constants/colors';
 
 export const HomeScreen = (props) => {
-    // Global State object
+    
+    // Global states
     const { theme, push, country, category } = useContext(SettingsContext);
     const [currentTheme, setCurrentTheme] = theme;
     const [sendPushNotification, setSendPushNotification] = push;
@@ -29,6 +30,7 @@ export const HomeScreen = (props) => {
         // });
     }, [newsData]);
 
+    // Fetch news if country or category changes
     useEffect(() => {
 
         fetchNews();
@@ -39,7 +41,7 @@ export const HomeScreen = (props) => {
         fetchNews();
     }, [currentCategory]);
 
-
+    // Api call using country and category state
     function fetchNews() {
         const xhr = new XMLHttpRequest();
         xhr.open(
@@ -55,6 +57,7 @@ export const HomeScreen = (props) => {
         xhr.send();
     }
 
+    // Return FlatList with fetched news as NewsCards
     return (
         <View style={currentTheme === 'light' ? HomeScreenStylesLight.viewContainer : HomeScreenStylesDark.viewContainer}>
             <FlatList

@@ -7,22 +7,26 @@ import {Appearance} from 'react-native-appearance';
 
 export default ToggleButton = (props) => {
 
+    // Global setting states
     const { theme, push, country, category, global } = useContext(SettingsContext);
     const [currentTheme, setCurrentTheme] = theme;
     const [sendPushNotification, setSendPushNotification] = push;
     const [currentCountry, setCurrentCountry] = country;
     const [currentCategory, setCurrentCategory] = category
-    const [toggleEnabled, setToggleEnabled] = useState(false);
     const [globalTheme, setGlobalTheme] = global;
-
-    // if globalTheme is false, handles the theming 
+    
+    // Local state
+    const [toggleEnabled, setToggleEnabled] = useState(false);
+    
+    // If globalTheme is false, handles the theming 
     const changeToggleValue = (value) => {
         if(globalTheme === false){
             value === false ? setCurrentTheme('light') : setCurrentTheme('dark');
             AsyncStorage.setItem('DarkSkinSetting', JSON.stringify(value));
         }
     };
-    // switches globalTheme, handles device theming via Listener in App.js 
+
+    // Switches globalTheme, handles device theming via Listener in App.js 
     const globalHandler = (value) => {
         setGlobalTheme(value);
         if (value === true){
@@ -34,7 +38,7 @@ export default ToggleButton = (props) => {
         }
     };
 
-//  sets the toggle switch to the current theme
+//  Sets the toggle switch to the current theme
     useEffect(() => {
         if(currentTheme === 'light'){
             setToggleEnabled(false);
@@ -43,7 +47,7 @@ export default ToggleButton = (props) => {
         } 
     }, [currentTheme]);
 
-
+    // Returns a TouchableHiglight with currentTheme based title, description and switch
     return (
         <View style={currentTheme === 'light' ? ToggleButtonStylesLight.settingRow : ToggleButtonStylesDark.settingRow}>
             <TouchableHighlight

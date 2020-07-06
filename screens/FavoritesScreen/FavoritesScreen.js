@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { View, Text, FlatList, AsyncStorage } from 'react-native';
+import React, { useContext, useEffect } from 'react';
+import { View, FlatList, AsyncStorage } from 'react-native';
 import { FavoriteScreenStylesDark, FavoriteScreenStylesLight } from './FavoritesScreen.styles';
 import { SettingsContext } from '../../Data/settingsContext';
 import { NewsContext } from '../../Data/newsContext';
@@ -7,18 +7,23 @@ import { NewsCardComponent } from '../../components/NewsCardComponent/NewsCard.c
 import { Colors } from '../../constants/colors';
 
 export const FavoritesScreen = () => {
-    const { theme, push } = useContext(SettingsContext);
-    const [currentTheme, setCurrentTheme] = theme;
-    const [sendPushNotification, setSendPushNotification] = push;
 
+    // Global data states
     const { topNews, favoriteNews } = useContext(NewsContext);
     const [newsData, setNewsData] = topNews;
     const [favoriteData, setFavoriteData] = favoriteNews;
 
+    // Global setting states
+    const { theme, push } = useContext(SettingsContext);
+    const [currentTheme, setCurrentTheme] = theme;
+    const [sendPushNotification, setSendPushNotification] = push;
+
+    // On open
     useEffect(() => {
         fillData();
     }, []);
 
+    // Get stored favorites 
     const fillData = () => {
         AsyncStorage.getItem('Favorites').then((storedValue) => {
             if (storedValue != null) {
@@ -29,6 +34,7 @@ export const FavoritesScreen = () => {
         setFavoriteData(favoriteData);
     };
 
+    // Return FlatList with favorite NewsCards
     return (
         <View style={currentTheme === 'light' ? FavoriteScreenStylesLight.viewContainer : FavoriteScreenStylesDark.viewContainer}>
             <FlatList

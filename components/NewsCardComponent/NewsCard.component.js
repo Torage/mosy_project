@@ -13,9 +13,23 @@ import Toast from 'react-native-tiny-toast'
 import NewsCard from '../../Models/NewscardModel';
 
 export const NewsCardComponent = (props) => {
+
+    // Global data states
     const { topNews, favoriteNews } = useContext(NewsContext);
     const [newsData, setNewsData] = topNews;
     const [favoriteData, setFavoriteData] = favoriteNews;
+    
+    // Global setting states
+    const { theme, push } = useContext(SettingsContext);
+    const [currentTheme, setCurrentTheme] = theme;
+    const [sendPushNotification, setSendPushNotification] = push;
+
+    // local states
+    const [imageStyle, setImageStyle] = useState({ lightTheme: NewsCardStylesLight.image, darkTheme: NewsCardStylesDark.image });
+    // const [content, setContent] = useState({ content: props.description, pressed: true });
+    const [showModal, setShowModal] = useState(false);
+    
+    // Creating timeStamp
     const date = new Date(props.publishedAt);
     const parsedDate =
         date.getDate() +
@@ -27,6 +41,8 @@ export const NewsCardComponent = (props) => {
         (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) +
         ':' +
         (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
+
+    // Share function
     const shareContent = async () => {
         try {
             const result = await Share.share({
@@ -46,6 +62,7 @@ export const NewsCardComponent = (props) => {
         }
     };
 
+    // Favorite function
     const saveAsFavorite = async () => {
         var md5 = require('md5');
 
@@ -95,6 +112,7 @@ export const NewsCardComponent = (props) => {
         });
     }
 
+    // Remove Favorite function
     const deleteFavorite = async () => {
         AsyncStorage.getItem('Favorites').then((storedValue) => {
             let favoritesArray = [];
@@ -114,13 +132,8 @@ export const NewsCardComponent = (props) => {
         });
     };
 
-    const { theme, push } = useContext(SettingsContext);
-    const [currentTheme, setCurrentTheme] = theme;
-    const [sendPushNotification, setSendPushNotification] = push;
-    const [imageStyle, setImageStyle] = useState({ lightTheme: NewsCardStylesLight.image, darkTheme: NewsCardStylesDark.image });
-    // const [content, setContent] = useState({ content: props.description, pressed: true });
-    const [showModal, setShowModal] = useState(false);
 
+    // Return newsCard and modal with webView
     return (
         <View style={currentTheme === 'light' ? NewsCardStylesLight.viewContainer : NewsCardStylesDark.viewContainer}>
             <View style={currentTheme === 'light' ? NewsCardStylesLight.mainView : NewsCardStylesDark.mainView}>

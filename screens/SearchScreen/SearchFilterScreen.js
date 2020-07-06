@@ -10,13 +10,18 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Colors } from '../../constants/colors';
 
 export const SearchFilterScreen = ({route, navigation}) => {
-    // Global State object
+
+    // Global data states
+    const { searchNews } = useContext(NewsContext);
+    const [searchData, setSearchData] = searchNews;
+
+    // Global setting states
     const { theme, push, country } = useContext(SettingsContext);
     const [currentTheme, setCurrentTheme] = theme;
     const [sendPushNotification, setSendPushNotification] = push;
     const [currentCountry, setCurrentCountry] = country;
-    const { topNews, favoriteNews, searchNews } = useContext(NewsContext);
-    const [searchData, setSearchData] = searchNews;
+    
+    // Local states
     const [filter, setFilter] = useState(filter);
 
     const { qWord } = route.params;
@@ -25,9 +30,11 @@ export const SearchFilterScreen = ({route, navigation}) => {
     const { sortBy } = route.params;
     const { lang } = route.params;
 
+    // Construct query for api call 
     const searchQuery = "&domains=" + domain.toLowerCase() + "&excludeDomains=" + exDomain.toLowerCase() + "&sortBy=" + sortBy + "&language=" + lang.toLowerCase();
     console.log(qWord + searchQuery)
 
+    // Api call with search term and query. default call with country if query not provided
     function fetchNews(query) {
         const xhr = new XMLHttpRequest();
         if (query == '' || query == null) {
@@ -51,6 +58,7 @@ export const SearchFilterScreen = ({route, navigation}) => {
         }, [])
       );
     
+    // Returns FlatList of NewsCards provides goBack button.
     return (
         <View style={currentTheme === 'light' ? SearchFilterScreenStylesLight.viewContainer : SearchFilterScreenStylesDark.viewContainer}>
             <View style={currentTheme === 'light' ? SearchFilterScreenStylesLight.headerView : SearchFilterScreenStylesDark.headerView}>
