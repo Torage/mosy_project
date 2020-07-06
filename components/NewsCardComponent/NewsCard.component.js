@@ -95,7 +95,6 @@ export const NewsCardComponent = (props) => {
                 .map(id => {
                     return favoritesArray.find(object => object.id === id)
                 })
-                
 
             //save the data into the async storage
             AsyncStorage.setItem('Favorites', JSON.stringify(uniqueFavorites)).then(() => {
